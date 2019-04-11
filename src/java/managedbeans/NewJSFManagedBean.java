@@ -1,4 +1,4 @@
-package se.nackademin.javaee.webshop.managedbeans;
+package managedbeans;
 
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
