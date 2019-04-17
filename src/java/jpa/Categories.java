@@ -31,7 +31,7 @@ public class Categories implements Serializable {
 	@Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Basic(optional = false)
-        @Column(name = "CategoryID")
+        @Column(name = "categoryID")
 	private Integer categoryID;
 	@Basic(optional = false)
         @NotNull

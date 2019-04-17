@@ -40,7 +40,7 @@ public class Suppliers implements Serializable {
 	@Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Basic(optional = false)
-        @Column(name = "SupplierID")
+        @Column(name = "supplierID")
 	private Integer supplierID;
 	@Basic(optional = false)
         @NotNull

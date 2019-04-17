@@ -31,7 +31,7 @@ public class Shippers implements Serializable {
 	@Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Basic(optional = false)
-        @Column(name = "ShipperID")
+        @Column(name = "shipperID")
 	private Integer shipperID;
 	@Basic(optional = false)
         @NotNull

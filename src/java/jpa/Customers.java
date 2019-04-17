@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
 	@NamedQuery(name = "Customers.findAll", query = "SELECT c FROM Customers c")
-	, @NamedQuery(name = "Customers.findByCustomerID", query = "SELECT c FROM Customers c WHERE c.customerID = :customerID")
+	, @NamedQuery(name = "Customers.findByCustomerid", query = "SELECT c FROM Customers c WHERE c.customerid = :customerid")
 	, @NamedQuery(name = "Customers.findByCompanyName", query = "SELECT c FROM Customers c WHERE c.companyName = :companyName")
 	, @NamedQuery(name = "Customers.findByContactName", query = "SELECT c FROM Customers c WHERE c.contactName = :contactName")
 	, @NamedQuery(name = "Customers.findByContactTitle", query = "SELECT c FROM Customers c WHERE c.contactTitle = :contactTitle")
@@ -35,8 +35,8 @@ public class Customers implements Serializable {
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 5)
-	@Column(name = "CustomerID")
-	private String customerID;
+	@Column(name = "Customerid")
+	private String customerid;
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 40)
@@ -55,7 +55,7 @@ public class Customers implements Serializable {
 	@Column(name = "City")
 	private String city;
 	@Size(max = 15)
-	@Column(name = "Region")
+	@Column(name = "region")
 	private String region;
 	@Size(max = 10)
 	@Column(name = "PostalCode")
@@ -75,21 +75,21 @@ public class Customers implements Serializable {
 	public Customers() {
 	}
 
-	public Customers(String customerID) {
-		this.customerID = customerID;
+	public Customers(String customerid) {
+		this.customerid = customerid;
 	}
 
-	public Customers(String customerID, String companyName) {
-		this.customerID = customerID;
+	public Customers(String customerid, String companyName) {
+		this.customerid = customerid;
 		this.companyName = companyName;
 	}
 
-	public String getCustomerID() {
-		return customerID;
+	public String getCustomerid() {
+		return customerid;
 	}
 
-	public void setCustomerID(String customerID) {
-		this.customerID = customerID;
+	public void setCustomerid(String customerid) {
+		this.customerid = customerid;
 	}
 
 	public String getCompanyName() {
@@ -175,7 +175,7 @@ public class Customers implements Serializable {
 	@Override
 	public int hashCode() {
 		int hash = 0;
-		hash += (customerID != null ? customerID.hashCode() : 0);
+		hash += (customerid != null ? customerid.hashCode() : 0);
 		return hash;
 	}
 
@@ -186,7 +186,7 @@ public class Customers implements Serializable {
 			return false;
 		}
 		Customers other = (Customers) object;
-		if ((this.customerID == null && other.customerID != null) || (this.customerID != null && !this.customerID.equals(other.customerID))) {
+		if ((this.customerid == null && other.customerid != null) || (this.customerid != null && !this.customerid.equals(other.customerid))) {
 			return false;
 		}
 		return true;
@@ -194,7 +194,7 @@ public class Customers implements Serializable {
 
 	@Override
 	public String toString() {
-		return "jpa.Customers[ customerID=" + customerID + " ]";
+		return "jpa.Customers[ customerid=" + customerid + " ]";
 	}
 
 }

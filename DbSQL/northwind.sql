@@ -7,11 +7,11 @@ USE northwind;
 
 
 CREATE TABLE `Categories` (
-    `CategoryID` INTEGER NOT NULL AUTO_INCREMENT,
+    `categoryID` INTEGER NOT NULL AUTO_INCREMENT,
     `CategoryName` VARCHAR(15) NOT NULL,
     `Description` MEDIUMTEXT,
     `Picture` LONGBLOB,
-    CONSTRAINT `PK_Categories` PRIMARY KEY (`CategoryID`)
+    CONSTRAINT `PK_Categories` PRIMARY KEY (`categoryID`)
 );
 
 CREATE INDEX `CategoryName` ON `Categories` (`CategoryName`);
@@ -19,23 +19,23 @@ CREATE INDEX `CategoryName` ON `Categories` (`CategoryName`);
 
 
 CREATE TABLE `CustomerCustomerDemo` (
-    `CustomerID` VARCHAR(5) NOT NULL,
+    `customerID` VARCHAR(5) NOT NULL,
     `CustomerTypeID` VARCHAR(10) NOT NULL,
-    CONSTRAINT `PK_CustomerCustomerDemo` PRIMARY KEY (`CustomerID`, `CustomerTypeID`)
+    CONSTRAINT `PK_CustomerCustomerDemo` PRIMARY KEY (`customerID`, `CustomerTypeID`)
 );
 
 
 
 CREATE TABLE `CustomerDemographics` (
-    `CustomerTypeID` VARCHAR(10) NOT NULL,
+    `customerTypeID` VARCHAR(10) NOT NULL,
     `CustomerDesc` MEDIUMTEXT,
-    CONSTRAINT `PK_CustomerDemographics` PRIMARY KEY (`CustomerTypeID`)
+    CONSTRAINT `PK_CustomerDemographics` PRIMARY KEY (`customerTypeID`)
 );
 
 
 
 CREATE TABLE `Customers` (
-    `CustomerID` VARCHAR(5) NOT NULL,
+    `customerID` VARCHAR(5) NOT NULL,
     `CompanyName` VARCHAR(40) NOT NULL,
     `ContactName` VARCHAR(30),
     `ContactTitle` VARCHAR(30),
@@ -46,7 +46,7 @@ CREATE TABLE `Customers` (
     `Country` VARCHAR(15),
     `Phone` VARCHAR(24),
     `Fax` VARCHAR(24),
-    CONSTRAINT `PK_Customers` PRIMARY KEY (`CustomerID`)
+    CONSTRAINT `PK_Customers` PRIMARY KEY (`customerID`)
 );
 
 CREATE INDEX `City` ON `Customers` (`City`);
@@ -60,7 +60,7 @@ CREATE INDEX `Region` ON `Customers` (`Region`);
 
 
 CREATE TABLE `Employees` (
-    `EmployeeID` INTEGER NOT NULL AUTO_INCREMENT,
+    `employeeID` INTEGER NOT NULL AUTO_INCREMENT,
     `LastName` VARCHAR(20) NOT NULL,
     `Password` VARCHAR(20),
     `FirstName` VARCHAR(10) NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE `Employees` (
     `ReportsTo` INTEGER,
     `PhotoPath` VARCHAR(255),
      `Salary` FLOAT,
-    CONSTRAINT `PK_Employees` PRIMARY KEY (`EmployeeID`)
+    CONSTRAINT `PK_Employees` PRIMARY KEY (`employeeID`)
 );
 
 CREATE INDEX `LastName` ON `Employees` (`LastName`);
@@ -90,26 +90,26 @@ CREATE INDEX `PostalCode` ON `Employees` (`PostalCode`);
 
 
 CREATE TABLE `EmployeeTerritories` (
-    `EmployeeID` INTEGER NOT NULL,
+    `employeeID` INTEGER NOT NULL,
     `TerritoryID` VARCHAR(20) NOT NULL,
-    CONSTRAINT `PK_EmployeeTerritories` PRIMARY KEY (`EmployeeID`, `TerritoryID`)
+    CONSTRAINT `PK_EmployeeTerritories` PRIMARY KEY (`employeeID`, `TerritoryID`)
 );
 
 
 
 CREATE TABLE `Order Details` (
-    `OrderID` INTEGER NOT NULL,
+    `orderID` INTEGER NOT NULL,
     `ProductID` INTEGER NOT NULL,
     `UnitPrice` DECIMAL(10,4) NOT NULL DEFAULT 0,
     `Quantity` SMALLINT(2) NOT NULL DEFAULT 1,
     `Discount` REAL(8,0) NOT NULL DEFAULT 0,
-    CONSTRAINT `PK_Order Details` PRIMARY KEY (`OrderID`, `ProductID`)
+    CONSTRAINT `PK_Order Details` PRIMARY KEY (`orderID`, `ProductID`)
 );
 
 
 
 CREATE TABLE `Orders` (
-    `OrderID` INTEGER NOT NULL AUTO_INCREMENT,
+    `orderID` INTEGER NOT NULL AUTO_INCREMENT,
     `CustomerID` VARCHAR(5),
     `EmployeeID` INTEGER,
     `OrderDate` DATETIME,
@@ -123,7 +123,7 @@ CREATE TABLE `Orders` (
     `ShipRegion` VARCHAR(15),
     `ShipPostalCode` VARCHAR(10),
     `ShipCountry` VARCHAR(15),
-    CONSTRAINT `PK_Orders` PRIMARY KEY (`OrderID`)
+    CONSTRAINT `PK_Orders` PRIMARY KEY (`orderID`)
 );
 
 CREATE INDEX `OrderDate` ON `Orders` (`OrderDate`);
@@ -135,7 +135,7 @@ CREATE INDEX `ShipPostalCode` ON `Orders` (`ShipPostalCode`);
 
 
 CREATE TABLE `Products` (
-    `ProductID` INTEGER NOT NULL AUTO_INCREMENT,
+    `productID` INTEGER NOT NULL AUTO_INCREMENT,
     `ProductName` VARCHAR(40) NOT NULL,
     `SupplierID` INTEGER,
     `CategoryID` INTEGER,
@@ -145,7 +145,7 @@ CREATE TABLE `Products` (
     `UnitsOnOrder` SMALLINT(2) DEFAULT 0,
     `ReorderLevel` SMALLINT(2) DEFAULT 0,
     `Discontinued` BIT NOT NULL DEFAULT 0,
-    CONSTRAINT `PK_Products` PRIMARY KEY (`ProductID`)
+    CONSTRAINT `PK_Products` PRIMARY KEY (`productID`)
 );
 
 CREATE INDEX `ProductName` ON `Products` (`ProductName`);
@@ -153,24 +153,24 @@ CREATE INDEX `ProductName` ON `Products` (`ProductName`);
 
 
 CREATE TABLE `Region` (
-    `RegionID` INTEGER NOT NULL,
+    `regionID` INTEGER NOT NULL,
     `RegionDescription` VARCHAR(50) NOT NULL,
-    CONSTRAINT `PK_Region` PRIMARY KEY (`RegionID`)
+    CONSTRAINT `PK_Region` PRIMARY KEY (`regionID`)
 );
 
 
 
 CREATE TABLE `Shippers` (
-    `ShipperID` INTEGER NOT NULL AUTO_INCREMENT,
+    `shipperID` INTEGER NOT NULL AUTO_INCREMENT,
     `CompanyName` VARCHAR(40) NOT NULL,
     `Phone` VARCHAR(24),
-    CONSTRAINT `PK_Shippers` PRIMARY KEY (`ShipperID`)
+    CONSTRAINT `PK_Shippers` PRIMARY KEY (`shipperID`)
 );
 
 
 
 CREATE TABLE `Suppliers` (
-    `SupplierID` INTEGER NOT NULL AUTO_INCREMENT,
+    `supplierID` INTEGER NOT NULL AUTO_INCREMENT,
     `CompanyName` VARCHAR(40) NOT NULL,
     `ContactName` VARCHAR(30),
     `ContactTitle` VARCHAR(30),
@@ -182,7 +182,7 @@ CREATE TABLE `Suppliers` (
     `Phone` VARCHAR(24),
     `Fax` VARCHAR(24),
     `HomePage` MEDIUMTEXT,
-    CONSTRAINT `PK_Suppliers` PRIMARY KEY (`SupplierID`)
+    CONSTRAINT `PK_Suppliers` PRIMARY KEY (`supplierID`)
 );
 
 CREATE INDEX `CompanyName` ON `Suppliers` (`CompanyName`);
@@ -192,10 +192,10 @@ CREATE INDEX `PostalCode` ON `Suppliers` (`PostalCode`);
 
 
 CREATE TABLE `Territories` (
-    `TerritoryID` VARCHAR(20) NOT NULL,
+    `territoryID` VARCHAR(20) NOT NULL,
     `TerritoryDescription` VARCHAR(50) NOT NULL,
     `RegionID` INTEGER NOT NULL,
-    CONSTRAINT `PK_Territories` PRIMARY KEY (`TerritoryID`)
+    CONSTRAINT `PK_Territories` PRIMARY KEY (`territoryID`)
 );
 
 
@@ -3905,7 +3905,7 @@ ALTER TABLE `Products` ADD CONSTRAINT `FK_Products_Suppliers`
     FOREIGN KEY (`SupplierID`) REFERENCES `Suppliers` (`SupplierID`);
 
 ALTER TABLE `Territories` ADD CONSTRAINT `FK_Territories_Region` 
-    FOREIGN KEY (`RegionID`) REFERENCES `Region` (`RegionID`);
+    FOREIGN KEY (`RegionID`) REFERENCES `Region` (`RegionID`); 
     
 # ---------------------------------------------------------------------- #
 # Add View "Alphabetical list of products"                               #
