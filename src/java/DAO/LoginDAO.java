@@ -9,7 +9,7 @@ package DAO;
  *
  * @author sarko
  */
-import con.DataConnect;
+import connection.DataConnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
