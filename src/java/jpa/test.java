@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 
 public class test {
-
+//we testin'
 	public static void main(String[] args) throws NamingException, SQLException {
 
 		InitialContext ctx = new InitialContext();
