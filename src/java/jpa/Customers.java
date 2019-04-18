@@ -4,178 +4,48 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "customers")
-@XmlRootElement
+@Table(name = "CUSTOMERS")
 @NamedQueries({
 	@NamedQuery(name = "Customers.findAll", query = "SELECT c FROM Customers c")
-	, @NamedQuery(name = "Customers.findByCustomerid", query = "SELECT c FROM Customers c WHERE c.customerid = :customerid")
-	, @NamedQuery(name = "Customers.findByCompanyName", query = "SELECT c FROM Customers c WHERE c.companyName = :companyName")
-	, @NamedQuery(name = "Customers.findByContactName", query = "SELECT c FROM Customers c WHERE c.contactName = :contactName")
-	, @NamedQuery(name = "Customers.findByContactTitle", query = "SELECT c FROM Customers c WHERE c.contactTitle = :contactTitle")
-	, @NamedQuery(name = "Customers.findByAddress", query = "SELECT c FROM Customers c WHERE c.address = :address")
-	, @NamedQuery(name = "Customers.findByCity", query = "SELECT c FROM Customers c WHERE c.city = :city")
-	, @NamedQuery(name = "Customers.findByRegion", query = "SELECT c FROM Customers c WHERE c.region = :region")
-	, @NamedQuery(name = "Customers.findByPostalCode", query = "SELECT c FROM Customers c WHERE c.postalCode = :postalCode")
-	, @NamedQuery(name = "Customers.findByCountry", query = "SELECT c FROM Customers c WHERE c.country = :country")
-	, @NamedQuery(name = "Customers.findByPhone", query = "SELECT c FROM Customers c WHERE c.phone = :phone")
-	, @NamedQuery(name = "Customers.findByFax", query = "SELECT c FROM Customers c WHERE c.fax = :fax")})
+	, @NamedQuery(name = "Customers.findById", query = "SELECT c FROM Customers c WHERE c.id = :id")})
 public class Customers implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Basic(optional = false)
 	@NotNull
-	@Size(min = 1, max = 5)
-	@Column(name = "Customerid")
-	private String customerid;
-	@Basic(optional = false)
-	@NotNull
-	@Size(min = 1, max = 40)
-	@Column(name = "CompanyName")
-	private String companyName;
-	@Size(max = 30)
-	@Column(name = "ContactName")
-	private String contactName;
-	@Size(max = 30)
-	@Column(name = "ContactTitle")
-	private String contactTitle;
-	@Size(max = 60)
-	@Column(name = "Address")
-	private String address;
-	@Size(max = 15)
-	@Column(name = "City")
-	private String city;
-	@Size(max = 15)
-	@Column(name = "region")
-	private String region;
-	@Size(max = 10)
-	@Column(name = "PostalCode")
-	private String postalCode;
-	@Size(max = 15)
-	@Column(name = "Country")
-	private String country;
-	// @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
-	@Size(max = 24)
-	@Column(name = "Phone")
-	private String phone;
-	// @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
-	@Size(max = 24)
-	@Column(name = "Fax")
-	private String fax;
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 
 	public Customers() {
 	}
 
-	public Customers(String customerid) {
-		this.customerid = customerid;
+	public Customers(Integer id) {
+		this.id = id;
 	}
 
-	public Customers(String customerid, String companyName) {
-		this.customerid = customerid;
-		this.companyName = companyName;
+	public Integer getId() {
+		return id;
 	}
 
-	public String getCustomerid() {
-		return customerid;
-	}
-
-	public void setCustomerid(String customerid) {
-		this.customerid = customerid;
-	}
-
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-
-	public String getContactName() {
-		return contactName;
-	}
-
-	public void setContactName(String contactName) {
-		this.contactName = contactName;
-	}
-
-	public String getContactTitle() {
-		return contactTitle;
-	}
-
-	public void setContactTitle(String contactTitle) {
-		this.contactTitle = contactTitle;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getRegion() {
-		return region;
-	}
-
-	public void setRegion(String region) {
-		this.region = region;
-	}
-
-	public String getPostalCode() {
-		return postalCode;
-	}
-
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getFax() {
-		return fax;
-	}
-
-	public void setFax(String fax) {
-		this.fax = fax;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@Override
 	public int hashCode() {
 		int hash = 0;
-		hash += (customerid != null ? customerid.hashCode() : 0);
+		hash += (id != null ? id.hashCode() : 0);
 		return hash;
 	}
 
@@ -186,7 +56,7 @@ public class Customers implements Serializable {
 			return false;
 		}
 		Customers other = (Customers) object;
-		if ((this.customerid == null && other.customerid != null) || (this.customerid != null && !this.customerid.equals(other.customerid))) {
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
 			return false;
 		}
 		return true;
@@ -194,7 +64,7 @@ public class Customers implements Serializable {
 
 	@Override
 	public String toString() {
-		return "jpa.Customers[ customerid=" + customerid + " ]";
+		return "jpa.Customers[ id=" + id + " ]";
 	}
 
 }
