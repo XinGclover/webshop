@@ -7,7 +7,12 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 public class EJBControllerDemo {
-
+//			Customers c = new Customers();
+//			c.setAdress("adress");
+//			c.setFirstname("asd");
+//			c.setLastname("dasd");
+//			c.setPassword("password");
+//			em.persist(c);
 	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("webshopPU");
 
 	private EntityManager entityManager() {
