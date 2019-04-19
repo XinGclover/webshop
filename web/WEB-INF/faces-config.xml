@@ -23,12 +23,12 @@
 	<navigation-rule>
 		<from-view-id>/login.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{login.CheckValidUser}</from-action>
+			<from-action>#{login.checkValidUser}</from-action>
 			<from-outcome>success</from-outcome>
 			<to-view-id>/resultforsuccess.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{login.CheckValidUser}</from-action>
+			<from-action>#{login.checkValidUser}</from-action>
 			<from-outcome>fail</from-outcome>
 			<to-view-id>/resultforfail.xhtml</to-view-id>
 		</navigation-case>

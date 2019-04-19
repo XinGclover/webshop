@@ -67,9 +67,9 @@ public class Login implements Serializable {
 			return "login";
 		}
 	}
-        
+        //test for inlog
         public String CheckValidUser(){
-		if(user.equalsIgnoreCase("adminen") && pwd.equalsIgnoreCase("adminen")){
+		if(user.equalsIgnoreCase("admin") && pwd.equalsIgnoreCase("admin")){
 			System.out.println("success");
 			return "success";
 		}
