@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 @Named(value = "login")
 @SessionScoped
 public class Login implements Serializable {
-
+	
 	private static final long serialVersionUID = 1094801825228386363L;
 	
 	private String pwd;
