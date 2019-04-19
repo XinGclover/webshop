@@ -67,11 +67,27 @@ public class Login implements Serializable {
 			return "login";
 		}
 	}
+        
+        public String CheckValidUser(){
+		if(user.equalsIgnoreCase("adminen") && pwd.equalsIgnoreCase("adminen")){
+			System.out.println("success");
+			return "success";
+		}
+		else{
+			return "fail";
+		}
+	}
 
 	//logout event, invalidate session
 	public String logout() {
 		HttpSession session = SessionUtils.getSession();
 		session.invalidate();
 		return "login";
+	}
+        
+        public String register() {
+		HttpSession session = SessionUtils.getSession();
+		session.invalidate();
+		return "persondetails";
 	}
 }
