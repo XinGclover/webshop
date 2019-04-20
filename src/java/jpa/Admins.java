@@ -27,9 +27,9 @@ public class Admins implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	// @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-	@Column(name = "EMAIL",length=20)
+	@Column(name = "EMAIL", length = 20)
 	private String email;
-	@Column(name = "PASSWORD",length=32)
+	@Column(name = "PASSWORD", length = 32)
 	private String password;
 
 	public Admins() {
@@ -85,7 +85,7 @@ public class Admins implements Serializable {
 
 	@Override
 	public String toString() {
-		return "jpa.Admins[ id=" + id + " ]";
+		return String.format("jpa.Admins[ id=%s email=%s password=%s]", id, email, password);
 	}
 
 }

@@ -1,5 +1,3 @@
-
-
 package jpa;
 
 import java.io.Serializable;
@@ -13,7 +11,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "CUSTOMERS")
 @NamedQueries({
@@ -24,28 +21,29 @@ import javax.persistence.Table;
 	, @NamedQuery(name = "Customers.findByLastname", query = "SELECT c FROM Customers c WHERE c.lastname = :lastname")
 	, @NamedQuery(name = "Customers.findByPremium", query = "SELECT c FROM Customers c WHERE c.premium = :premium")
 	, @NamedQuery(name = "Customers.findByAdress", query = "SELECT c FROM Customers c WHERE c.adress = :adress")
-	, @NamedQuery(name = "Customers.findByPassword", query = "SELECT c FROM Customers c WHERE c.password = :password")})
+	, @NamedQuery(name = "Customers.findByPassword", query = "SELECT c FROM Customers c WHERE c.password = :password")
+	, @NamedQuery(name = "Customers.findByEmail", query = "SELECT c FROM Customers c WHERE c.email = :email")})
 public class Customers implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-        @Basic(optional = false)
-        @Column(name = "ID", nullable = false)
+	@Basic(optional = false)
+	@Column(name = "ID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@Column(name = "TOTAL_MONEY_SPENT")
 	private Integer totalMoneySpent;
-        @Column(name = "FIRSTNAME", length=20)
+	@Column(name = "FIRSTNAME", length = 20)
 	private String firstname;
-        @Column(name = "LASTNAME",length=20)
+	@Column(name = "LASTNAME", length = 20)
 	private String lastname;
 	@Column(name = "PREMIUM")
 	private Boolean premium;
-        @Column(name = "ADRESS", length=50)
+	@Column(name = "ADRESS", length = 50)
 	private String adress;
-        @Column(name = "PASSWORD",length=32)
+	@Column(name = "PASSWORD", length = 32)
 	private String password;
-	@Column(name = "EMAIL",length=32)
+	@Column(name = "EMAIL", length = 32)
 	private String email;
 
 	public Customers() {
@@ -58,8 +56,6 @@ public class Customers implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
 
 	public Customers(Integer id) {
 		this.id = id;
@@ -143,7 +139,7 @@ public class Customers implements Serializable {
 
 	@Override
 	public String toString() {
-		return "jpa.Customers[ id=" + id + " ]";
+		return String.format("jpa.Customers[ id=%s email=%s password=%s firstname=%s lastname=%s adress=%s totalMoneySpent=%s premium=%s]", id, email, password, firstname, lastname, adress, totalMoneySpent, premium);
 	}
 
 }
