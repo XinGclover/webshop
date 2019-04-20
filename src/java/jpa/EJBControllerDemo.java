@@ -22,7 +22,7 @@ public class EJBControllerDemo {
 		return this.emf.createEntityManager();
 	}
 
-	public <T> boolean persist(T t) {
+	public <T> void create(T t) {
 		EntityManager em = this.entityManager();
 		boolean saved = false;
 		try {
@@ -30,19 +30,74 @@ public class EJBControllerDemo {
 			if (!em.getTransaction().isActive()) {
 				entr.begin();
 			}
-
 			em.persist(t);
 			em.getTransaction().commit();
-			saved = true;
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			em.getTransaction().rollback();
-			saved = false;
 		} finally {
 			em.close();
 		}
-		return saved;
+
+	}
+
+	public <T> T find(Class<T> type, Object id) {
+		EntityManager em = this.entityManager();
+		T t = null;
+		try {
+			EntityTransaction entr = em.getTransaction();
+			if (!em.getTransaction().isActive()) {
+				entr.begin();
+			}
+			t = em.find(type, id);
+			em.getTransaction().commit();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+		return t;
+	}
+
+	public <T> void update(T t) {
+		EntityManager em = this.entityManager();
+		try {
+			EntityTransaction entr = em.getTransaction();
+			if (!em.getTransaction().isActive()) {
+				entr.begin();
+			}
+			em.merge(t);
+			em.getTransaction().commit();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+
+	}
+
+	public <T> void delete(T t) {
+		EntityManager em = this.entityManager();
+		try {
+			EntityTransaction entr = em.getTransaction();
+			if (!em.getTransaction().isActive()) {
+				entr.begin();
+			}
+			t = em.merge(t);
+			em.remove(t);
+			em.getTransaction().commit();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
 
 	}
 
