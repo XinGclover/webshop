@@ -21,9 +21,29 @@ public class EJBControllerDemo {
 	private EntityManager entityManager() {
 		return this.emf.createEntityManager();
 	}
-	
-	public void persist(){
-		
+
+	public <T> boolean persist(T t) {
+		EntityManager em = this.entityManager();
+		boolean saved = false;
+		try {
+			EntityTransaction entr = em.getTransaction();
+			if (!em.getTransaction().isActive()) {
+				entr.begin();
+			}
+
+			em.persist(t);
+			em.getTransaction().commit();
+			em.close();
+			saved = true;
+
+		} catch (Exception ex) {
+			em.getTransaction().rollback();
+			saved = false;
+		} finally {
+			em.close();
+		}
+		return saved;
+
 	}
 
 	public List namedQuery(String namedQuery) {
@@ -38,6 +58,8 @@ public class EJBControllerDemo {
 
 		} catch (Exception ex) {
 			em.getTransaction().rollback();
+		} finally {
+			em.close();
 		}
 		return null;
 	}
@@ -51,16 +73,17 @@ public class EJBControllerDemo {
 			}
 			Query query = em.createNamedQuery(namedQuery);
 
-			for (Map.Entry<String, Object> entry : params.entrySet()) {
+			params.entrySet().forEach((entry) -> {
 				query.setParameter(entry.getKey(), entry.getValue());
-			}
+			});
 
 			return query.getResultList();
 
 		} catch (Exception ex) {
 			em.getTransaction().rollback();
+		} finally {
+			em.close();
 		}
 		return null;
 	}
-
 }
