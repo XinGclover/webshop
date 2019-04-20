@@ -33,10 +33,10 @@ public class EJBControllerDemo {
 
 			em.persist(t);
 			em.getTransaction().commit();
-			em.close();
 			saved = true;
 
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			em.getTransaction().rollback();
 			saved = false;
 		} finally {

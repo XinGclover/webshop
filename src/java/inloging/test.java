@@ -36,11 +36,12 @@ public class test implements Serializable {
 
 	public void newUser() {
 		Customers c = new Customers();
-		c.setAdress("gatan 12");
-		c.setEmail("email@email.com");
-		c.setFirstname("firstName");
-		c.setLastname("lastName");
-		c.setPassword("password");
+		c.setAdress("Gatansvägen 112");
+		c.setEmail("nikals@email.com");
+		c.setFirstname("nikals");
+		c.setLastname("nikalsson");
+		c.setPassword("lösenord");
+		ejb.persist(c);
 	}
 
 }
