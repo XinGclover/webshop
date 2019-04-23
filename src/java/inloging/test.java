@@ -40,7 +40,7 @@ public class test implements Serializable {
 
 	public void newUser() {
 		Customers c = new Customers();
-		c.setAdress("VÄGEN 5");
+		c.setAddress("VÄGEN 5");
 		c.setEmail("HOTMEJL");
 		c.setFirstname("firstNamePerson");
 		c.setLastname("lastNamePerson");
@@ -55,7 +55,7 @@ public class test implements Serializable {
 
 	public void updateUser() {
 		Customers c = ejb.find(Customers.class, 351);
-		c.setAdress("NEW ADRESS!");
+		c.setAddress("NEW ADRESS!");
 		ejb.update(c);
 
 	}
