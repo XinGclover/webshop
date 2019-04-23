@@ -17,15 +17,18 @@ import javax.servlet.http.HttpSession;
  *
  * @author sarko
  */
+//@ManagedBean(name = "login", eager = true)
 @Named(value = "login")
 @SessionScoped
 public class Login implements Serializable {
-	
+
 	private static final long serialVersionUID = 1094801825228386363L;
 	
 	private String pwd;
 	private String msg;
 	private String user;
+        
+        public Login(){};
 
 	public String getPwd() {
 		return pwd;
@@ -67,9 +70,9 @@ public class Login implements Serializable {
 			return "login";
 		}
 	}
-        
+        //test for inlog
         public String CheckValidUser(){
-		if(user.equalsIgnoreCase("adminen") && pwd.equalsIgnoreCase("adminen")){
+		if(user.equalsIgnoreCase("admin") && pwd.equalsIgnoreCase("admin")){
 			System.out.println("success");
 			return "success";
 		}
@@ -85,9 +88,9 @@ public class Login implements Serializable {
 		return "login";
 	}
         
-        public String register() {
+        /*public String register() {
 		HttpSession session = SessionUtils.getSession();
 		session.invalidate();
-		return "persondetails";
-	}
+		return "success";
+	}*/
 }
