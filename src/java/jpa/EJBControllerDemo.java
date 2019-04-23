@@ -1,5 +1,7 @@
 package jpa;
 
+import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -7,50 +9,136 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 public class EJBControllerDemo {
+//			Customers c = new Customers();
+//			c.setAdress("adress");
+//			c.setFirstname("asd");
+//			c.setLastname("dasd");
+//			c.setPassword("password");
+//			em.persist(c);
 
-	EntityManagerFactory emf;
-
-	public EJBControllerDemo() {
-		this.emf = Persistence.createEntityManagerFactory("webshopPU");
-	}
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("webshopPU");
 
 	private EntityManager entityManager() {
 		return this.emf.createEntityManager();
 	}
 
-	public static void main(String[] args) {
-		EJBControllerDemo testEM = new EJBControllerDemo();
-
-		EntityManager em = testEM.entityManager();
-
-		em.getTransaction().begin();
-		for (int i = 0; i < 10; i++) {
-			Customers c = new Customers();
-			c.setAdress("adress");
-			c.setFirstname("asd");
-			c.setLastname("dasd");
-			c.setPassword("password");
-			em.persist(c);
-		}
-		em.getTransaction().commit();
-
+	public <T> void create(T t) {
+		EntityManager em = this.entityManager();
+		boolean saved = false;
 		try {
 			EntityTransaction entr = em.getTransaction();
 			if (!em.getTransaction().isActive()) {
 				entr.begin();
 			}
-			Query query = em.createNamedQuery("Customers.findAll");
+			em.persist(t);
+			em.getTransaction().commit();
 
-			query.getResultList().forEach((obj) -> {
-				System.out.println(obj);
-			});
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+
+	}
+
+	public <T> T find(Class<T> type, Object id) {
+		EntityManager em = this.entityManager();
+		T t = null;
+		try {
+			EntityTransaction entr = em.getTransaction();
+			if (!em.getTransaction().isActive()) {
+				entr.begin();
+			}
+			t = em.find(type, id);
+			em.getTransaction().commit();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+		return t;
+	}
+
+	public <T> void update(T t) {
+		EntityManager em = this.entityManager();
+		try {
+			EntityTransaction entr = em.getTransaction();
+			if (!em.getTransaction().isActive()) {
+				entr.begin();
+			}
+			em.merge(t);
+			em.getTransaction().commit();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+
+	}
+
+	public <T> void delete(T t) {
+		EntityManager em = this.entityManager();
+		try {
+			EntityTransaction entr = em.getTransaction();
+			if (!em.getTransaction().isActive()) {
+				entr.begin();
+			}
+			t = em.merge(t);
+			em.remove(t);
+			em.getTransaction().commit();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+
+	}
+
+	public List namedQuery(String namedQuery) {
+		EntityManager em = this.entityManager();
+		try {
+			EntityTransaction entr = em.getTransaction();
+			if (!em.getTransaction().isActive()) {
+				entr.begin();
+			}
+
+			return em.createNamedQuery(namedQuery).getResultList();
 
 		} catch (Exception ex) {
 			em.getTransaction().rollback();
+		} finally {
+			em.close();
 		}
+		return null;
 	}
 
-	public void findAll() {
+	public List namedQuery(String namedQuery, Map<String, Object> params) {
+		EntityManager em = this.entityManager();
+		try {
+			EntityTransaction entr = em.getTransaction();
+			if (!em.getTransaction().isActive()) {
+				entr.begin();
+			}
+			Query query = em.createNamedQuery(namedQuery);
 
+			params.entrySet().forEach((entry) -> {
+				query.setParameter(entry.getKey(), entry.getValue());
+			});
+
+			return query.getResultList();
+
+		} catch (Exception ex) {
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+		return null;
 	}
 }

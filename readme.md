@@ -5,4 +5,4 @@
 - **JSF**
 - **JPA**
 - **EJB**
-- **MySQL**
+- **Derby**

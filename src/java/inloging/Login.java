@@ -9,9 +9,7 @@ import DAO.LoginDAO;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import javax.annotation.ManagedBean;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -23,7 +21,6 @@ import javax.servlet.http.HttpSession;
 @Named(value = "login")
 @SessionScoped
 public class Login implements Serializable {
-    @ManagedProperty(value = "#{persondetails}")
 
 	private static final long serialVersionUID = 1094801825228386363L;
 	

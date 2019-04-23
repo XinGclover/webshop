@@ -6,7 +6,7 @@ public class persondetails{
 	String name;
 	String fname;
 	String paddress;
-	String sex;
+	String email;
 	Date dob;
 	Long phoneno;
 	Long mobileno;
@@ -39,11 +39,11 @@ public class persondetails{
 	}
 
 	public String getSex(){
-		return sex;	
+		return email;	
 	}
 
 	public void setSex(String sex){
-		this.sex = sex;
+		this.email = sex;
 	}
 
 	public Date getDob(){
