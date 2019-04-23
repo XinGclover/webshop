@@ -9,7 +9,9 @@ import DAO.LoginDAO;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.annotation.ManagedBean;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -17,15 +19,19 @@ import javax.servlet.http.HttpSession;
  *
  * @author sarko
  */
+//@ManagedBean(name = "login", eager = true)
 @Named(value = "login")
 @SessionScoped
 public class Login implements Serializable {
+    @ManagedProperty(value = "#{persondetails}")
 
 	private static final long serialVersionUID = 1094801825228386363L;
 	
 	private String pwd;
 	private String msg;
 	private String user;
+        
+        public Login(){};
 
 	public String getPwd() {
 		return pwd;
@@ -85,9 +91,9 @@ public class Login implements Serializable {
 		return "login";
 	}
         
-        public String register() {
+        /*public String register() {
 		HttpSession session = SessionUtils.getSession();
 		session.invalidate();
-		return "persondetails";
-	}
+		return "success";
+	}*/
 }
