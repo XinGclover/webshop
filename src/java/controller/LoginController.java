@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package inloging;
+package controller;
 
 import DAO.LoginDAO;
+import inloging.SessionUtils;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -18,9 +19,9 @@ import javax.servlet.http.HttpSession;
  * @author sarko
  */
 //@ManagedBean(name = "login", eager = true)
-@Named(value = "login")
+@Named(value = "loginController")
 @SessionScoped
-public class Login implements Serializable {
+public class LoginController implements Serializable {
 
 	private static final long serialVersionUID = 1094801825228386363L;
 	
@@ -28,7 +29,7 @@ public class Login implements Serializable {
 	private String msg;
 	private String user;
         
-        public Login(){};
+        public LoginController(){};
 
 	public String getPwd() {
 		return pwd;

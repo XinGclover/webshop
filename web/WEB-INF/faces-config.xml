@@ -15,9 +15,9 @@
         
         <managed-bean>
 		<managed-bean-name>Login</managed-bean-name>
-		<managed-bean-class>inloging.Login</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
+		<managed-bean-class>controller.LoginController</managed-bean-class>
+	
+		<managed-bean-scope>request</managed-bean-scope></managed-bean>
         
         
 	<navigation-rule>

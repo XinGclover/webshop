@@ -14,17 +14,17 @@
 		    </f:facet>
 
 		    <h:outputText value="Enter Login ID:"/>
-		    <h:inputText id="username" value="#{login.user}" />
+		    <h:inputText id="username" value="#{loginController.user}" />
 		    <h:message for="username"></h:message>
 		    <br></br><br></br>
 
 		    <h:outputText value="Enter Paswrd: "/>
-		    <h:inputSecret id="password" value="#{login.pwd}" />
+		    <h:inputSecret id="password" value="#{loginController.pwd}" />
 		    <h:message for="password"></h:message>
 		    <br></br><br></br>
 
 		    <h:outputText value=" "/>
-		    <h:commandButton value="Login" action="#{login.checkValidUser}" />
+		    <h:commandButton value="Login" action="#{loginController.checkValidUser}" />
 
 		    <h:outputText value="New User?"/>					
 		    <h:commandLink value="Register Here" action="customerRegistration" />
