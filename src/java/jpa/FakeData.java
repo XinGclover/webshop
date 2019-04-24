@@ -1,6 +1,6 @@
 package jpa;
 
-public class FakeDataForDerby {
+public class FakeData {
 
 	public static final Customers[] customerList = new Customers[]{
 		new Customers(1, "Ettan", "Etsson", "ettan.ettson@mail.nu", "Ettgatan 1, 12301, Ettan", "Lösen1"),

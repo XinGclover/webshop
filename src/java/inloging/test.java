@@ -11,8 +11,6 @@ import javax.inject.Named;
 import jpa.Admins;
 import jpa.Customers;
 import jpa.EJBControllerDemo;
-import static jpa.FakeDataForDerby.adminList;
-import static jpa.FakeDataForDerby.customerList;
 //import jpa.GenericCrudService;
 
 @Named(value = "test")
@@ -46,10 +44,10 @@ public class test implements Serializable {
 	}
 
 	public void newUser() {
-		for (Customers customer : customerList) {
+		for (Customers customer : jpa.FakeData.customerList) {
 			ejb.create(customer);
 		}
-		for (Admins admin : adminList) {
+		for (Admins admin : jpa.FakeData.adminList) {
 			ejb.create(admin);
 		}
 	}
@@ -61,7 +59,7 @@ public class test implements Serializable {
 
 	public void updateUser() {
 		Customers c = ejb.find(Customers.class, 351);
-		c.setAddress("NEW ADRESS!");
+		c.setAdress("NEW ADRESS!");
 		ejb.update(c);
 
 	}
