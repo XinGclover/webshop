@@ -39,8 +39,8 @@ public class Customers implements Serializable {
 	private String lastname;
 	@Column(name = "PREMIUM")
 	private Boolean premium;
-	@Column(name = "ADRESS", length = 50)
-	private String adress;
+	@Column(name = "ADDRESS", length = 50)
+	private String address;
 	@Column(name = "PASSWORD", length = 32)
 	private String password;
 	@Column(name = "EMAIL", length = 32)
@@ -50,13 +50,13 @@ public class Customers implements Serializable {
 	}
 
 	public Customers(Integer id, String firstname, String lastname, String email, 
-		String adress, String password) {
+		String address, String password) {
 		this.id = id;
 		this.totalMoneySpent = totalMoneySpent;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.premium = premium;
-		this.adress = adress;
+		this.address = address;
 		this.password = password;
 		this.email = email;
 	}
@@ -114,11 +114,11 @@ public class Customers implements Serializable {
 	}
 
 	public String getAddress() {
-		return adress;
+		return address;
 	}
 
 	public void setAddress(String address) {
-		this.adress = address;
+		this.address = address;
 	}
 
 	public String getPassword() {
@@ -129,17 +129,7 @@ public class Customers implements Serializable {
 		this.password = password;
 	}
 
-	public void createCustomer(String email, String password,
-		String confirmPassword, String firstName,
-		String lastName, String address) {
-		this.email = email;
-		if (password.equals(confirmPassword)) {
-			this.password = password;
-		}
-		this.firstname = firstName;
-		this.lastname = lastName;
-		this.adress = address;
-	}
+
 
 	@Override
 	public int hashCode() {
@@ -160,7 +150,7 @@ public class Customers implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("jpa.Customers[ id=%s email=%s password=%s firstname=%s lastname=%s adress=%s totalMoneySpent=%s premium=%s]%n", id, email, password, firstname, lastname, adress, totalMoneySpent, premium);
+		return String.format("jpa.Customers[ id=%s email=%s password=%s firstname=%s lastname=%s address=%s totalMoneySpent=%s premium=%s]%n", id, email, password, firstname, lastname, address, totalMoneySpent, premium);
 	}
 
 }
