@@ -49,7 +49,7 @@ public class Customers implements Serializable {
 	public Customers() {
 	}
 
-	public Customers(Integer id, String firstname, String lastname, String email, 
+	public Customers(Integer id, String firstname, String lastname, String email,
 		String adress, String password) {
 		this.id = id;
 		this.totalMoneySpent = totalMoneySpent;
@@ -160,7 +160,7 @@ public class Customers implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("jpa.Customers[ id=%s email=%s password=%s firstname=%s lastname=%s adress=%s totalMoneySpent=%s premium=%s]%n", id, email, password, firstname, lastname, adress, totalMoneySpent, premium);
+		return String.format("jpa.Customers[ id=%s email=%s password=%s firstname=%s lastname=%s adress=%s totalMoneySpent=%s premium=%s]", id, email, password, firstname, lastname, adress, totalMoneySpent, premium);
 	}
 
 }
