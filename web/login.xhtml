@@ -13,8 +13,8 @@
 			<h:outputText value="User Login"/>
 		    </f:facet>
 
-		    <h:outputText value="Enter Login ID:"/>
-		    <h:inputText id="username" value="#{loginController.user}" />
+		    <h:outputText value="Enter email:"/>
+		    <h:inputText id="username" value="#{loginController.email}" />
 		    <h:message for="username"></h:message>
 		    <br></br><br></br>
 
@@ -27,7 +27,7 @@
 		    <h:commandButton value="Login" action="#{loginController.checkValidUser}" />
 
 		    <h:outputText value="New User?"/>					
-		    <h:commandLink value="Register Here" action="customerRegistration" />
+		    <h:commandLink value="Register Here" action="newuser" />
 
 		    <!--testknappar-->
 		    <h:commandButton value="print to console" action="#{test.test()}"></h:commandButton>

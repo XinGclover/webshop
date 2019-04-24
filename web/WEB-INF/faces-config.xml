@@ -4,37 +4,31 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
-    <navigation-rule>
+        <!--<navigation-rule>
 		<from-view-id>/login.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>admin</from-outcome>
 			<to-view-id>/admin.xhtml</to-view-id>
 		</navigation-case>
-	</navigation-rule>
-        
-        
-        <managed-bean>
-		<managed-bean-name>Login</managed-bean-name>
-		<managed-bean-class>controller.LoginController</managed-bean-class>
-	
-		<managed-bean-scope>request</managed-bean-scope></managed-bean>
+	</navigation-rule> -->
+      
         
         
 	<navigation-rule>
 		<from-view-id>/login.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{login.checkValidUser}</from-action>
+			<from-action>#{loginController.checkValidUser}</from-action>
 			<from-outcome>success</from-outcome>
-			<to-view-id>/resultforsuccess.xhtml</to-view-id>
+			<to-view-id>/resultforsuccess.xhtml</to-view-id>  <!--TODO User homePage ADMIN OR CUSTOMER-->
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{login.checkValidUser}</from-action>
 			<from-outcome>fail</from-outcome>
-			<to-view-id>/resultforfail.xhtml</to-view-id>
+			<to-view-id>/resultforfail.xhtml</to-view-id> <!--TODO FAIL homePage-->
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>newuser</from-outcome>
-			<to-view-id>/persondetails.xhtml</to-view-id>
+			<to-view-id>/newCustomerRegistration.xhtml</to-view-id>
 		</navigation-case>
 
 	</navigation-rule>
@@ -44,7 +38,7 @@
 		<from-view-id>/resultforfail.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>newuser</from-outcome>
-			<to-view-id>/persondetails.xhtml</to-view-id>
+			<to-view-id>/newCustomerRegistration.xhtml</to-view-id>
 		</navigation-case>
                 
 		<navigation-case>
@@ -54,15 +48,10 @@
 	</navigation-rule>
         
 
-	<managed-bean>
-		<managed-bean-name>persondetails</managed-bean-name>
-		<managed-bean-class>inloging.persondetails</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
         
         
 	<navigation-rule>
-		<from-view-id>/persondetails.xhtml</from-view-id>
+		<from-view-id>/newCustomerRegistration.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>result</from-outcome>
 			<to-view-id>/result.xhtml</to-view-id>
@@ -74,7 +63,7 @@
 		<from-view-id>/result.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>details</from-outcome>
-			<to-view-id>/persondetails.xhtml</to-view-id>
+			<to-view-id>/newCustomerRegistration.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>
