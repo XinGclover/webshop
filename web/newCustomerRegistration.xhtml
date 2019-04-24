@@ -4,55 +4,55 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-<title>Registration details</title>
-<link rel="stylesheet" type="text/css" href="main.css" />
-</h:head>
+	<title>Registration details</title>
+	<link rel="stylesheet" type="text/css" href="main.css" />
+    </h:head>
 
-<h:body>
-    <f:view>
-  <center><h:form>
-  				<h:panelGrid width="475px" bgcolor="#e6edfd" columns="2" border="0">
-					<f:facet name="header">
-					<h:outputText value="Personal Details"/>
-				    </f:facet>
+    <h:body>
+	<f:view>
+	    <center><h:form>
+		    <h:panelGrid width="475px" bgcolor="#e6edfd" columns="2" border="0">
+			<f:facet name="header">
+			    <h:outputText value="Personal Details"/>
+			</f:facet>
 
-					<h:outputText value="Email Adress: "  />					
-					<h:inputText id="Eaddress" value="#{persondetails.fname}" />
-                                        
-                                        <h:outputText value="Enter Paswrd: "/>
-                                        <h:inputSecret id="password" value="#{login.pwd}" />
-                                        
+			<h:outputText value="Email Adress: "  />					
+			<h:inputText id="Eaddress" value="#{persondetails.fname}" />
 
-                                        <h:outputText value="Confirm Paswrd: "/>
-                                        <h:inputSecret id="ConfirmPassword" value="#{controller.confirmPassword}" />
-                                        
-                                        
-					<h:outputText value="First Name: " />					
-					<h:panelGroup>
-                                            
-						<h:inputText id="name" value="#{persondetails.name}" required="true">
-								<f:validateLength minimum="3" maximum="20"/>
-						</h:inputText><f:verbatim><br/></f:verbatim>
-						<h:message for="name"/>
-					</h:panelGroup>
+			<h:outputText value="Enter Paswrd: "/>
+			<h:inputSecret id="password" value="#{login.pwd}" />
 
-					<h:outputText value="Last Name: "  />					
-					<h:inputText id="fname" value="#{persondetails.fname}" />
-					
-					<h:outputText value="Home Address: " />
-					<h:inputTextarea id="paddress" value="#{persondetails.paddress}" />					
 
-					<h:outputText value=" " />
-					<h:panelGroup>
-						<h:commandButton value="Add" action="#{controller.createAccount}"/>
-                                                <h:commandButton value="Cancel" action="result"/>
-					</h:panelGroup>
+			<h:outputText value="Confirm Paswrd: "/>
+			<h:inputSecret id="ConfirmPassword" value="#{controller.confirmPassword}" />
 
-				</h:panelGrid>
-    </h:form>
-	</center>
+
+			<h:outputText value="First Name: " />					
+			<h:panelGroup>
+
+			    <h:inputText id="name" value="#{persondetails.name}" required="true">
+				<f:validateLength minimum="3" maximum="20"/>
+			    </h:inputText><f:verbatim><br/></f:verbatim>
+			    <h:message for="name"/>
+			</h:panelGroup>
+
+			<h:outputText value="Last Name: "  />					
+			<h:inputText id="fname" value="#{persondetails.fname}" />
+
+			<h:outputText value="Home Address: " />
+			<h:inputTextarea id="paddress" value="#{persondetails.paddress}" />					
+
+			<h:outputText value=" " />
+			<h:panelGroup>
+			    <h:commandButton value="Add" action="#{controller.createAccount}"/>
+			    <h:commandButton value="Cancel" action="result"/>
+			</h:panelGroup>
+
+		    </h:panelGrid>
+		</h:form>
+	    </center>
         </f:view>
-  </h:body>
- </html>
+    </h:body>
+</html>
 
 

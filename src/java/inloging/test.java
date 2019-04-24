@@ -11,6 +11,7 @@ import javax.inject.Named;
 import jpa.Admins;
 import jpa.Customers;
 import jpa.EJBControllerDemo;
+import jpa.GenericCrudService;
 //import jpa.GenericCrudService;
 
 @Named(value = "test")
@@ -19,12 +20,23 @@ public class test implements Serializable {
 
 	private final EJBControllerDemo ejb = new EJBControllerDemo();
 
+	@EJB
+	private GenericCrudService crudBean;
+
+	public GenericCrudService getCrudBean() {
+		return crudBean;
+	}
+
+	public void setCrudBean(GenericCrudService crudBean) {
+		this.crudBean = crudBean;
+	}
+
 	public void test() {
-		ejb.namedQuery("Customers.findAll").forEach(e -> {
+		crudBean.findWithNamedQuery("Customers.findAll").forEach(e -> {
 			System.out.println(e);
 		});
 
-		ejb.namedQuery("Admins.findAll").forEach(e -> {
+		crudBean.findWithNamedQuery("Admins.findAll").forEach(e -> {
 			System.out.println(e);
 		});
 	}
@@ -37,10 +49,10 @@ public class test implements Serializable {
 
 	public void newUser() {
 		for (Customers customer : jpa.FakeData.customerList) {
-			ejb.create(customer);
+			crudBean.create(customer);
 		}
 		for (Admins admin : jpa.FakeData.adminList) {
-			ejb.create(admin);
+			crudBean.create(admin);
 		}
 	}
 

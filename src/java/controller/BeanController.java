@@ -8,21 +8,12 @@ package controller;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 import jpa.Customers;
-import jpa.EJBControllerDemo;
 import jpa.GenericCrudService;
 
 /**
@@ -40,9 +31,8 @@ public class BeanController implements Serializable {
 
 	}
 	@EJB
-	private GenericCrudService crud;
+	private GenericCrudService crudBean;
 
-	private EJBControllerDemo ejb;
 	private String name;
 	private String fname;
 	private String paddress;
@@ -53,17 +43,16 @@ public class BeanController implements Serializable {
 	private String pwd;
 	private boolean login = false;
 
-	@PostConstruct
-	public void init() {
-//		ejb = new EJBControllerDemo();
-	}
-
+//	@PostConstruct
+//	public void init() {
+//		crudBean = new GenericCrudServiceBean();
+//	}
 	public GenericCrudService getCrud() {
-		return crud;
+		return crudBean;
 	}
 
 	public void setCrud(GenericCrudService crud) {
-		this.crud = crud;
+		this.crudBean = crud;
 	}
 
 	public String getEmail() {
@@ -147,11 +136,11 @@ public class BeanController implements Serializable {
 		Customers sessionCustomer = null;
 		try {
 
-			//replaced entitymanagement with EJBDemoController method
+			//crudBean EJB method invocation
 			Map<String, Object> params = new HashMap<>();
 			params.put("email", email);
 
-			sessionCustomer = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
+			sessionCustomer = (Customers) crudBean.findWithNamedQuery("Customers.findByEmail", params).get(0);
 
 			success = true;
 			System.out.println(sessionCustomer.toString());
