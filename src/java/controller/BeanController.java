@@ -7,8 +7,17 @@ package controller;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import jpa.Customers;
+import jpa.EJBControllerDemo;
 
 /**
  *
@@ -25,6 +34,7 @@ public class BeanController implements Serializable{
              
         
     }
+        EJBControllerDemo  ejb = new EJBControllerDemo(); 
     	private String name;
 	private String fname;
 	private String paddress;
@@ -33,6 +43,7 @@ public class BeanController implements Serializable{
 	private Long phoneno;
 	private Long mobileno;
         private String pwd; 
+        private boolean login = false; 
 
     public String getEmail() {
         return email;
@@ -113,15 +124,49 @@ public class BeanController implements Serializable{
         //checks the input fields against the database and return a bool simple login
         public void checkValiduser(){
             
+                boolean success = false;
+                
             
+                Customers sessionCustomer = null; 
+                try{
+                EntityManagerFactory emf = Persistence.createEntityManagerFactory("webshopPU");
+                EntityManager em = emf.createEntityManager();
+                Query query = em.createNamedQuery("Customers.findByEmail");
+                query.setParameter("email", email);
+                sessionCustomer = (Customers)query.getSingleResult();
+                success = true; 
+                    System.out.println(sessionCustomer.toString());
+                em.close();
+                emf.close();
+                
+                }
+                catch(NoResultException e){
+                  
+                    System.out.println("There is no such Customer");
+                    
+                }
+                
+                if (success && sessionCustomer.getPassword().equals(pwd)){
+                    
+                   login = true; 
+                    System.out.println("there is a customer with that name and password!");
+                    
+                }
+                else{
+                    System.out.println("Wrong Password");
+                }
+           
         }
+        
+        
+ 
         
         
         //Registers the new user to the database 
         public void registerNewUser(){
             
-            
-            
+                
+                
             
             
         }
