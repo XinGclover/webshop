@@ -16,9 +16,20 @@
 					<h:outputText value="Personal Details"/>
 				    </f:facet>
 
-					
-					<h:outputText value="Your Name: " />					
+					<h:outputText value="Email Adress: "  />					
+					<h:inputText id="Eaddress" value="#{persondetails.fname}" />
+                                        
+                                        <h:outputText value="Enter Paswrd: "/>
+                                        <h:inputSecret id="password" value="#{login.pwd}" />
+                                        
+
+                                        <h:outputText value="Confirm Paswrd: "/>
+                                        <h:inputSecret id="ConfirmPassword" value="#{controller.confirmPassword}" />
+                                        
+                                        
+					<h:outputText value="First Name: " />					
 					<h:panelGroup>
+                                            
 						<h:inputText id="name" value="#{persondetails.name}" required="true">
 								<f:validateLength minimum="3" maximum="20"/>
 						</h:inputText><f:verbatim><br/></f:verbatim>
@@ -28,44 +39,13 @@
 					<h:outputText value="Last Name: "  />					
 					<h:inputText id="fname" value="#{persondetails.fname}" />
 					
-					<h:outputText value="Permanent Address: " />
-					<h:inputTextarea id="paddress" value="#{persondetails.paddress}" />
-					
-					<h:outputText value="Sex: " />
-					<h:panelGroup>
-					<h:selectOneRadio id="sex" value="#{persondetails.sex}" required="true">
-						<f:selectItem itemLabel="Male" itemValue="male"/>
-						<f:selectItem itemLabel="Female" itemValue="female"/>
-					</h:selectOneRadio>
-						<h:message for="sex"/>
-					</h:panelGroup>
-					
-					<h:outputText value="Date Of Birth: " />
-					<h:panelGroup>
-						<h:inputText id="dob" value="#{persondetails.dob}" required="true">
-								<f:convertDateTime pattern="dd-MM-yyyy"/>
-						</h:inputText><h:outputText value="(dd-MM-yyyy)" />
-						<f:verbatim><br/></f:verbatim>
-						<h:message for="dob"/>
-					</h:panelGroup>
-
-					<h:outputText value="Phone No.: " />
-					<h:panelGroup>
-						<h:inputText id="phoneno" value="#{persondetails.phoneno}" required="true"/>
-							<f:verbatim><br/></f:verbatim>
-							<h:message for="phoneno"/>
-					</h:panelGroup>
-
-					<h:outputText value="Mobile No.: " />
-					<h:panelGroup>
-						<h:inputText id="mobileno" value="#{persondetails.mobileno}" required="true"/>
-							<f:verbatim><br/></f:verbatim>
-							<h:message for="mobileno"/>
-					</h:panelGroup>
+					<h:outputText value="Home Address: " />
+					<h:inputTextarea id="paddress" value="#{persondetails.paddress}" />					
 
 					<h:outputText value=" " />
 					<h:panelGroup>
-						<h:commandButton value="Add" action="result"/>
+						<h:commandButton value="Add" action="#{controller.createAccount}"/>
+                                                <h:commandButton value="Cancel" action="result"/>
 					</h:panelGroup>
 
 				</h:panelGrid>
