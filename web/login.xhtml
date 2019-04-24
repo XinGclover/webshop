@@ -13,28 +13,26 @@
 			<h:outputText value="User Login"/>
 		    </f:facet>
 
-		    <h:outputText value="Enter Login ID:"/>
-		    <h:inputText id="username" value="#{login.user}" />
+		    <h:outputText value="Enter email:"/>
+		    <h:inputText id="username" value="#{loginController.email}" />
 		    <h:message for="username"></h:message>
 		    <br></br><br></br>
 
 		    <h:outputText value="Enter Paswrd: "/>
-		    <h:inputSecret id="password" value="#{login.pwd}" />
+		    <h:inputSecret id="password" value="#{loginController.pwd}" />
 		    <h:message for="password"></h:message>
 		    <br></br><br></br>
 
 		    <h:outputText value=" "/>
-		    <h:commandButton value="Login" action="#{login.checkValidUser}" />
+                    <h:commandButton value="Login" action="#{loginController.checkValiduser()}" />
 
 		    <h:outputText value="New User?"/>					
+                    
 		    <h:commandLink value="Register Here" action="newCustomerRegistration" />
 
 		    <!--testknappar-->
-		    <h:commandButton value="print to console" action="#{test.test()}"></h:commandButton>
-		    <h:commandButton value="testIDQuery" action="#{test.testID()}"></h:commandButton>
-		    <h:commandButton value="newuserTest" action="#{test.newUser()}"></h:commandButton>
-		    <h:commandButton value="delete" action="#{test.delete()}"></h:commandButton>
-		    <h:commandButton value="update" action="#{test.updateUser()}"></h:commandButton>
+		    <h:commandButton value="print db posts to console" action="#{test.test()}"></h:commandButton>
+		    <h:commandButton value="generate fake data" action="#{test.newUser()}"></h:commandButton>
 		    <!--test-->
 		</h:panelGrid>
 	    </h:form>

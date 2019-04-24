@@ -39,7 +39,7 @@ public class Customers implements Serializable {
 	private String lastname;
 	@Column(name = "PREMIUM")
 	private Boolean premium;
-	@Column(name = "ADRESS", length = 50)
+	@Column(name = "ADDRESS", length = 50)
 	private String adress;
 	@Column(name = "PASSWORD", length = 32)
 	private String password;
@@ -49,13 +49,12 @@ public class Customers implements Serializable {
 	public Customers() {
 	}
 
-	public Customers(Integer id, String firstname, String lastname, String email, 
+	public Customers(Integer id, String firstname, String lastname, String email,
 		String adress, String password) {
+
 		this.id = id;
-		this.totalMoneySpent = totalMoneySpent;
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.premium = premium;
 		this.adress = adress;
 		this.password = password;
 		this.email = email;
@@ -113,11 +112,11 @@ public class Customers implements Serializable {
 		this.premium = premium;
 	}
 
-	public String getAddress() {
+	public String getAdress() {
 		return adress;
 	}
 
-	public void setAddress(String address) {
+	public void setAdress(String address) {
 		this.adress = address;
 	}
 
@@ -127,18 +126,6 @@ public class Customers implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public void createCustomer(String email, String password,
-		String confirmPassword, String firstName,
-		String lastName, String address) {
-		this.email = email;
-		if (password.equals(confirmPassword)) {
-			this.password = password;
-		}
-		this.firstname = firstName;
-		this.lastname = lastName;
-		this.adress = address;
 	}
 
 	@Override
@@ -155,15 +142,13 @@ public class Customers implements Serializable {
 			return false;
 		}
 		Customers other = (Customers) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-			return false;
-		}
-		return true;
+		return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
 	}
 
 	@Override
 	public String toString() {
-		return String.format("jpa.Customers[ id=%s email=%s password=%s firstname=%s lastname=%s adress=%s totalMoneySpent=%s premium=%s]%n", id, email, password, firstname, lastname, adress, totalMoneySpent, premium);
+		return String.format("jpa.Customers[ id=%s email=%s password=%s firstname=%s lastname=%s adress=%s totalMoneySpent=%s premium=%s]", id, email, password, firstname, lastname, adress, totalMoneySpent, premium);
+
 	}
 
 }
