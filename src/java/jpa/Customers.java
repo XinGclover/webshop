@@ -49,6 +49,18 @@ public class Customers implements Serializable {
 	public Customers() {
 	}
 
+	public Customers(Integer id, String firstname, String lastname, String email, 
+		String adress, String password) {
+		this.id = id;
+		this.totalMoneySpent = totalMoneySpent;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.premium = premium;
+		this.adress = adress;
+		this.password = password;
+		this.email = email;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -116,17 +128,18 @@ public class Customers implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-        
-        public void createCustomer(String email, String password,
-                                   String confirmPassword, String firstName,
-                                   String lastName, String address) {
-            this.email = email;
-            if(password.equals(confirmPassword))
-                this.password = password;
-            this.firstname = firstName;
-            this.lastname = lastName;
-            this.adress = address;
-        }
+
+	public void createCustomer(String email, String password,
+		String confirmPassword, String firstName,
+		String lastName, String address) {
+		this.email = email;
+		if (password.equals(confirmPassword)) {
+			this.password = password;
+		}
+		this.firstname = firstName;
+		this.lastname = lastName;
+		this.adress = address;
+	}
 
 	@Override
 	public int hashCode() {
@@ -150,7 +163,7 @@ public class Customers implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("jpa.Customers[ id=%s email=%s password=%s firstname=%s lastname=%s adress=%s totalMoneySpent=%s premium=%s]", id, email, password, firstname, lastname, adress, totalMoneySpent, premium);
+		return String.format("jpa.Customers[ id=%s email=%s password=%s firstname=%s lastname=%s adress=%s totalMoneySpent=%s premium=%s]%n", id, email, password, firstname, lastname, adress, totalMoneySpent, premium);
 	}
 
 }
