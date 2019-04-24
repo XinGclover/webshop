@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
@@ -22,6 +23,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import jpa.Customers;
 import jpa.EJBControllerDemo;
+import jpa.GenericCrudService;
 
 /**
  *
@@ -37,6 +39,9 @@ public class BeanController implements Serializable {
 	public BeanController() {
 
 	}
+	@EJB
+	private GenericCrudService crud;
+
 	private EJBControllerDemo ejb;
 	private String name;
 	private String fname;
@@ -50,7 +55,15 @@ public class BeanController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		ejb = new EJBControllerDemo();
+//		ejb = new EJBControllerDemo();
+	}
+
+	public GenericCrudService getCrud() {
+		return crud;
+	}
+
+	public void setCrud(GenericCrudService crud) {
+		this.crud = crud;
 	}
 
 	public String getEmail() {
@@ -133,11 +146,12 @@ public class BeanController implements Serializable {
 
 		Customers sessionCustomer = null;
 		try {
-			
+
 			//replaced entitymanagement with EJBDemoController method
 			Map<String, Object> params = new HashMap<>();
 			params.put("email", email);
-			sessionCustomer = (Customers) ejb.namedQuery("Customers.findByEmail", params);
+
+			sessionCustomer = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
 
 			success = true;
 			System.out.println(sessionCustomer.toString());

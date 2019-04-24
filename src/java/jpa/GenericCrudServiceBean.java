@@ -2,10 +2,7 @@ package jpa;
 
 import java.util.List;
 import java.util.Map;
-import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
@@ -13,8 +10,8 @@ import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 @Stateless
-@Local(GenericCrudService.class)
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
+//@Local(GenericCrudService.class)
+//@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class GenericCrudServiceBean implements GenericCrudService {
 
 	@PersistenceContext(unitName = "webshopPU")
@@ -71,9 +68,9 @@ public class GenericCrudServiceBean implements GenericCrudService {
 		if (resultLimit > 0) {
 			query.setMaxResults(resultLimit);
 		}
-		for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+		parameters.entrySet().forEach((entry) -> {
 			query.setParameter(entry.getKey(), entry.getValue());
-		}
+		});
 		return query.getResultList();
 	}
 
