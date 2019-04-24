@@ -31,10 +31,8 @@ public class test implements Serializable {
 
 	public void testID() {
 		Map<String, Object> params = new HashMap<>();
-		params.put("id", 251);
-		ejb.namedQuery("Customers.findById", params).forEach(e -> {
-			System.out.println(e);
-		});
+		params.put("id", 5);
+		System.out.println((Customers) ejb.namedQuery("Customers.findById", params));
 	}
 
 	public void newUser() {

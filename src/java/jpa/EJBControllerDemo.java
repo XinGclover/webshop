@@ -9,12 +9,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 public class EJBControllerDemo {
-//			Customers c = new Customers();
-//			c.setAdress("adress");
-//			c.setFirstname("asd");
-//			c.setLastname("dasd");
-//			c.setPassword("password");
-//			em.persist(c);
 
 	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("webshopPU");
 
@@ -31,7 +25,7 @@ public class EJBControllerDemo {
 				entr.begin();
 			}
 			em.persist(t);
-			em.getTransaction().commit();
+			entr.commit();
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -119,7 +113,7 @@ public class EJBControllerDemo {
 		return null;
 	}
 
-	public List namedQuery(String namedQuery, Map<String, Object> params) {
+	public <T> T namedQuery(String namedQuery, Map<String, Object> params) {
 		EntityManager em = this.entityManager();
 		try {
 			EntityTransaction entr = em.getTransaction();
@@ -132,7 +126,7 @@ public class EJBControllerDemo {
 				query.setParameter(entry.getKey(), entry.getValue());
 			});
 
-			return query.getResultList();
+			return (T) query.getSingleResult();
 
 		} catch (Exception ex) {
 			em.getTransaction().rollback();

@@ -7,9 +7,13 @@ package controller;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -25,156 +29,148 @@ import jpa.EJBControllerDemo;
  */
 @Named(value = "loginController")
 @RequestScoped
-public class BeanController implements Serializable{
+public class BeanController implements Serializable {
 
-    /**
-     * Creates a new instance of LoginController
-     */
-    public BeanController() {
-             
-        
-    }
-        EJBControllerDemo  ejb = new EJBControllerDemo(); 
-    	private String name;
+	/**
+	 * Creates a new instance of LoginController
+	 */
+	public BeanController() {
+
+	}
+	private EJBControllerDemo ejb;
+	private String name;
 	private String fname;
 	private String paddress;
 	private String email;
 	private Date dob;
 	private Long phoneno;
 	private Long mobileno;
-        private String pwd; 
-        private boolean login = false; 
+	private String pwd;
+	private boolean login = false;
 
-    public String getEmail() {
-        return email;
-    }
+	@PostConstruct
+	public void init() {
+		ejb = new EJBControllerDemo();
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getPwd() {
-        return pwd;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
+	public String getPwd() {
+		return pwd;
+	}
 
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
 
-
-	public String getName(){
+	public String getName() {
 		return name;
 	}
 
-	public void setName(String name){
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getFname(){
+	public String getFname() {
 		return fname;
 	}
 
-	public void setFname(String fname){
+	public void setFname(String fname) {
 		this.fname = fname;
 
 	}
 
-	public String getPaddress(){
+	public String getPaddress() {
 		return paddress;
 	}
 
-	public void setPaddress(String paddress){
+	public void setPaddress(String paddress) {
 		this.paddress = paddress;
 	}
 
-	public String getSex(){
-		return email;	
+	public String getSex() {
+		return email;
 	}
 
-	public void setSex(String sex){
+	public void setSex(String sex) {
 		this.email = sex;
 	}
 
-	public Date getDob(){
+	public Date getDob() {
 		return dob;
 	}
 
-	public void setDob(Date dob){
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 
-	public Long getPhoneno(){
+	public Long getPhoneno() {
 		return phoneno;
 	}
 
-	public void setPhoneno(Long phoneno){
+	public void setPhoneno(Long phoneno) {
 		this.phoneno = phoneno;
 	}
 
-	public Long getMobileno(){
+	public Long getMobileno() {
 		return mobileno;
 	}
 
-	public void setMobileno(Long mobileno){
+	public void setMobileno(Long mobileno) {
 		this.mobileno = mobileno;
 	}
 
-        
-        //checks the input fields against the database and return a bool simple login
-        public void checkValiduser(){
-            
-                boolean success = false;
-                
-            
-                Customers sessionCustomer = null; 
-                try{
-                EntityManagerFactory emf = Persistence.createEntityManagerFactory("webshopPU");
-                EntityManager em = emf.createEntityManager();
-                Query query = em.createNamedQuery("Customers.findByEmail");
-                query.setParameter("email", email);
-                sessionCustomer = (Customers)query.getSingleResult();
-                success = true; 
-                    System.out.println(sessionCustomer.toString());
-                em.close();
-                emf.close();
-                
-                }
-                catch(NoResultException e){
-                  
-                    System.out.println("There is no such Customer");
-                    
-                }
-                
-                if (success && sessionCustomer.getPassword().equals(pwd)){
-                    
-                   login = true; 
-                    System.out.println("there is a customer with that name and password!");
-                    
-                }
-                else{
-                    System.out.println("Wrong Password");
-                }
-           
-        }
-        
-        
- 
-        
-        
-        //Registers the new user to the database 
-        public void registerNewUser(){
-            
-                
-                
-            
-            
-        }
-        
-        
-        
-        
-        
-        
-        
+	//checks the input fields against the database and return a bool simple login
+	public void checkValiduser() {
+
+		boolean success = false;
+
+		Customers sessionCustomer = null;
+		try {
+			
+			//replaced entitymanagement with EJBDemoController method
+			Map<String, Object> params = new HashMap<>();
+			params.put("email", email);
+			sessionCustomer = (Customers) ejb.namedQuery("Customers.findByEmail", params);
+
+			success = true;
+			System.out.println(sessionCustomer.toString());
+
+			//                EntityManagerFactory emf = Persistence.createEntityManagerFactory("webshopPU");
+//                EntityManager em = emf.createEntityManager();
+//                Query query = em.createNamedQuery("Customers.findByEmail");
+//                query.setParameter("email", email);
+//                sessionCustomer = (Customers)query.getSingleResult();
+//			em.close();
+//			emf.close();
+		} catch (NoResultException | NullPointerException e) {
+
+			System.out.println("There is no such Customer");
+
+		}
+
+		if (success && sessionCustomer.getPassword().equals(pwd)) {
+
+			login = true;
+			System.out.println("there is a customer with that name and password!");
+
+		} else {
+			System.out.println("sesh: " + sessionCustomer.getPassword());
+			System.out.println("pwd: " + pwd);
+			System.out.println("Wrong Password");
+		}
+
+	}
+
+	//Registers the new user to the database 
+	public void registerNewUser() {
+
+	}
+
 }
