@@ -39,14 +39,26 @@ public class Customers implements Serializable {
 	private String lastname;
 	@Column(name = "PREMIUM")
 	private Boolean premium;
-	@Column(name = "ADDRESS", length = 50)
-	private String address;
+	@Column(name = "ADRESS", length = 50)
+	private String adress;
 	@Column(name = "PASSWORD", length = 32)
 	private String password;
 	@Column(name = "EMAIL", length = 32)
 	private String email;
 
 	public Customers() {
+	}
+
+	public Customers(Integer id, String firstname, String lastname, String email, 
+		String adress, String password) {
+		this.id = id;
+		this.totalMoneySpent = totalMoneySpent;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.premium = premium;
+		this.adress = adress;
+		this.password = password;
+		this.email = email;
 	}
 
 	public String getEmail() {
@@ -102,11 +114,11 @@ public class Customers implements Serializable {
 	}
 
 	public String getAddress() {
-		return address;
+		return adress;
 	}
 
 	public void setAddress(String address) {
-		this.address = address;
+		this.adress = address;
 	}
 
 	public String getPassword() {
@@ -116,17 +128,18 @@ public class Customers implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-        
-        public void createCustomer(String email, String password,
-                                   String confirmPassword, String firstName,
-                                   String lastName, String address) {
-            this.email = email;
-            if(password.equals(confirmPassword))
-                this.password = password;
-            this.firstname = firstName;
-            this.lastname = lastName;
-            this.address = address;
-        }
+
+	public void createCustomer(String email, String password,
+		String confirmPassword, String firstName,
+		String lastName, String address) {
+		this.email = email;
+		if (password.equals(confirmPassword)) {
+			this.password = password;
+		}
+		this.firstname = firstName;
+		this.lastname = lastName;
+		this.adress = address;
+	}
 
 	@Override
 	public int hashCode() {
@@ -142,15 +155,12 @@ public class Customers implements Serializable {
 			return false;
 		}
 		Customers other = (Customers) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-			return false;
-		}
-		return true;
+		return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
 	}
 
 	@Override
 	public String toString() {
-		return String.format("jpa.Customers[ id=%s email=%s password=%s firstname=%s lastname=%s adress=%s totalMoneySpent=%s premium=%s]", id, email, password, firstname, lastname, address, totalMoneySpent, premium);
+		return String.format("jpa.Customers[ id=%s email=%s password=%s firstname=%s lastname=%s adress=%s totalMoneySpent=%s premium=%s]%n", id, email, password, firstname, lastname, adress, totalMoneySpent, premium);
 	}
 
 }
