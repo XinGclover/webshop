@@ -41,7 +41,7 @@ public class test implements Serializable {
 	public void newUser() {
 		Customers c = new Customers();
 		c.setAddress("VÄGEN 5");
-		c.setEmail("HOTMEJL");
+		c.setEmail("YAOHOO");
 		c.setFirstname("firstNamePerson");
 		c.setLastname("lastNamePerson");
 		c.setPassword("PW123!");
