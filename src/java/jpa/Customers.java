@@ -20,7 +20,7 @@ import javax.persistence.Table;
 	, @NamedQuery(name = "Customers.findByFirstname", query = "SELECT c FROM Customers c WHERE c.firstname = :firstname")
 	, @NamedQuery(name = "Customers.findByLastname", query = "SELECT c FROM Customers c WHERE c.lastname = :lastname")
 	, @NamedQuery(name = "Customers.findByPremium", query = "SELECT c FROM Customers c WHERE c.premium = :premium")
-	, @NamedQuery(name = "Customers.findByAdress", query = "SELECT c FROM Customers c WHERE c.address = :address")
+	, @NamedQuery(name = "Customers.findByAdress", query = "SELECT c FROM Customers c WHERE c.adress = :adress")
 	, @NamedQuery(name = "Customers.findByPassword", query = "SELECT c FROM Customers c WHERE c.password = :password")
 	, @NamedQuery(name = "Customers.findByEmail", query = "SELECT c FROM Customers c WHERE c.email = :email")})
 public class Customers implements Serializable {

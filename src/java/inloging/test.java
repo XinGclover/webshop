@@ -18,8 +18,6 @@ import jpa.EJBControllerDemo;
 public class test implements Serializable {
 
 	private final EJBControllerDemo ejb = new EJBControllerDemo();
-//	@EJB
-//	private GenericCrudService gcs;
 
 	public void test() {
 		ejb.namedQuery("Customers.findAll").forEach(e -> {
@@ -29,10 +27,6 @@ public class test implements Serializable {
 		ejb.namedQuery("Admins.findAll").forEach(e -> {
 			System.out.println(e);
 		});
-
-//		gcs.findWithNamedQuery("Customers.findAll").forEach(e -> {
-//			System.out.println(e);
-//		});
 	}
 
 	public void testID() {
