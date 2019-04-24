@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import jpa.Admins;
 import jpa.Customers;
 import jpa.EJBControllerDemo;
 //import jpa.GenericCrudService;
@@ -25,6 +26,10 @@ public class test implements Serializable {
 			System.out.println(e);
 		});
 
+		ejb.namedQuery("Admins.findAll").forEach(e -> {
+			System.out.println(e);
+		});
+
 //		gcs.findWithNamedQuery("Customers.findAll").forEach(e -> {
 //			System.out.println(e);
 //		});
@@ -39,9 +44,11 @@ public class test implements Serializable {
 	}
 
 	public void newUser() {
-		for (int i = 0; i < 19; i++) {
-			Customers c = customerList[i];
-			ejb.create(c);
+		for (Customers customer : customerList) {
+			ejb.create(customer);
+		}
+		for (Admins admin : adminList) {
+			ejb.create(admin);
 		}
 	}
 
@@ -78,5 +85,12 @@ public class test implements Serializable {
 		new Customers(18, "Artonet", "Artson", "artonet.artson@mail.nu", "Artgatan 18,12318,Artonet", "Lösen18"),
 		new Customers(19, "Nittonet", "Nittson", "nittonet.nittson@mail.nu", "Nitgatan 19,12319,Nittonet", "Lösen19"),
 		new Customers(20, "Tjugan", "Tjugson", "tjugan.tjugson@mail.nu", "Tjugatan 20,12320,Tjugan", "Lösen20")};
+
+	Admins[] adminList = new Admins[]{
+		new Admins(1, "Admin.ettan@mail.nu", "Admin1"),
+		new Admins(2, "Admin.tvåan@mail.nu", "Admin2"),
+		new Admins(3, "Admin.trean@mail.nu", "Admin3"),
+		new Admins(4, "Admin.fyran@mail.nu", "Admin4"),
+		new Admins(5, "Admin.femman@mail.nu", "Admin5")};
 
 }

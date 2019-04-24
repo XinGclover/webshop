@@ -35,6 +35,12 @@ public class Admins implements Serializable {
 	public Admins() {
 	}
 
+	public Admins(Integer id, String email, String password) {
+		this.id = id;
+		this.email = email;
+		this.password = password;
+	}
+
 	public Admins(Integer id) {
 		this.id = id;
 	}
