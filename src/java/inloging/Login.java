@@ -5,7 +5,6 @@
  */
 package inloging;
 
-import DAO.LoginDAO;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author sarko
  */
-//@ManagedBean(name = "login", eager = true)
+
 @Named(value = "login")
 @SessionScoped
 public class Login implements Serializable {
@@ -55,7 +54,7 @@ public class Login implements Serializable {
 	}
 
 	//validate login
-	public String validateUsernamePassword() {
+	/*public String validateUsernamePassword() {
 		boolean valid = LoginDAO.validate(user, pwd);
 		if (valid) {
 			HttpSession session = SessionUtils.getSession();
@@ -69,7 +68,7 @@ public class Login implements Serializable {
 							"Please enter correct username and Password"));
 			return "login";
 		}
-	}
+	}*/
         //test for inlog
         public String CheckValidUser(){
 		if(user.equalsIgnoreCase("admin") && pwd.equalsIgnoreCase("admin")){
@@ -88,9 +87,5 @@ public class Login implements Serializable {
 		return "login";
 	}
         
-        /*public String register() {
-		HttpSession session = SessionUtils.getSession();
-		session.invalidate();
-		return "success";
-	}*/
+
 }

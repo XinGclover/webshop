@@ -56,9 +56,9 @@
 
 	<managed-bean>
 		<managed-bean-name>persondetails</managed-bean-name>
-		<managed-bean-class>inloging.persondetails</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
+		<managed-bean-class>inloging.newCustomerRegistration</managed-bean-class>
+	
+		<managed-bean-scope>session</managed-bean-scope></managed-bean>
         
         
 	<navigation-rule>
