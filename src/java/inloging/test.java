@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import jpa.Admins;
 import jpa.Customers;
-import jpa.EJBControllerDemo;
+//import jpa.EJBControllerDemo;
 import jpa.GenericCrudService;
 //import jpa.GenericCrudService;
 
@@ -18,7 +18,7 @@ import jpa.GenericCrudService;
 @SessionScoped
 public class test implements Serializable {
 
-	private final EJBControllerDemo ejb = new EJBControllerDemo();
+//	private final EJBControllerDemo ejb = new EJBControllerDemo();
 
 	@EJB
 	private GenericCrudService crudBean;
@@ -44,7 +44,7 @@ public class test implements Serializable {
 	public void testID() {
 		Map<String, Object> params = new HashMap<>();
 		params.put("id", 5);
-		System.out.println((Customers) ejb.namedQuery("Customers.findById", params));
+//		System.out.println((Customers) ejb.namedQuery("Customers.findById", params));
 	}
 
 	public void newUser() {
@@ -57,14 +57,14 @@ public class test implements Serializable {
 	}
 
 	public void delete() {
-		Customers c = ejb.find(Customers.class, 354);
-		ejb.delete(c);
+//		Customers c = ejb.find(Customers.class, 354);
+//		ejb.delete(c);
 	}
 
 	public void updateUser() {
-		Customers c = ejb.find(Customers.class, 351);
-		c.setAdress("NEW ADRESS!");
-		ejb.update(c);
+//		Customers c = ejb.find(Customers.class, 351);
+//		c.setAdress("NEW ADRESS!");
+//		ejb.update(c);
 
 	}
 

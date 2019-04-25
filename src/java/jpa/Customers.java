@@ -51,13 +51,20 @@ public class Customers implements Serializable {
 
 	public Customers(Integer id, String firstname, String lastname, String email,
 		String adress, String password) {
-
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.adress = adress;
 		this.password = password;
 		this.email = email;
+	}
+
+	public Customers(String firstName, String lastName, String email, String adress, String password) {
+		this.firstname = firstName;
+		this.lastname = lastName;
+		this.email = email;
+		this.adress = adress;
+		this.password = password;
 	}
 
 	public String getEmail() {
