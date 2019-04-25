@@ -15,6 +15,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.persistence.NoResultException;
 import jpa.Customers;
 import jpa.GenericCrudService;
+import java.lang.IndexOutOfBoundsException;
 
 /**
  *
@@ -152,7 +153,7 @@ public class BeanController implements Serializable {
 //                sessionCustomer = (Customers)query.getSingleResult();
 //			em.close();
 //			emf.close();
-		} catch (NoResultException | NullPointerException e) {
+ 		} catch (NoResultException | NullPointerException | IndexOutOfBoundsException e1) {
 
 			System.out.println("There is no such Customer");
 
@@ -164,10 +165,15 @@ public class BeanController implements Serializable {
 			System.out.println("there is a customer with that name and password!");
 
 		} else {
+                    try{
 			System.out.println("sesh: " + sessionCustomer.getPassword());
 			System.out.println("pwd: " + pwd);
 			System.out.println("Wrong Password");
-		}
+                    }
+                    catch(NullPointerException | IndexOutOfBoundsException e2){
+                        System.out.println("There is no such Customer with that email");
+                    }
+                    }
 
 	}
 
