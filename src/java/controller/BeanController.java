@@ -179,7 +179,6 @@ public class BeanController implements Serializable {
 
 	//Registers the new user to the database 
 	public void registerNewUser() {
-
+		crudBean.create(new Customers(fname, name, email, paddress, pwd));
 	}
-
 }
