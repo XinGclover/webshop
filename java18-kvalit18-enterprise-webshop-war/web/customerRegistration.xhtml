@@ -12,35 +12,28 @@
 	<f:view>
 	    <center>
                 <h:form>
-		    <h:panelGrid width="475px" bgcolor="#e6edfd" columns="2" border="0">
+		    <h:panelGrid bgcolor="#e6edfd" columns="2" border="0">
 			<f:facet name="header">
 			    <h:outputText value="Customer Registration"/>
 			</f:facet>
 
-			<h:outputText value="E-Mail: "  />					
-                        <h:inputText id="email" value="#{BeanController.email}" />
+			<h:outputText value="E-Mail:"/>					
+                        <h:inputText id="email" value="#{BeanController.email}"/>
 
-			<h:outputText value="Password: "/>
-                        <h:inputSecret id="password" value="#{BeanController.password}" />
+			<h:outputText value="Password:"/>
+                        <h:inputSecret id="password" value="#{BeanController.password}"/>
 
+			<h:outputText value="Confirm Password:"/>
+                        <h:inputSecret id="confirmPassword" value="#{BeanController.confirmPassword}"/>
 
-			<h:outputText value="Confirm Password: "/>
-                        <h:inputSecret id="confirmPassword" value="#{BeanController.confirmPassword}" />
+			<h:outputText value="First Name:"/>					
+                        <h:inputText id="firstName" value="#{BeanController.firstName}"/>
 
+			<h:outputText value="Last Name:"/>					
+                        <h:inputText id="lastName" value="#{BeanController.lastName}"/>
 
-			<h:outputText value="First Name: " />					
-			<h:panelGroup>
-                            <h:inputText id="firstName" value="#{BeanController.firstName}" required="true">
-				<f:validateLength minimum="3" maximum="20"/>
-			    </h:inputText><f:verbatim><br/></f:verbatim>
-			    <h:message for="firstName"/>
-			</h:panelGroup>
-
-			<h:outputText value="Last Name: "  />					
-                        <h:inputText id="lastName" value="#{BeanController.lastName}" />
-
-			<h:outputText value="Address: " />
-                        <h:inputText id="address" value="#{BeanController.address}" /><h:column/>				
+			<h:outputText value="Address:"/>
+                        <h:inputText id="address" value="#{BeanController.address}"/><h:column/>				
 
 			<h:panelGroup>
                             <h:commandButton value="Register" action="#{BeanController.registerCustomer()}"/>

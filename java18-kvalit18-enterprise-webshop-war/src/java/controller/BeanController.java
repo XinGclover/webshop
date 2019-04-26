@@ -6,16 +6,10 @@
 package controller;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.persistence.NoResultException;
-import jpa.Customers;
-import crud.GenericCrudService;
-import crud.userManagementBean;
-import java.lang.IndexOutOfBoundsException;
+import crud.userManagementBean; 
 
 /**
  *
@@ -25,11 +19,8 @@ import java.lang.IndexOutOfBoundsException;
 @RequestScoped
 public class BeanController implements Serializable {
 
-    @EJB
-    private userManagementBean userManagementBean;
-    
         @EJB
-        private GenericCrudService crudBean; //TAS bort när registercustomer() migreras till user managementbean
+        private userManagementBean userManagementBean;
 
         private String email;
         private String password;
@@ -89,6 +80,7 @@ public class BeanController implements Serializable {
         public void setAddress(String address) {
             this.address = address;
         }
+        
         /**
          * Sends information from the login to EJB layer for database check
          * @return a string that is then used to redirect if success; 
@@ -103,7 +95,6 @@ public class BeanController implements Serializable {
 	//Registers the new user to the database 
 	public String registerCustomer() {
             
-		crudBean.create(new Customers(21, firstName, lastName, email, address, password));
-                return "index";
+            return userManagementBean.register(21, firstName, lastName, email, address, password);
 	}
 }

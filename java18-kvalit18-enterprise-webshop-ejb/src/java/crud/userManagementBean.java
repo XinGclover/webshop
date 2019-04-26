@@ -73,4 +73,10 @@ public class userManagementBean{
     
      
     }
+    
+    public String register(Integer id, String firstName, String lastName, String email, String address, String password) {
+        
+        genericCrudServiceBean.create(new Customers(id, firstName, lastName, email, address, password));
+        return "index";
+    }
 }
