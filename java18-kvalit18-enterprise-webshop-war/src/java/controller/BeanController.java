@@ -95,6 +95,6 @@ public class BeanController implements Serializable {
 	//Registers the new user to the database 
 	public String registerCustomer() {
             
-            return userManagementBean.register(21, firstName, lastName, email, address, password);
+            return userManagementBean.register(firstName, lastName, email, address, password);
 	}
 }

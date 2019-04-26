@@ -19,7 +19,6 @@ import crud.GenericCrudService;
 public class test implements Serializable {
 
 //	private final EJBControllerDemo ejb = new EJBControllerDemo();
-
 	@EJB
 	private GenericCrudService crudBean;
 
@@ -48,24 +47,17 @@ public class test implements Serializable {
 	}
 
 	public void newUser() {
-		for (Customers customer : jpa.FakeData.customerList) {
+		for (Customers customer : jpa.FakeData.CUSTOMERLIST) {
 			crudBean.create(customer);
 		}
-		for (Admins admin : jpa.FakeData.adminList) {
+		for (Admins admin : jpa.FakeData.ADMINLIST) {
 			crudBean.create(admin);
 		}
 	}
 
-	public void delete() {
-//		Customers c = ejb.find(Customers.class, 354);
-//		ejb.delete(c);
-	}
-
-	public void updateUser() {
-//		Customers c = ejb.find(Customers.class, 351);
-//		c.setAdress("NEW ADRESS!");
-//		ejb.update(c);
-
+	public void deleteAll() {
+		crudBean.nuke(Customers.class);
+		crudBean.nuke(Admins.class);
 	}
 
 }
