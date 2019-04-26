@@ -46,14 +46,6 @@ public class userManagementBean{
 			success = true;
 			System.out.println(sessionCustomer.toString());
 
-//                EntityManagerFactory emf = Persistence.createEntityManagerFactory("webshopPU");
-//                EntityManager em = emf.createEntityManager();
-//                Query query = em.createNamedQuery("Customers.findByEmail");
-//                query.setParameter("email", email);
-//                sessionCustomer = (Customers)query.getSingleResult();
-//                em.close();
-//                emf.close();
-
  		} catch (NoResultException | NullPointerException | IndexOutOfBoundsException e1) {
                                         
 

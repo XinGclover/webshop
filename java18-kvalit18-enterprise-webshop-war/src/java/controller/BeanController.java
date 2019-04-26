@@ -89,12 +89,11 @@ public class BeanController implements Serializable {
         public void setAddress(String address) {
             this.address = address;
         }
+        /**
+         * Sends information from the login to EJB layer for database check
+         * @return a string that is then used to redirect if success; 
+         **/
         
-                /**
-                 * 
-                 * Sends information from the login to EJB layer for database check
-                 * @return a string that is then used to redirect if success; 
-                 */
 	public String checkValidUser() {
                
            return userManagementBean.login(email, password,login); 
