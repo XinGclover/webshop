@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package crud;
 
 import java.util.HashMap;
@@ -36,9 +31,7 @@ public class userManagementBean {
         int userType = 0;   
 
         Customers sessionCustomer = null;
-        Admins sessionAdmin = null;
-        
-           
+        Admins sessionAdmin = null;         
         
         try {
 
@@ -66,6 +59,7 @@ public class userManagementBean {
             } catch (NoResultException | NullPointerException | IndexOutOfBoundsException e2) {
 
                 System.out.println("There is no User matching that email ");
+                return "incorrect"; 
             }
 
         }
@@ -81,6 +75,11 @@ public class userManagementBean {
             
 
         } else {
+            
+            
+                //return "incorrect"; 
+                //^this code has to go in when the trycatch below is deleted after Front end messages are ready^
+            
             try {    //TEST PRINT DELETE BEFORE LAUNCH 
                 System.out.println("sesh: " + sessionCustomer.getPassword());
                 System.out.println("pwd: " + password);
@@ -88,6 +87,7 @@ public class userManagementBean {
 
             } catch (NullPointerException | IndexOutOfBoundsException e2) {
                 //catch for the test pring on the catch block 
+                return "incorrect"; 
             }
         }
         return null;

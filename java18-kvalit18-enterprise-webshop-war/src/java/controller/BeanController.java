@@ -6,16 +6,14 @@
 package controller;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.persistence.NoResultException;
 import jpa.Customers;
 import crud.GenericCrudService;
 import crud.userManagementBean;
-import java.lang.IndexOutOfBoundsException;
+
 
 /**
  *
@@ -38,6 +36,9 @@ public class BeanController implements Serializable {
         private String lastName;
         private String address;
         private boolean login; 
+        private boolean premium = false;  
+        private boolean admin = false; 
+        
 
         public BeanController() {
         }
@@ -95,8 +96,24 @@ public class BeanController implements Serializable {
          **/
         
 	public String checkValidUser() {
-               
-           return userManagementBean.login(email, password,login); 
+           
+            String response = userManagementBean.login(email, password,login); 
+            
+            switch(response) {
+                    
+                case "admin": 
+                    admin= true; 
+                    return response; 
+                    
+                case "store": 
+                    return response;
+                    
+                case "incorrect":
+                     //FACES Message saying that either email or pw are wrong                   
+                    return null;     
+        }   
+            
+           return response;  
 
 	}
 
