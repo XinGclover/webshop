@@ -18,67 +18,7 @@ import jpa.Customers;
  */
 @Stateless
 @LocalBean
-public class userManagementBean {
-
-    public String login(String email, String password,b) {
-        
-      
-        
-        boolean success = false;
-
-		Customers sessionCustomer = null;
-		try {
-
-			//crudBean EJB method invocation
-			Map<String, Object> params = new HashMap<>();
-			params.put("email", email);
-
-			sessionCustomer = (Customers) crudBean.findWithNamedQuery("Customers.findByEmail", params).get(0);
-
-			success = true;
-			System.out.println(sessionCustomer.toString());
-
-			//                EntityManagerFactory emf = Persistence.createEntityManagerFactory("webshopPU");
-//                EntityManager em = emf.createEntityManager();
-//                Query query = em.createNamedQuery("Customers.findByEmail");
-//                query.setParameter("email", email);
-//                sessionCustomer = (Customers)query.getSingleResult();
-//			em.close();
-//			emf.close();
- 		} catch (NoResultException | NullPointerException | IndexOutOfBoundsException e1) {
-
-			System.out.println("There is no such Customer");
-
-		}
-
-		if (success && sessionCustomer.getPassword().equals(pwd)) {
-
-			login = true;
-			System.out.println("there is a customer with that name and password!");
-
-		} else {
-                    try{
-			System.out.println("sesh: " + sessionCustomer.getPassword());
-			System.out.println("pwd: " + pwd);
-			System.out.println("Wrong Password");
-                    }
-                    catch(NullPointerException | IndexOutOfBoundsException e2){
-                        System.out.println("There is no such Customer with that email");
-                    }
-                    }
-
-        
-        
-        return null;
-    
-    
-    
-    
-    
-    
-    }
-    
-    
+public class userManagementBean{
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
@@ -98,7 +38,7 @@ public class userManagementBean {
 			Map<String, Object> params = new HashMap<>();
 			params.put("email", email);
 
-			sessionCustomer = (Customers) crudBean.findWithNamedQuery("Customers.findByEmail", params).get(0);
+			//sessionCustomer = (Customers) crudBean.findWithNamedQuery("Customers.findByEmail", params).get(0);
 
 			success = true;
 			System.out.println(sessionCustomer.toString());
