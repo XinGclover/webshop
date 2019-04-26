@@ -14,6 +14,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.persistence.NoResultException;
 import jpa.Customers;
 import crud.GenericCrudService;
+import crud.userManagementBean;
 import java.lang.IndexOutOfBoundsException;
 
 /**
@@ -23,9 +24,12 @@ import java.lang.IndexOutOfBoundsException;
 @Named(value = "BeanController")
 @RequestScoped
 public class BeanController implements Serializable {
+
+    @EJB
+    private userManagementBean userManagementBean;
     
         @EJB
-        private GenericCrudService crudBean;
+        private GenericCrudService crudBean; //TAS bort när registercustomer() migreras till user managementbean
 
         private String email;
         private String password;
@@ -33,10 +37,8 @@ public class BeanController implements Serializable {
         private String firstName;
         private String lastName;
         private String address;
+        private boolean login; 
 
-        /**
-         * Creates a new instance of BeanController
-         */
         public BeanController() {
         }
 
@@ -88,57 +90,15 @@ public class BeanController implements Serializable {
             this.address = address;
         }
         
-        //	@PostConstruct
-        //	public void init() {
-        //		crudBean = new GenericCrudServiceBean();
-        //	}
-
-
-	//checks the input fields against the database and return a bool simple login
+                /**
+                 * 
+                 * Sends information from the login to EJB layer for database check
+                 * @return a string that is then used to redirect if success; 
+                 */
 	public String checkValidUser() {
+               
+           return userManagementBean.login(email, password,login); 
 
-		boolean success = false;
-
-		Customers sessionCustomer = null;
-		try {
-
-			//crudBean EJB method invocation
-			Map<String, Object> params = new HashMap<>();
-			params.put("email", email);
-
-			sessionCustomer = (Customers) crudBean.findWithNamedQuery("Customers.findByEmail", params).get(0);
-
-			success = true;
-			System.out.println(sessionCustomer.toString());
-
-//                EntityManagerFactory emf = Persistence.createEntityManagerFactory("webshopPU");
-//                EntityManager em = emf.createEntityManager();
-//                Query query = em.createNamedQuery("Customers.findByEmail");
-//                query.setParameter("email", email);
-//                sessionCustomer = (Customers)query.getSingleResult();
-//                em.close();
-//                emf.close();
-
- 		} catch (NoResultException | NullPointerException | IndexOutOfBoundsException e1) {
-
-			System.out.println("There is no such Customer");
-		}
-
-		if (success && sessionCustomer.getPassword().equals(password)) {
-                    
-			System.out.println("there is a customer with that name and password!");
-                        return "store";
-
-		} else {
-                    try{
-			System.out.println("sesh: " + sessionCustomer.getPassword());
-			System.out.println("pwd: " + password);
-			System.out.println("Wrong Password");
-                    } catch(NullPointerException | IndexOutOfBoundsException e2){
-                        System.out.println("There is no such Customer with that email");
-                    }
-                }
-                return null;
 	}
 
 	//Registers the new user to the database 

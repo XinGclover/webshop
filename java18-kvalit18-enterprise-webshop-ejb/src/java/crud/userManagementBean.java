@@ -7,6 +7,7 @@ package crud;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.NoResultException;
@@ -20,16 +21,18 @@ import jpa.Customers;
 @LocalBean
 public class userManagementBean{
 
+    @EJB
+    private GenericCrudService genericCrudServiceBean;
+
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
     public String login(String email, String password, boolean login) {
-        
-        
-        
-        
-             
-        boolean success = false;
+            
+                int userType = 0 ; 
+                
+                
+		boolean success = false;
 
 		Customers sessionCustomer = null;
 		try {
@@ -38,43 +41,41 @@ public class userManagementBean{
 			Map<String, Object> params = new HashMap<>();
 			params.put("email", email);
 
-			//sessionCustomer = (Customers) crudBean.findWithNamedQuery("Customers.findByEmail", params).get(0);
+			sessionCustomer = (Customers) genericCrudServiceBean.findWithNamedQuery("Customers.findByEmail", params).get(0);
 
 			success = true;
 			System.out.println(sessionCustomer.toString());
-                        
+
 //                EntityManagerFactory emf = Persistence.createEntityManagerFactory("webshopPU");
 //                EntityManager em = emf.createEntityManager();
 //                Query query = em.createNamedQuery("Customers.findByEmail");
 //                query.setParameter("email", email);
 //                sessionCustomer = (Customers)query.getSingleResult();
-//			em.close();
-//			emf.close();
+//                em.close();
+//                emf.close();
+
  		} catch (NoResultException | NullPointerException | IndexOutOfBoundsException e1) {
+                                        
 
 			System.out.println("There is no such Customer");
-
 		}
 
 		if (success && sessionCustomer.getPassword().equals(password)) {
-
-			login = true;
+                    
 			System.out.println("there is a customer with that name and password!");
+                        return "store";
 
 		} else {
                     try{
 			System.out.println("sesh: " + sessionCustomer.getPassword());
 			System.out.println("pwd: " + password);
 			System.out.println("Wrong Password");
-                    }
-                    catch(NullPointerException | IndexOutOfBoundsException e2){
+                    
+                    } catch(NullPointerException | IndexOutOfBoundsException e2){
                         System.out.println("There is no such Customer with that email");
                     }
-                    }
-
-        
-        
-        return null;
+                }
+                return null;
     
     
     
