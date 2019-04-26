@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 @Stateless
@@ -14,11 +12,8 @@ import javax.persistence.Query;
 //@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class GenericCrudServiceBean implements GenericCrudService {
 
-	@PersistenceContext(unitName = "webshopPU")
+	@PersistenceContext(name = "samplePU")
 	private EntityManager em;
-
-	@PersistenceUnit
-	private EntityManagerFactory emf;
 
 	@Override
 	public <T> T create(T t) {

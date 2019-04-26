@@ -6,7 +6,6 @@
 package controller;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.ejb.EJB;
@@ -21,116 +20,82 @@ import java.lang.IndexOutOfBoundsException;
  *
  * @author carlo
  */
-@Named(value = "loginController")
+@Named(value = "BeanController")
 @RequestScoped
 public class BeanController implements Serializable {
+    
+        @EJB
+        private GenericCrudService crudBean;
 
-	/**
-	 * Creates a new instance of LoginController
-	 */
-	public BeanController() {
+        private String email;
+        private String password;
+        private String confirmPassword;
+        private String firstName;
+        private String lastName;
+        private String address;
 
-	}
-	@EJB
-	private GenericCrudService crudBean;
+        /**
+         * Creates a new instance of BeanController
+         */
+        public BeanController() {
+        }
 
-	private String name;
-	private String fname;
-	private String paddress;
-	private String email;
-	private Date dob;
-	private Long phoneno;
-	private Long mobileno;
-	private String pwd;
-	private boolean login = false;
+        public String getEmail() {
+            return email;
+        }
 
-//	@PostConstruct
-//	public void init() {
-//		crudBean = new GenericCrudServiceBean();
-//	}
-	public GenericCrudService getCrud() {
-		return crudBean;
-	}
+        public void setEmail(String email) {
+            this.email = email;
+        }
 
-	public void setCrud(GenericCrudService crud) {
-		this.crudBean = crud;
-	}
+        public String getPassword() {
+            return password;
+        }
 
-	public String getEmail() {
-		return email;
-	}
+        public void setPassword(String password) {
+            this.password = password;
+        }
+        
+        public String getConfirmPassword() {
+            return confirmPassword;
+        }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+        public void setConfirmPassword(String confirmPassword) {
+            this.confirmPassword = confirmPassword;
+        }
 
-	public String getPwd() {
-		return pwd;
-	}
+        public String getFirstName() {
+            return firstName;
+        }
 
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
 
-	public String getName() {
-		return name;
-	}
+        public String getLastName() {
+            return lastName;
+        }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
 
-	public String getFname() {
-		return fname;
-	}
+        public String getAddress() {
+            return address;
+        }
 
-	public void setFname(String fname) {
-		this.fname = fname;
+        public void setAddress(String address) {
+            this.address = address;
+        }
+        
+        //	@PostConstruct
+        //	public void init() {
+        //		crudBean = new GenericCrudServiceBean();
+        //	}
 
-	}
-
-	public String getPaddress() {
-		return paddress;
-	}
-
-	public void setPaddress(String paddress) {
-		this.paddress = paddress;
-	}
-
-	public String getSex() {
-		return email;
-	}
-
-	public void setSex(String sex) {
-		this.email = sex;
-	}
-
-	public Date getDob() {
-		return dob;
-	}
-
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-
-	public Long getPhoneno() {
-		return phoneno;
-	}
-
-	public void setPhoneno(Long phoneno) {
-		this.phoneno = phoneno;
-	}
-
-	public Long getMobileno() {
-		return mobileno;
-	}
-
-	public void setMobileno(Long mobileno) {
-		this.mobileno = mobileno;
-	}
 
 	//checks the input fields against the database and return a bool simple login
-	public void checkValiduser() {
+	public String checkValidUser() {
 
 		boolean success = false;
 
@@ -146,39 +111,40 @@ public class BeanController implements Serializable {
 			success = true;
 			System.out.println(sessionCustomer.toString());
 
-			//                EntityManagerFactory emf = Persistence.createEntityManagerFactory("webshopPU");
+//                EntityManagerFactory emf = Persistence.createEntityManagerFactory("webshopPU");
 //                EntityManager em = emf.createEntityManager();
 //                Query query = em.createNamedQuery("Customers.findByEmail");
 //                query.setParameter("email", email);
 //                sessionCustomer = (Customers)query.getSingleResult();
-//			em.close();
-//			emf.close();
+//                em.close();
+//                emf.close();
+
  		} catch (NoResultException | NullPointerException | IndexOutOfBoundsException e1) {
 
 			System.out.println("There is no such Customer");
-
 		}
 
-		if (success && sessionCustomer.getPassword().equals(pwd)) {
-
-			login = true;
+		if (success && sessionCustomer.getPassword().equals(password)) {
+                    
 			System.out.println("there is a customer with that name and password!");
+                        return "store";
 
 		} else {
                     try{
 			System.out.println("sesh: " + sessionCustomer.getPassword());
-			System.out.println("pwd: " + pwd);
+			System.out.println("pwd: " + password);
 			System.out.println("Wrong Password");
-                    }
-                    catch(NullPointerException | IndexOutOfBoundsException e2){
+                    } catch(NullPointerException | IndexOutOfBoundsException e2){
                         System.out.println("There is no such Customer with that email");
                     }
-                    }
-
+                }
+                return null;
 	}
 
 	//Registers the new user to the database 
-	public void registerNewUser() {
-		crudBean.create(new Customers(fname, name, email, paddress, pwd));
+	public String registerCustomer() {
+            
+		crudBean.create(new Customers(21, firstName, lastName, email, address, password));
+                return "index";
 	}
 }

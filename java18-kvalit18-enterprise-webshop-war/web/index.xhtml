@@ -8,33 +8,28 @@
     </h:head>
     <h:body>
 	<center><h:form>
-		<h:panelGrid width="375px" bgcolor="#e6edfd" columns="2" border="0">
+		<h:panelGrid width="375px" bgcolor="#e6edfd" columns="3" border="0">
 		    <f:facet name="header">
 			<h:outputText value="User Login"/>
 		    </f:facet>
 
-		    <h:outputText value="Enter email:"/>
-		    <h:inputText id="username" value="#{loginController.email}" />
-		    <h:message for="username"></h:message>
-		    <br></br><br></br>
+		    <h:outputText value="E-Mail:"/>
+                    <h:inputText id="email" value="#{BeanController.email}" />
+		    <h:message for="email"></h:message>
 
-		    <h:outputText value="Enter Paswrd: "/>
-		    <h:inputSecret id="password" value="#{loginController.pwd}" />
-		    <h:message for="password"></h:message>
-		    <br></br><br></br>
+		    <h:outputText value="Password: "/>
+                    <h:inputSecret id="password" value="#{BeanController.password}" />
+                    <h:message for="password"></h:message><h:column/>
 
-		    <h:outputText value=" "/>
-                    <h:commandButton value="Login" action="#{loginController.checkValiduser()}" />
-
-		    <h:outputText value="New User?"/>					
-                    
-		    <h:commandLink value="Register Here" action="newCustomerRegistration" />
-
-		    <!--testknappar-->
+                    <h:panelGroup>
+                    <h:commandButton value="Login" action="#{BeanController.checkValidUser()}" />	
+		    <h:commandLink value="Register Here" action="customerRegistration" />
+                    </h:panelGroup>
+		</h:panelGrid>
+                <!--testknappar-->
 		    <h:commandButton value="print db posts to console" action="#{test.test()}"></h:commandButton>
 		    <h:commandButton value="generate fake data" action="#{test.newUser()}"></h:commandButton>
-		    <!--test-->
-		</h:panelGrid>
+                <!--test-->
 	    </h:form>
 	</center>
 
