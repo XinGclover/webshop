@@ -10,13 +10,14 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import crud.userManagementBean; 
+import javax.enterprise.context.SessionScoped;
 
 /**
  *
  * @author carlo
  */
 @Named(value = "BeanController")
-@RequestScoped
+@SessionScoped
 public class BeanController implements Serializable {
 
         @EJB
@@ -25,8 +26,8 @@ public class BeanController implements Serializable {
         private String email;
         private String password;
         private String confirmPassword;
-        private String firstName;
-        private String lastName;
+        private String firstName = "firstNamePlaceholder";
+        private String lastName = "lastNamePlaceholder";
         private String address;
         private boolean login; 
 

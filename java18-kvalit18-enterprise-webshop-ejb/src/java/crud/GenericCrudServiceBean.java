@@ -78,7 +78,6 @@ public class GenericCrudServiceBean implements GenericCrudService {
 
 	@Override
 	public <T> void nuke(Class<T> type) {
-		
 		findWithNativeQuery("SELECT * from " + type.getSimpleName(), type).forEach(e -> {
 			delete(e);
 		});

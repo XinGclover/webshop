@@ -22,14 +22,14 @@
                     <h:message for="password"></h:message><h:column/>
 
                     <h:panelGroup>
-                    <h:commandButton value="Login" action="#{BeanController.checkValidUser()}" />	
-		    <h:commandLink value="Register Here" action="customerRegistration" />
+			<h:commandButton value="Login" action="#{BeanController.checkValidUser()}" />	
+			<h:commandLink value="Register Here" action="customerRegistration" />
                     </h:panelGroup>
 		</h:panelGrid>
                 <!--testknappar-->
-		    <h:commandButton value="generate fake data" action="#{test.newUser()}"></h:commandButton>
-		    <h:commandButton value="print db posts to console" action="#{test.test()}"></h:commandButton>
-		    <h:commandButton value="delete all" action="#{test.deleteAll()}"></h:commandButton>
+		<h:commandButton value="generate fake data" action="#{test.newUser()}"></h:commandButton>
+		<h:commandButton value="print db posts to console" action="#{test.test()}"></h:commandButton>
+		<h:commandButton value="delete all" action="#{test.deleteAll()}"></h:commandButton>
                 <!--test-->
 	    </h:form>
 	</center>
