@@ -14,22 +14,21 @@ import jpa.Customers;
  */
 @Named(value = "product")
 @Dependent
-public class Product {
+public class ProductCatalogue {
 
 	@EJB
 	private GenericCrudService crud;
 
+	//temporary listing customers, will be products when there is data
 	private List<Customers> productList = new ArrayList<>();
 
-	public Product() {
+	public ProductCatalogue() {
 	}
 
 	public List<Customers> getProductList() {
 
 		crud.findWithNamedQuery("Customers.findAll").forEach(e -> {
-
 			productList.add((Customers) e);
-
 		});
 		return productList;
 	}

@@ -16,7 +16,7 @@ import crud.GenericCrudService;
 
 @Named(value = "test")
 @SessionScoped
-public class test implements Serializable {
+public class TestButtons implements Serializable {
 
 //	private final EJBControllerDemo ejb = new EJBControllerDemo();
 	@EJB
