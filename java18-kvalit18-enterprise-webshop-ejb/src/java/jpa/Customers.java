@@ -17,30 +17,29 @@ import javax.persistence.Table;
 	@NamedQuery(name = "Customers.findAll", query = "SELECT c FROM Customers c")
 	, @NamedQuery(name = "Customers.findById", query = "SELECT c FROM Customers c WHERE c.id = :id")
 	, @NamedQuery(name = "Customers.findByTotalMoneySpent", query = "SELECT c FROM Customers c WHERE c.totalMoneySpent = :totalMoneySpent")
-	, @NamedQuery(name = "Customers.findByFirstname", query = "SELECT c FROM Customers c WHERE c.firstname = :firstname")
-	, @NamedQuery(name = "Customers.findByLastname", query = "SELECT c FROM Customers c WHERE c.lastname = :lastname")
+	, @NamedQuery(name = "Customers.findByFirstName", query = "SELECT c FROM Customers c WHERE c.firstName = :firstName")
+	, @NamedQuery(name = "Customers.findByLastName", query = "SELECT c FROM Customers c WHERE c.lastName = :lastName")
 	, @NamedQuery(name = "Customers.findByPremium", query = "SELECT c FROM Customers c WHERE c.premium = :premium")
-	, @NamedQuery(name = "Customers.findByAdress", query = "SELECT c FROM Customers c WHERE c.adress = :adress")
+	, @NamedQuery(name = "Customers.findByAddress", query = "SELECT c FROM Customers c WHERE c.address = :address")
 	, @NamedQuery(name = "Customers.findByPassword", query = "SELECT c FROM Customers c WHERE c.password = :password")
 	, @NamedQuery(name = "Customers.findByEmail", query = "SELECT c FROM Customers c WHERE c.email = :email")})
 public class Customers implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Basic(optional = false)
-	@Column(name = "ID", nullable = false)
+	@Column(name = "ID", updatable = false, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@Column(name = "TOTAL_MONEY_SPENT")
 	private Integer totalMoneySpent;
 	@Column(name = "FIRSTNAME", length = 20)
-	private String firstname;
+	private String firstName;
 	@Column(name = "LASTNAME", length = 20)
-	private String lastname;
+	private String lastName;
 	@Column(name = "PREMIUM")
 	private Boolean premium;
 	@Column(name = "ADDRESS", length = 50)
-	private String adress;
+	private String address;
 	@Column(name = "PASSWORD", length = 32)
 	private String password;
 	@Column(name = "EMAIL", length = 32)
@@ -48,22 +47,26 @@ public class Customers implements Serializable {
 
 	public Customers() {
 	}
-
-	public Customers(Integer id, String firstname, String lastname, String email,
-		String adress, String password) {
+        
+        public Customers(Integer id) {
 		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.adress = adress;
+	}
+
+	public Customers(Integer id, String firstName, String lastName, String email,
+		String address, String password) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
 		this.password = password;
 		this.email = email;
 	}
 
-	public Customers(String firstName, String lastName, String email, String adress, String password) {
-		this.firstname = firstName;
-		this.lastname = lastName;
+	public Customers(String firstName, String lastName, String email, String address, String password) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
-		this.adress = adress;
+		this.address = address;
 		this.password = password;
 	}
 
@@ -73,10 +76,6 @@ public class Customers implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public Customers(Integer id) {
-		this.id = id;
 	}
 
 	public Integer getId() {
@@ -95,20 +94,20 @@ public class Customers implements Serializable {
 		this.totalMoneySpent = totalMoneySpent;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public Boolean getPremium() {
@@ -119,12 +118,12 @@ public class Customers implements Serializable {
 		this.premium = premium;
 	}
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String address) {
-		this.adress = address;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getPassword() {
@@ -154,7 +153,7 @@ public class Customers implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("jpa.Customers[ id=%s email=%s password=%s firstname=%s lastname=%s adress=%s totalMoneySpent=%s premium=%s]", id, email, password, firstname, lastname, adress, totalMoneySpent, premium);
+		return String.format("jpa.Customers[ id=%s email=%s password=%s firstName=%s lastName=%s address=%s totalMoneySpent=%s premium=%s]", id, email, password, firstName, lastName, address, totalMoneySpent, premium);
 
 	}
 

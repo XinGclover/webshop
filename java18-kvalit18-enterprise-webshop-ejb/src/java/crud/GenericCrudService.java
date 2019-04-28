@@ -1,10 +1,11 @@
-package jpa;
+package crud;
 
 import java.util.List;
 import java.util.Map;
 
-
 public interface GenericCrudService {
+
+	public <T> void nuke(Class<T> type);
 
 	public <T> T create(T t);
 

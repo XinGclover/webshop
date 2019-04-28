@@ -1,12 +1,11 @@
-package jpa;
+package crud;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 @Stateless
@@ -14,11 +13,8 @@ import javax.persistence.Query;
 //@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class GenericCrudServiceBean implements GenericCrudService {
 
-	@PersistenceContext(unitName = "webshopPU")
+	@PersistenceContext(name = "webshopPU")
 	private EntityManager em;
-
-	@PersistenceUnit
-	private EntityManagerFactory emf;
 
 	@Override
 	public <T> T create(T t) {
@@ -44,7 +40,6 @@ public class GenericCrudServiceBean implements GenericCrudService {
 
 	@Override
 	public List findWithNamedQuery(String queryName) {
-		System.out.println("hello");
 		return em.createNamedQuery(queryName).getResultList();
 	}
 
@@ -68,6 +63,7 @@ public class GenericCrudServiceBean implements GenericCrudService {
 		if (resultLimit > 0) {
 			query.setMaxResults(resultLimit);
 		}
+
 		parameters.entrySet().forEach((entry) -> {
 			query.setParameter(entry.getKey(), entry.getValue());
 		});
@@ -78,5 +74,13 @@ public class GenericCrudServiceBean implements GenericCrudService {
 	@SuppressWarnings("unchecked")
 	public <T> List<T> findWithNativeQuery(String sql, Class<T> type) {
 		return em.createNativeQuery(sql, type).getResultList();
+	}
+
+	@Override
+	public <T> void nuke(Class<T> type) {
+		
+		findWithNativeQuery("SELECT * from " + type.getSimpleName(), type).forEach(e -> {
+			delete(e);
+		});
 	}
 }
