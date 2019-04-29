@@ -35,6 +35,15 @@ public class BeanController implements Serializable {
         private String firstName;
         private String lastName;
         private String address;
+        private String loginMessage; 
+
+    public String getLoginMessage() {
+        return loginMessage;
+    }
+
+    public void setLoginMessage(String loginMessage) {
+        this.loginMessage = loginMessage;
+    }
         private boolean login; 
         private boolean premium = false;  
         private boolean admin = false; 
@@ -109,7 +118,7 @@ public class BeanController implements Serializable {
                     return response;
                     
                 case "incorrect":
-                     //FACES Message saying that either email or pw are wrong                   
+                     loginMessage = "Incorrect email or password"; 
                     return null;     
         }   
             

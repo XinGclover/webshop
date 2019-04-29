@@ -20,6 +20,9 @@
 		    <h:outputText value="Password: "/>
                     <h:inputSecret id="password" value="#{BeanController.password}" />
                     <h:message for="password"></h:message><h:column/>
+                    
+                    
+                    <h:outputText value="#{BeanController.loginMessage}"/>
 
                     <h:panelGroup>
                     <h:commandButton value="Login" action="#{BeanController.checkValidUser()}" />	

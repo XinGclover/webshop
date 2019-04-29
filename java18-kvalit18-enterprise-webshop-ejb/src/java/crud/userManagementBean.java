@@ -16,10 +16,13 @@ import jpa.Customers;
 @Stateless
 @LocalBean
 public class userManagementBean {
-    
+
     //user identifiers
     private final int ADMIN = 1;
     private final int CUSTOMER = 2;
+    private final String adminS = "admin";
+    private final String store = "store";
+    private final String incorrect = "incorrect";
 
     @EJB
     private GenericCrudService genericCrudServiceBean;
@@ -28,11 +31,11 @@ public class userManagementBean {
     // "Insert Code > Add Business Method")
     public String login(String email, String password, boolean login) {
 
-        int userType = 0;   
+        int userType = 0;
 
         Customers sessionCustomer = null;
-        Admins sessionAdmin = null;         
-        
+        Admins sessionAdmin = null;
+
         try {
 
             //crudBean EJB method invocation
@@ -59,7 +62,7 @@ public class userManagementBean {
             } catch (NoResultException | NullPointerException | IndexOutOfBoundsException e2) {
 
                 System.out.println("There is no User matching that email ");
-                return "incorrect"; 
+                return incorrect;
             }
 
         }
@@ -67,19 +70,16 @@ public class userManagementBean {
         if (userType == CUSTOMER && sessionCustomer.getPassword().equals(password)) {
 
             System.out.println("there is a customer with that name and password!");
-            return "store";
+            return store;
 
         } else if (userType == ADMIN && sessionAdmin.getPassword().equals(password)) {
-            System.out.println("there is a Admin with that name and password!");
-             return "admin";
-            
+            System.out.println("there is an Admin with that name and password!");
+            return adminS;
 
         } else {
-            
-            
-                //return "incorrect"; 
-                //^this code has to go in when the trycatch below is deleted after Front end messages are ready^
-            
+
+            //return "incorrect"; 
+            //^this code has to go in when the trycatch below is deleted after Front end messages are ready^
             try {    //TEST PRINT DELETE BEFORE LAUNCH 
                 System.out.println("sesh: " + sessionCustomer.getPassword());
                 System.out.println("pwd: " + password);
@@ -87,10 +87,10 @@ public class userManagementBean {
 
             } catch (NullPointerException | IndexOutOfBoundsException e2) {
                 //catch for the test pring on the catch block 
-                return "incorrect"; 
+                return incorrect;
             }
         }
-        return null;
+        return incorrect;
 
     }
 }
