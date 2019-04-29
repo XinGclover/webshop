@@ -27,8 +27,7 @@ public class Customers implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Basic(optional = false)
-	@Column(name = "ID", nullable = false)
+	@Column(name = "ID", updatable = false, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@Column(name = "TOTAL_MONEY_SPENT")

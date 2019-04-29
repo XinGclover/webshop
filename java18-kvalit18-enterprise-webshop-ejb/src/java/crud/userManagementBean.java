@@ -24,8 +24,8 @@ public class userManagementBean {
     private final String store = "store";
     private final String incorrect = "incorrect";
 
-    @EJB
-    private GenericCrudService genericCrudServiceBean;
+	@EJB
+	private GenericCrudService genericCrudServiceBean;
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
@@ -93,4 +93,22 @@ public class userManagementBean {
         return incorrect;
 
     }
+	
+
+	public String register(Integer id, String firstName, String lastName, String email, String address, String password) {
+
+		genericCrudServiceBean.create(new Customers(id, firstName, lastName, email, address, password));
+		return "index";
+	}
+
+	public String register(String firstName, String lastName, String email, String address, String password) {
+		Customers customer = new Customers();
+		customer.setFirstName(firstName);
+		customer.setLastName(lastName);
+		customer.setEmail(email);
+		customer.setAddress(address);
+		customer.setPassword(password);
+		genericCrudServiceBean.create(customer);
+		return "index";
+	}
 }
