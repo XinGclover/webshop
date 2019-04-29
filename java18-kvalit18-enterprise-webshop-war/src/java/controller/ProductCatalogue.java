@@ -1,35 +1,61 @@
 package controller;
 
 import crud.GenericCrudService;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 import jpa.Customers;
 
 /**
  *
  * @author nikalsNy
  */
-@Named(value = "product")
-@Dependent
-public class ProductCatalogue {
+@Named(value = "ProductCatalogue")
+@SessionScoped
+public class ProductCatalogue implements Serializable {
+	
+	//temporary listing customers, will be products when there is data
 
 	@EJB
 	private GenericCrudService crud;
-
-	//temporary listing customers, will be products when there is data
+	private String searchedString;
+	private List<Customers> allCustomers = new ArrayList<>();
 	private List<Customers> productList = new ArrayList<>();
 
-	public ProductCatalogue() {
+	public void ProductCatalogue() {
+
+	}
+
+	@PostConstruct
+	public void init() {
+		crud.findWithNamedQuery("Customers.findAll").forEach(e -> {
+			allCustomers.add((Customers) e);
+		});
+		productList = allCustomers;
+	}
+
+	public String getSearchedString() {
+		return searchedString;
+	}
+
+	public void setSearchedString(String searchedString) {
+		this.searchedString = searchedString;
 	}
 
 	public List<Customers> getProductList() {
-
-		crud.findWithNamedQuery("Customers.findAll").forEach(e -> {
-			productList.add((Customers) e);
-		});
 		return productList;
+	}
+
+	public void searchedTextChanged(ValueChangeEvent event) {
+		productList = allCustomers.stream()
+			.filter(e -> e.getFirstName().contains(event.getNewValue().toString()))
+			.collect(Collectors.toList());
 	}
 }

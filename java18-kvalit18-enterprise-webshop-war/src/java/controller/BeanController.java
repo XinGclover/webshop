@@ -13,6 +13,8 @@ import crud.userManagementBean;
 import java.util.HashMap;
 import java.util.Map;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
+import javax.inject.Inject;
 import jpa.Customers;
 
 /**
@@ -22,32 +24,34 @@ import jpa.Customers;
 @Named(value = "BeanController")
 @SessionScoped
 public class BeanController implements Serializable {
+	
+
 
 	@EJB
 	private userManagementBean userManagementBean;
 	@EJB
 	private GenericCrudService crud;
 
-        private String email;
-        private String password;
-        private String confirmPassword;
-        private String firstName = "firstNamePlaceholder";
-        private String lastName = "lastNamePlaceholder";
-        private String address;
-        private String loginMessage; 
-
-    public String getLoginMessage() {
-        return loginMessage;
-    }
-
-    public void setLoginMessage(String loginMessage) {
-        this.loginMessage = loginMessage;
-    }
-        private boolean login; 
-        private boolean premium = false;  
-        private boolean admin = false; 
-        
 	
+	private String email;
+	private String password;
+	private String confirmPassword;
+	private String firstName = "firstNamePlaceholder";
+	private String lastName = "lastNamePlaceholder";
+	private String address;
+	private String loginMessage;
+
+
+	public String getLoginMessage() {
+		return loginMessage;
+	}
+
+	public void setLoginMessage(String loginMessage) {
+		this.loginMessage = loginMessage;
+	}
+	private boolean login;
+	private boolean premium = false;
+	private boolean admin = false;
 
 	public BeanController() {
 	}
@@ -107,25 +111,25 @@ public class BeanController implements Serializable {
 	 *
 	 */
 	public String checkValidUser() {
-           
-            String response = userManagementBean.login(email, password,login); 
-            
-            switch(response) {
-                    
-                case "admin": 
-                    admin= true; 
-                    return response; 
-                    
-                case "store": 
-                    setNames();
-                    return response;
-                    
-                case "incorrect":
-                     loginMessage = "Incorrect email or password"; 
-                    return null;     
-        }   
-            
-           return response;  
+
+		String response = userManagementBean.login(email, password, login);
+
+		switch (response) {
+
+			case "admin":
+				admin = true;
+				return response;
+
+			case "store":
+				setNames();
+				return response;
+
+			case "incorrect":
+				loginMessage = "Incorrect email or password";
+				return null;
+		}
+
+		return response;
 
 	}
 
@@ -139,7 +143,8 @@ public class BeanController implements Serializable {
 
 	//Registers the new user to the database 
 	public String registerCustomer() {
-
 		return userManagementBean.register(firstName, lastName, email, address, password);
 	}
+
+	
 }
