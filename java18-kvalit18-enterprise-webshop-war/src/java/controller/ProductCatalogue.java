@@ -13,7 +13,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlDataTable;
 import javax.faces.event.ValueChangeEvent;
 import jpa.Customers;
-import jpa.Fruit;
+import jpa.Products;
 
 /**
  *
@@ -27,8 +27,8 @@ public class ProductCatalogue implements Serializable {
 	@EJB
 	private GenericCrudService crud;
 	private String searchedString;
-	private List<Fruit> allFruit = new ArrayList<>();
-	private List<Fruit> fruitList = new ArrayList<>();
+	private List<Products> allProducts = new ArrayList<>();
+	private List<Products> productsList = new ArrayList<>();
 	private Integer quantity;
 
 	public Integer getQuantity() {
@@ -45,10 +45,10 @@ public class ProductCatalogue implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		crud.findWithNamedQuery("Fruit.findAll").forEach(e -> {
-			allFruit.add((Fruit) e);
+		crud.findWithNamedQuery("Products.findAll").forEach(e -> {
+			allProducts.add((Products) e);
 		});
-		fruitList = allFruit;
+		productsList = allProducts;
 
 	}
 
@@ -60,13 +60,13 @@ public class ProductCatalogue implements Serializable {
 		this.searchedString = searchedString;
 	}
 
-	public List<Fruit> getProductList() {
-		return fruitList;
+	public List<Products> getProductList() {
+		return productsList;
 	}
 
 	public void searchedTextChanged(ValueChangeEvent event) {
-		fruitList = allFruit.stream()
-			.filter(e -> e.getFruitName().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
+		productsList = allProducts.stream()
+			.filter(e -> e.getProductname().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
 			.collect(Collectors.toList());
 	}
 	

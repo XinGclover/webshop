@@ -16,7 +16,7 @@
 	    <h:form>
 		<h:inputText id="search" value="#{ProductCatalogue.searchedString}" valueChangeListener="#{ProductCatalogue.searchedTextChanged}">
 		    <f:ajax execute="search" render=":form:panel" event="blur"/>
-		</h:inputText>
+		</h:inputText>               
 	    </h:form>
 	    <h:panelGrid width="375px" bgcolor="#e6edfd" columns="2" border="0">
 
@@ -27,28 +27,23 @@
 		<h:form id ="form">
 		    <h:panelGroup id ="panel">
 			<center>
-			    <h:dataTable id="table" value="#{ProductCatalogue.productList}" var="p" >
+                            <h:dataTable id="table" value="#{ProductCatalogue.productList}" var="p" >
 
 
 				<h:column>
 				    <f:facet name="header">Name</f:facet>
-					#{p.fruitid}
+					#{p.productname}
 				</h:column>
 
 				<h:column>
 				    <f:facet name="header">Name</f:facet>
-					#{p.fruitName}
+					#{p.quantityperunit}
 				</h:column>
 
 
 				<h:column>
 				    <f:facet name="header">Price</f:facet>
-					#{p.price}
-				</h:column>
-
-				<h:column>
-				    <f:facet name="header">Unit</f:facet>
-					#{p.unit}
+					#{p.unitprice}
 				</h:column>
 
 				<h:column>
