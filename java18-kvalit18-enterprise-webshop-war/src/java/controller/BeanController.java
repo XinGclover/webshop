@@ -41,6 +41,14 @@ public class BeanController implements Serializable {
 	private String address;
 	private String loginMessage;
 
+	public GenericCrudService getCrud() {
+		return crud;
+	}
+
+	public void setCrud(GenericCrudService crud) {
+		this.crud = crud;
+	}
+
 
 	public String getLoginMessage() {
 		return loginMessage;
