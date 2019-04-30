@@ -10,7 +10,9 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import crud.userManagementBean;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
@@ -24,138 +26,151 @@ import jpa.Customers;
 @Named(value = "BeanController")
 @SessionScoped
 public class BeanController implements Serializable {
-	
-	
 
+    @EJB
+    private userManagementBean userManagementBean;
+    @EJB
+    private GenericCrudService crud;
 
+    private String email;
+    private String password;
+    private String confirmPassword;
+    private String firstName = "firstNamePlaceholder";
+    private String lastName = "lastNamePlaceholder";
+    private String address;
+    private String loginMessage;
+    private List<Customers> customers;
 
-	@EJB
-	private userManagementBean userManagementBean;
-	@EJB
-	private GenericCrudService crud;
+    public GenericCrudService getCrud() {
+        return crud;
+    }
 
-	
-	private String email;
-	private String password;
-	private String confirmPassword;
-	private String firstName = "firstNamePlaceholder";
-	private String lastName = "lastNamePlaceholder";
-	private String address;
-	private String loginMessage;
+    public void setCrud(GenericCrudService crud) {
+        this.crud = crud;
+    }
 
-	public GenericCrudService getCrud() {
-		return crud;
-	}
+    public List<Customers> getCustomers() {
+        return customers;
+    }
 
-	public void setCrud(GenericCrudService crud) {
-		this.crud = crud;
-	}
+    public void setCustomers(List<Customers> customers) {
+        this.customers = customers;
+    }
 
+    public String getLoginMessage() {
+        return loginMessage;
+    }
 
-	public String getLoginMessage() {
-		return loginMessage;
-	}
+    public void setLoginMessage(String loginMessage) {
+        this.loginMessage = loginMessage;
+    }
+    private boolean login;
+    private boolean premium = false;
+    private boolean admin = false;
 
-	public void setLoginMessage(String loginMessage) {
-		this.loginMessage = loginMessage;
-	}
-	private boolean login;
-	private boolean premium = false;
-	private boolean admin = false;
+    public BeanController() {
 
-	public BeanController() {
-	}
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
 
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	/**
-	 * Sends information from the login to EJB layer for database check
-	 *
-	 * @return a string that is then used to redirect if success;
-	 *
-	 */
+    /**
+     * Sends information from the login to EJB layer for database check
+     *
+     * @return a string that is then used to redirect if success;
+     *
+     */
+    public String checkValidUser() {
 
-	public String checkValidUser() {
+        String response = userManagementBean.login(email, password, login);
 
-		String response = userManagementBean.login(email, password, login);
+        switch (response) {
 
-		switch (response) {
+            case "admin":
+                admin = true;
+                //setNames();  fix to get current Admin not customer                                
+                return response;
 
-			case "admin":
-				admin = true;
-				return response;
+            case "store":
+                setNames();
+                return response;
 
-			case "store":
-				setNames();
-				return response;
+            case "incorrect":
+                loginMessage = "Incorrect email or password";
+                return null;
+        }
 
-			case "incorrect":
-				loginMessage = "Incorrect email or password";
-				return null;
-		}
+        return response;
 
-		return response;
+    }
 
-	}
+    private void setNames() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("email", email);
+        Customers c = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
+        firstName = c.getFirstName();
+        lastName = c.getLastName();
+    }
 
-	private void setNames() {
-		Map<String, Object> params = new HashMap<>();
-		params.put("email", email);
-		Customers c = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
-		firstName = c.getFirstName();
-		lastName = c.getLastName();
-	}
+    //Registers the new user to the database 
+    public String registerCustomer() {
+        return userManagementBean.register(firstName, lastName, email, address, password);
+    }
 
-	//Registers the new user to the database 
-	public String registerCustomer() {
-		return userManagementBean.register(firstName, lastName, email, address, password);
-	}
+    /**
+     * generates a list of all the customers for the Admin Page
+     */
+    public void allCustomers() {
 
-	
+        customers = userManagementBean.fetchAllCustomers();
+        customers.forEach(s -> System.out.println(s.toString()));
+
+    }
+
 }

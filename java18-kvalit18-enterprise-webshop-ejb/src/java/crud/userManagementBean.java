@@ -1,6 +1,8 @@
 package crud;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -27,6 +29,7 @@ public class userManagementBean {
 	@EJB
 	private GenericCrudService genericCrudServiceBean;
 
+            
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     public String login(String email, String password, boolean login) {
@@ -111,4 +114,22 @@ public class userManagementBean {
 		genericCrudServiceBean.create(customer);
 		return "index";
 	}
+
+ 
+    public List<Customers> fetchAllCustomers() {
+        return genericCrudServiceBean.findWithNamedQuery("Customers.findAll");
+    }
+   
+        
+            /**
+             * 
+             * fetches a list with all the customers in the DB 
+             * 
+             */
+        
+
+
+
+            
+        
 }
