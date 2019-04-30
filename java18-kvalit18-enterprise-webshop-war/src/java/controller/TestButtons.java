@@ -48,9 +48,9 @@ public class TestButtons implements Serializable {
 		for (Admins admin : jpa.FakeData.ADMINLIST) {
 			crudBean.create(admin);
 		}
-		for (Fruit fruit : jpa.FakeData.FRUITLIST) {
-			crudBean.create(fruit);
-		}
+		//for (Fruit fruit : jpa.FakeData.FRUITLIST) {
+		//	crudBean.create(fruit);
+		//}
 	}
 
 	public void deleteAll() {
