@@ -12,6 +12,7 @@ import javax.inject.Named;
 import crud.userManagementBean;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
@@ -40,7 +41,15 @@ public class BeanController implements Serializable {
         private String lastName = "lastNamePlaceholder";
         private String address;
         private String loginMessage; 
-        private ArrayList<Customers> customers; 
+        private List<Customers> customers; 
+
+    public List<Customers> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customers> customers) {
+        this.customers = customers;
+    }
 
     public String getLoginMessage() {
         return loginMessage;
@@ -55,6 +64,8 @@ public class BeanController implements Serializable {
        
 
 	public BeanController() {
+            
+     
 	}
 
 	public String getEmail() {
@@ -119,6 +130,7 @@ public class BeanController implements Serializable {
 
 			case "admin":
 				admin = true;
+                               //setNames();  fix to get current Admin not customer                                
 				return response;
 
 			case "store":
@@ -152,10 +164,10 @@ public class BeanController implements Serializable {
         /**
          * generates a list of all the customers for the Admin Page
          */
-        public void getAllCustomers(){
+        public void allCustomers(){
             
-            //gets a list of all customers
-           // customers = userManagementBean.adminView(); 
+           customers =  userManagementBean.fetchAllCustomers();
+           customers.forEach(s->System.out.println(s.toString()));
             
             
         }
