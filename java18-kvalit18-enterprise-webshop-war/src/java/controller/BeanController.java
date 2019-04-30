@@ -10,6 +10,7 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import crud.userManagementBean;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.enterprise.context.SessionScoped;
@@ -35,6 +36,7 @@ public class BeanController implements Serializable {
         private String lastName = "lastNamePlaceholder";
         private String address;
         private String loginMessage; 
+        private ArrayList<Customers> customers; 
 
     public String getLoginMessage() {
         return loginMessage;
@@ -142,4 +144,19 @@ public class BeanController implements Serializable {
 
 		return userManagementBean.register(firstName, lastName, email, address, password);
 	}
+        
+        
+        
+        /**
+         * generates a list of all the customers for the Admin Page
+         */
+        public void getAllCustomers(){
+            
+            //gets a list of all customers
+           // customers = userManagementBean.adminView(); 
+            
+            
+        }
+        
+        
 }

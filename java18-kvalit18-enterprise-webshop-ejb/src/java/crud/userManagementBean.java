@@ -111,4 +111,12 @@ public class userManagementBean {
 		genericCrudServiceBean.create(customer);
 		return "index";
 	}
+
+   // public ArrayList<?> adminView() {     
+        
+   //    return genericCrudServiceBean.findWithNamedQuery("Customers.findAll"); 
+   // }
+        
+            
+        
 }
