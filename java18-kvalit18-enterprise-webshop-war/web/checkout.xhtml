@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Checkout</title>
+    </h:head>
+    <h:body>
+        <center>
+            <h:form>
+                <h:panelGrid bgcolor="#e6edfd" columns="1" binding="#{cartController.orderPanel}">
+                    <f:facet name="header">Order</f:facet>
+                    
+                    <h:dataTable value="#{cartController.cartProducts}" var="p" style="text-align: center;">
+                        <h:column>
+                            <f:facet name="header">Name</f:facet>
+                            #{p.fruitName}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Unit</f:facet>
+                            #{p.unit}
+                        </h:column>
+                    
+                        <h:column>
+                            <f:facet name="header">Quantity</f:facet>
+                            #{cartController.productCart[p]}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Price</f:facet>
+                            #{p.price * cartController.productCart[p]}
+                        </h:column>
+                    </h:dataTable>
+                    
+                    <h:outputText value="Total price: #{cartController.totalCartPrice}"/>
+                    
+                    <h:panelGroup>
+                        <h:commandButton value="Back to store" action="store" style="margin-left: 10px;"/>
+                        <h:commandButton value="Pay" action="#{cartController.pay()}" style="float: right;"/>
+                    </h:panelGroup>
+                </h:panelGrid>
+                
+                <br/><br/><br/><br/>
+                <h:outputLabel value="#{cartController.recipt}"/><br/><br/>
+                <h:commandButton value="logout" action="index" binding="#{cartController.logoutButton}" rendered="false"/>
+            </h:form>
+        </center>
+    </h:body>
+</html>
+

@@ -11,57 +11,91 @@
 	<title>login success</title>
     </h:head>
     <h:body>
+        
+        <!--<h:dataTable value="#{product.productList}" var="p">-->
 
-	<center>
-	    <h:form>
-		<h:inputText id="search" value="#{ProductCatalogue.searchedString}" valueChangeListener="#{ProductCatalogue.searchedTextChanged}">
-		    <f:ajax execute="search" render=":form:panel" event="blur"/>
-		</h:inputText>
+	<div style="display: inline-block;  position: absolute; margin-left: 40%;">
+            <br/>
+            <h:form>
+                <h:inputText id="search" value="#{ProductCatalogue.searchedString}" valueChangeListener="#{ProductCatalogue.searchedTextChanged}"
+                             style="width: 200px;">
+                    <f:ajax execute="search" render=":form:panel" event="blur"/>
+                </h:inputText>
 	    </h:form>
-	    <h:panelGrid width="375px" bgcolor="#e6edfd" columns="2" border="0">
+            <br/>
+            
+            <h:form id="form">
+                <h:panelGrid bgcolor="#e6edfd" columns="1">
+                    <f:facet name="header">
+                        <h:outputText value="Welcome to the store"/>
+                    </f:facet>
 
-		<f:facet name="header">
-		    <h:outputText value="Welcome #{BeanController.firstName} #{BeanController.lastName}"/>
-		</f:facet>
+                    <h:dataTable id="table" value="#{ProductCatalogue.productList}" var="p" style="text-align: center;">
+                        <h:column>
+                            <f:facet name="header">Name</f:facet>
+                            #{p.fruitName}
+                        </h:column>
 
-		<h:form id ="form">
-		    <h:panelGroup id ="panel">
-			<center>
-			    <h:dataTable id="table" value="#{ProductCatalogue.productList}" var="p" >
+                        <h:column>
+                            <f:facet name="header">Unit</f:facet>
+                            #{p.unit}
+                        </h:column>
 
+                        <h:column>
+                            <f:facet name="header">Price</f:facet>
+                            #{p.price}
+                        </h:column>
 
-				<h:column>
-				    <f:facet name="header">Name</f:facet>
-					#{p.fruitid}
-				</h:column>
+                        <h:column>
+                            <f:facet name="header">Quantity</f:facet>
+                            <h:commandButton value="-" action="#{cartController.removeProductFromCart(p.fruitid)}"/>
+                            #{cartController.productCart[p]}
+                            <h:commandButton value="+" action="#{cartController.addProductToCart(p.fruitid)}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGrid>
+            </h:form>
+        </div>
+        
+        <div style="float: right; margin-right: 80px;">
+            <h:form>
+                <h:panelGrid bgcolor="#e6edfd" columns="1">
+                    <f:facet name="header">Product Cart</f:facet>
+                    
+                    <h:outputText value="Total price: #{cartController.totalCartPrice}"/>   
+                
+                    <h:dataTable value="#{cartController.cartProducts}" var="p" style="text-align: center;">
+                        
+                        <h:column>
+                            <f:facet name="header">Name</f:facet>
+                            #{p.fruitName}
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">Unit</f:facet>
+                            #{p.unit}
+                        </h:column>
+                    
+                        <h:column>
+                            <f:facet name="header">Quantity</f:facet>
+                            <h:commandButton value="-" action="#{cartController.removeProductFromCart(p.fruitid)}"/>
+                            #{cartController.productCart[p]}
+                            <h:commandButton value="+" action="#{cartController.addProductToCart(p.fruitid)}"/>
+                        </h:column>
 
-				<h:column>
-				    <f:facet name="header">Name</f:facet>
-					#{p.fruitName}
-				</h:column>
-
-
-				<h:column>
-				    <f:facet name="header">Price</f:facet>
-					#{p.price}
-				</h:column>
-
-				<h:column>
-				    <f:facet name="header">Unit</f:facet>
-					#{p.unit}
-				</h:column>
-
-				<h:column>
-				    <h:commandButton value="Add" action="#{dummyCart.add(p)}">
-				    </h:commandButton>
-				</h:column>
-
-			    </h:dataTable>
-			</center>
-		    </h:panelGroup>
-		</h:form>
-	    </h:panelGrid>
-
-	</center>
+                        <h:column>
+                            <f:facet name="header">Price</f:facet>
+                            #{p.price * cartController.productCart[p]}
+                        </h:column>
+                                
+                        <!--<h:column>
+                            <h:commandButton value="Add" action="#{dummyCart.add(p)}">
+                            </h:commandButton>
+                        </h:column>-->
+                    </h:dataTable>
+                    <h:commandButton value="Go to checkout" action="#{cartController.createOrder()}" style="float: right;"/>
+                </h:panelGrid>
+            </h:form>
+        </div>
     </h:body>
 </html>
