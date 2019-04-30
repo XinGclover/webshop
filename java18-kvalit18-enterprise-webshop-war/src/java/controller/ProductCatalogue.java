@@ -55,7 +55,7 @@ public class ProductCatalogue implements Serializable {
 
 	public void searchedTextChanged(ValueChangeEvent event) {
 		productList = allCustomers.stream()
-			.filter(e -> e.getFirstName().contains(event.getNewValue().toString()))
+			.filter(e -> e.getFirstName().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
 			.collect(Collectors.toList());
 	}
 }
