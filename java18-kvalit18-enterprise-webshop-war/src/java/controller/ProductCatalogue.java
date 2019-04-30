@@ -13,6 +13,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlDataTable;
 import javax.faces.event.ValueChangeEvent;
 import jpa.Customers;
+//import jpa.Products;
 import jpa.Fruit;
 
 /**
@@ -27,8 +28,14 @@ public class ProductCatalogue implements Serializable {
 	@EJB
 	private GenericCrudService crud;
 	private String searchedString;
-	private List<Fruit> allFruit = new ArrayList<>();
+        
+	/*
+        private List<Products> allProducts = new ArrayList<>();
+	private List<Products> productsList = new ArrayList<>();
+        */
+        private List<Fruit> allFruit = new ArrayList<>();
 	private List<Fruit> fruitList = new ArrayList<>();
+        
 	private Integer quantity;
 
 	public Integer getQuantity() {
@@ -45,10 +52,17 @@ public class ProductCatalogue implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		crud.findWithNamedQuery("Fruit.findAll").forEach(e -> {
+            
+            /*
+            crud.findWithNamedQuery("Products.findAll").forEach(e -> {
+                    allProducts.add((Products) e);
+            });
+            productsList = allProducts;
+            */
+            crud.findWithNamedQuery("Fruit.findAll").forEach(e -> {
 			allFruit.add((Fruit) e);
-		});
-		fruitList = allFruit;
+            });
+            fruitList = allFruit;
 
 	}
 
@@ -60,12 +74,22 @@ public class ProductCatalogue implements Serializable {
 		this.searchedString = searchedString;
 	}
 
-	public List<Fruit> getProductList() {
-		return fruitList;
+	/*
+        public List<Products> getProductList() {
+		return productsList;
 	}
+        */
+        public List<Fruit> getProductList() {
+                return fruitList;
+        }
 
 	public void searchedTextChanged(ValueChangeEvent event) {
-		fruitList = allFruit.stream()
+                /*
+		productsList = allProducts.stream()
+			.filter(e -> e.getProductname().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
+                        .collect(Collectors.toList());
+                */
+                fruitList = allFruit.stream()
 			.filter(e -> e.getFruitName().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
 			.collect(Collectors.toList());
 	}
