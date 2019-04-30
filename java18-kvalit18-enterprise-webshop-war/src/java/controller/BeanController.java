@@ -21,7 +21,7 @@ public class BeanController implements Serializable {
 
         @EJB
         private userManagementBean userManagementBean;
-
+        
         private String email;
         private String password;
         private String confirmPassword;
