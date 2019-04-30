@@ -17,27 +17,46 @@
 			    <h:outputText value="Customer Registration"/>
 			</f:facet>
 
-			<h:outputText value="E-Mail:"/>					
-                        <h:inputText id="email" value="#{BeanController.email}"/>
+			<h:outputText value="E-Mail:"/>	
+
+                        <h:inputText id="email" value="#{BeanController.email}">
+			    <f:validator validatorId="emailValidator"/>
+			</h:inputText>
 
 			<h:outputText value="Password:"/>
-                        <h:inputSecret id="password" value="#{BeanController.password}"/>
+
+			<h:inputSecret id="password" value="#{BeanController.password}">
+			    <f:validator validatorId="emptyValidator"/>
+			</h:inputSecret>
 
 			<h:outputText value="Confirm Password:"/>
-                        <h:inputSecret id="confirmPassword" value="#{BeanController.confirmPassword}"/>
 
-			<h:outputText value="First Name:"/>					
-                        <h:inputText id="firstName" value="#{BeanController.firstName}"/>
+			<h:inputSecret id="confirmPassword" value="#{BeanController.confirmPassword}">
+			    <f:validator validatorId="emptyValidator"/>
+			</h:inputSecret>
 
-			<h:outputText value="Last Name:"/>					
-                        <h:inputText id="lastName" value="#{BeanController.lastName}"/>
+			<h:outputText value="First Name:"/>		
+
+			<h:inputText id="firstName" value="#{BeanController.firstName}">
+			    <f:validator validatorId="emptyValidator"/>
+			</h:inputText>
+
+			<h:outputText value="Last Name:"/>
+
+			<h:inputText id="lastName" value="#{BeanController.lastName}">
+			    <f:validator validatorId="emptyValidator"/>
+			</h:inputText>
 
 			<h:outputText value="Address:"/>
-                        <h:inputText id="address" value="#{BeanController.address}"/><h:column/>				
+			<h:inputText id="address" value="#{BeanController.address}">
+			    <f:validator validatorId="emptyValidator"/>
+			</h:inputText>
+
+			<h:column/>				
 
 			<h:panelGroup>
-                            <h:commandButton value="Register" action="#{BeanController.registerCustomer()}"/>
-                            <h:commandButton value="Cancel" action="index" immediate="true"/>
+			    <h:commandButton value="Register" action="#{BeanController.registerCustomer()}"/>
+			    <h:commandButton value="Cancel" action="index" immediate="true"/>
 			</h:panelGroup>
 		    </h:panelGrid>
 		</h:form>
