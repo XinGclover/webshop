@@ -13,7 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
-import jpa.Customers;
+import jpa.Customer;
 
 
 @Named(value="emailValidator")
@@ -49,7 +49,7 @@ public class EmailValidator implements Validator, Serializable {
 		Map<String, Object> params = new HashMap<>();
 		params.put("email", email);
 		try {
-			Customers c = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
+			Customer c = (Customer) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
 			throw new ValidatorException(
 				new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					(arg1.getId() + " already exists!"),

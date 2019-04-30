@@ -6,8 +6,8 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.NoResultException;
-import jpa.Admins;
-import jpa.Customers;
+import jpa.Admin;
+import jpa.Customer;
 
 /**
  *
@@ -33,8 +33,8 @@ public class userManagementBean {
 
         int userType = 0;
 
-        Customers sessionCustomer = null;
-        Admins sessionAdmin = null;
+        Customer sessionCustomer = null;
+        Admin sessionAdmin = null;
 
         try {
 
@@ -42,7 +42,7 @@ public class userManagementBean {
             Map<String, Object> params = new HashMap<>();
             params.put("email", email);
 
-            sessionCustomer = (Customers) genericCrudServiceBean.findWithNamedQuery("Customers.findByEmail", params).get(0);
+            sessionCustomer = (Customer) genericCrudServiceBean.findWithNamedQuery("Customers.findByEmail", params).get(0);
 
             userType = CUSTOMER;
 
@@ -54,7 +54,7 @@ public class userManagementBean {
 
                 Map<String, Object> params = new HashMap<>();
                 params.put("email", email);
-                sessionAdmin = (Admins) genericCrudServiceBean.findWithNamedQuery("Admins.findByEmail", params).get(0);
+                sessionAdmin = (Admin) genericCrudServiceBean.findWithNamedQuery("Admins.findByEmail", params).get(0);
                 userType = ADMIN;
 
                 System.out.println(sessionAdmin.toString());//change to 
@@ -97,12 +97,12 @@ public class userManagementBean {
 
 	public String register(Integer id, String firstName, String lastName, String email, String address, String password) {
 
-		genericCrudServiceBean.create(new Customers(id, firstName, lastName, email, address, password));
+		genericCrudServiceBean.create(new Customer(id, firstName, lastName, email, address, password));
 		return "index";
 	}
 
 	public String register(String firstName, String lastName, String email, String address, String password) {
-		Customers customer = new Customers();
+		Customer customer = new Customer();
 		customer.setFirstName(firstName);
 		customer.setLastName(lastName);
 		customer.setEmail(email);

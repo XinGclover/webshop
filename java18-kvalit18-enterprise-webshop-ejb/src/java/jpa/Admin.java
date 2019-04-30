@@ -18,7 +18,7 @@ import javax.persistence.Table;
 	, @NamedQuery(name = "Admins.findById", query = "SELECT a FROM Admins a WHERE a.id = :id")
 	, @NamedQuery(name = "Admins.findByEmail", query = "SELECT a FROM Admins a WHERE a.email = :email")
 	, @NamedQuery(name = "Admins.findByPassword", query = "SELECT a FROM Admins a WHERE a.password = :password")})
-public class Admins implements Serializable {
+public class Admin implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -31,22 +31,22 @@ public class Admins implements Serializable {
 	@Column(name = "PASSWORD", length = 32)
 	private String password;
 
-	public Admins() {
+	public Admin() {
 	}
 
-	public Admins(Integer id, String email, String password) {
+	public Admin(Integer id, String email, String password) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
 	}
 
-	public Admins(String email, String password) {
+	public Admin(String email, String password) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
 	}
 
-	public Admins(Integer id) {
+	public Admin(Integer id) {
 		this.id = id;
 	}
 
@@ -84,10 +84,10 @@ public class Admins implements Serializable {
 	@Override
 	public boolean equals(Object object) {
 		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof Admins)) {
+		if (!(object instanceof Admin)) {
 			return false;
 		}
-		Admins other = (Admins) object;
+		Admin other = (Admin) object;
 		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
 			return false;
 		}
