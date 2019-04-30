@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
+import javax.inject.Inject;
 import jpa.Customers;
 
 /**
@@ -23,6 +25,8 @@ import jpa.Customers;
 @Named(value = "BeanController")
 @SessionScoped
 public class BeanController implements Serializable {
+	
+
 
 	@EJB
 	private userManagementBean userManagementBean;
@@ -48,8 +52,7 @@ public class BeanController implements Serializable {
         private boolean login; 
         private boolean premium = false;  
         private boolean admin = false; 
-        
-	
+       
 
 	public BeanController() {
 	}
@@ -109,25 +112,25 @@ public class BeanController implements Serializable {
 	 *
 	 */
 	public String checkValidUser() {
-           
-            String response = userManagementBean.login(email, password,login); 
-            
-            switch(response) {
-                    
-                case "admin": 
-                    admin= true; 
-                    return response; 
-                    
-                case "store": 
-                    setNames();
-                    return response;
-                    
-                case "incorrect":
-                     loginMessage = "Incorrect email or password"; 
-                    return null;     
-        }   
-            
-           return response;  
+
+		String response = userManagementBean.login(email, password, login);
+
+		switch (response) {
+
+			case "admin":
+				admin = true;
+				return response;
+
+			case "store":
+				setNames();
+				return response;
+
+			case "incorrect":
+				loginMessage = "Incorrect email or password";
+				return null;
+		}
+
+		return response;
 
 	}
 
@@ -141,7 +144,6 @@ public class BeanController implements Serializable {
 
 	//Registers the new user to the database 
 	public String registerCustomer() {
-
 		return userManagementBean.register(firstName, lastName, email, address, password);
 	}
         
