@@ -31,7 +31,9 @@
 
 			<h:outputText value="Confirm Password:"/>
 
-			<h:inputSecret id="confirmPassword" value="#{BeanController.confirmPassword}">
+			<h:inputSecret id="confirmPassword" value="#{BeanController.confirmPassword}"
+				       validator="#{BeanController.validatePassword}">
+
 			    <f:validator validatorId="emptyValidator"/>
 			</h:inputSecret>
 
@@ -55,7 +57,7 @@
 			<h:column/>				
 
 			<h:panelGroup>
-			    <h:commandButton value="Register" action="#{BeanController.registerCustomer()}"/>
+			    <h:commandButton value="Register" action="#{BeanController.registerCustomer()}" />
 			    <h:commandButton value="Cancel" action="index" immediate="true"/>
 			</h:panelGroup>
 		    </h:panelGrid>

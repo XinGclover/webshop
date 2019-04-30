@@ -13,7 +13,14 @@ import crud.userManagementBean;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
 import jpa.Customers;
 
 /**
@@ -21,153 +28,173 @@ import jpa.Customers;
  * @author carlo
  */
 @Named(value = "BeanController")
-@SessionScoped
+@RequestScoped
 public class BeanController implements Serializable {
 
-    @EJB
-    private userManagementBean userManagementBean;
-    @EJB
-    private GenericCrudService crud;
+	@EJB
+	private userManagementBean userManagementBean;
+	@EJB
+	private GenericCrudService crud;
 
-    private String email;
-    private String password;
-    private String confirmPassword;
-    private String firstName = "firstNamePlaceholder";
-    private String lastName = "lastNamePlaceholder";
-    private String address;
-    private String loginMessage;
-    private List<Customers> customers;
+	private String email;
+	private String password;
+	private String confirmPassword;
+	private String firstName = "firstNamePlaceholder";
+	private String lastName = "lastNamePlaceholder";
+	private String address;
+	private String loginMessage;
+	private List<Customers> customers;
 
-    public GenericCrudService getCrud() {
-        return crud;
-    }
+	public void BeanController() {
 
-    public void setCrud(GenericCrudService crud) {
-        this.crud = crud;
-    }
+	}
 
-    public List<Customers> getCustomers() {
-        return customers;
-    }
+	public GenericCrudService getCrud() {
+		return crud;
+	}
 
-    public void setCustomers(List<Customers> customers) {
-        this.customers = customers;
-    }
+	public void setCrud(GenericCrudService crud) {
+		this.crud = crud;
+	}
 
-    public String getLoginMessage() {
-        return loginMessage;
-    }
+	public List<Customers> getCustomers() {
+		return customers;
+	}
 
-    public void setLoginMessage(String loginMessage) {
-        this.loginMessage = loginMessage;
-    }
-    private boolean login;
-    private boolean premium = false;
-    private boolean admin = false;
+	public void setCustomers(List<Customers> customers) {
+		this.customers = customers;
+	}
 
-    public BeanController() {
+	public String getLoginMessage() {
+		return loginMessage;
+	}
 
-    }
+	public void setLoginMessage(String loginMessage) {
+		this.loginMessage = loginMessage;
+	}
+	private boolean login;
+	private boolean premium = false;
+	private boolean admin = false;
 
-    public String getEmail() {
-        return email;
-    }
+	public BeanController() {
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    /**
-     * Sends information from the login to EJB layer for database check
-     *
-     * @return a string that is then used to redirect if success;
-     *
-     */
-    public String checkValidUser() {
+	public String getAddress() {
+		return address;
+	}
 
-        String response = userManagementBean.login(email, password, login);
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-        switch (response) {
+	/**
+	 * Sends information from the login to EJB layer for database check
+	 *
+	 * @return a string that is then used to redirect if success;
+	 *
+	 */
+	public String checkValidUser() {
 
-            case "admin":
-                admin = true;
-                //setNames();  fix to get current Admin not customer                                
-                return response;
+		String response = userManagementBean.login(email, password, login);
 
-            case "store":
-                setNames();
-                return response;
+		switch (response) {
 
-            case "incorrect":
-                loginMessage = "Incorrect email or password";
-                return null;
-        }
+			case "admin":
+				admin = true;
+				//setNames();  fix to get current Admin not customer                                
+				return response;
 
-        return response;
+			case "store":
+				setNames();
+				return response;
 
-    }
+			case "incorrect":
+				loginMessage = "Incorrect email or password";
+				return null;
+		}
 
-    private void setNames() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("email", email);
-        Customers c = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
-        firstName = c.getFirstName();
-        lastName = c.getLastName();
-    }
+		return response;
 
-    //Registers the new user to the database 
-    public String registerCustomer() {
-        return userManagementBean.register(firstName, lastName, email, address, password);
-    }
+	}
 
-    /**
-     * generates a list of all the customers for the Admin Page
-     */
-    public void allCustomers() {
+	private void setNames() {
+		Map<String, Object> params = new HashMap<>();
+		params.put("email", email);
+		Customers c = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
+		firstName = c.getFirstName();
+		lastName = c.getLastName();
+	}
 
-        customers = userManagementBean.fetchAllCustomers();
-        customers.forEach(s -> System.out.println(s.toString()));
+	//Registers the new user to the database 
+	public String registerCustomer() {
+		return userManagementBean.register(firstName, lastName, email, address, password);
+	}
 
-    }
+	/**
+	 * generates a list of all the customers for the Admin Page
+	 */
+	public void allCustomers() {
 
+		customers = userManagementBean.fetchAllCustomers();
+		customers.forEach(s -> System.out.println(s.toString()));
+
+	}
+
+	public void validatePassword(FacesContext arg0, UIComponent arg1, Object arg2) throws ValidatorException {
+
+		// Retrieve the value passed to this method
+		String confirmPassword = (String) arg2;
+		// Retrieve the temporary value from the password field
+		UIInput passwordInput = (UIInput) arg1.findComponent("password");
+		String password = (String) passwordInput.getLocalValue();
+
+		if (!password.equals(confirmPassword)) {
+			throw new ValidatorException(
+				new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					(arg1.getId() + ": passwords do no match!"),
+					null));
+		}
+
+	}
 }
