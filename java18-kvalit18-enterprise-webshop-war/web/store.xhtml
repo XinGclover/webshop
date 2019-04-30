@@ -11,8 +11,9 @@
 	<title>login success</title>
     </h:head>
     <h:body>
-	<center><h:form>
-		<h:panelGrid width="375px" bgcolor="#e6edfd" columns="2" border="0">
+        <div style="display: inline-block;  position: absolute; margin-left: 50%; left: -187.5px;;">
+            <h:form>
+                <h:panelGrid width="375px" bgcolor="#e6edfd" columns="2" border="0">
 		    <f:facet name="header">
 			<h:outputText value="Welcome #{BeanController.firstName} #{BeanController.lastName}"/>
 		    </f:facet>
@@ -30,21 +31,55 @@
 
 			<h:column>
 			    <f:facet name="header">Price</f:facet>
-				#{p.password}
+				#{p.id}
 			</h:column>
 
 			<h:column>
 			    <f:facet name="header">Quantity</f:facet>
-			
+                            <h:commandButton value="-" action="#{cartController.removeProductFromCart(p.id)}"/>
+                            #{cartController.productCart[p]}
+                            <h:commandButton value="+" action="#{cartController.addProductToCart(p.id)}"/>
 			</h:column>
-			<h:column>
-			    <h:commandButton value="Add"/>
-			</h:column>
-
 		    </h:dataTable>
-
 		</h:panelGrid>
+	    </h:form>
+        </div>
+        
+        <div style="float: right;">
+            <h:form>
+                <h:panelGrid bgcolor="#e6edfd" columns="1">
+                    <f:facet name="header">Product Cart</f:facet>
+                    
+                    <h:panelGroup>
+                        <h:outputText value="Total price: #{cartController.totalCartPrice}"/>
+                        <h:commandButton value="Go to checkout" action="#{cartController.createOrder()}" style="float: right"/>
+                    </h:panelGroup>
+                
+                    <h:dataTable value="#{cartController.cartProducts}" var="p">
+                        <h:column>
+                            <f:facet name="header">Name</f:facet>
+                                #{p.firstName}
+                        </h:column>
 
-	    </h:form></center>
+                        <h:column>
+                            <f:facet name="header">Description</f:facet>
+                                #{p.lastName}
+                        </h:column>
+                    
+                        <h:column>
+                            <f:facet name="header">Quantity</f:facet>
+                            <h:commandButton value="-" action="#{cartController.removeProductFromCart(p.id)}"/>
+                            #{cartController.productCart[p]}
+                            <h:commandButton value="+" action="#{cartController.addProductToCart(p.id)}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Price</f:facet>
+                                #{p.id * cartController.productCart[p]}
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGrid>
+            </h:form>
+        </div>
     </h:body>
 </html>
