@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import jpa.Customer;
+import jpa.Customers;
 
 @Named(value = "genericTable")
 @SessionScoped
@@ -31,7 +31,7 @@ public class GenericDataTableDemo implements Serializable {
 
 		for (Object e : crud.findWithNamedQuery("Customers.findAll")) {
 
-			e = (Customer) e;
+			e = (Customers) e;
 			List<String> row = new ArrayList<>();
 			Field[] fields = e.getClass().getDeclaredFields();
 

@@ -6,8 +6,8 @@ import java.util.Map;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import jpa.Admin;
-import jpa.Customer;
+import jpa.Admins;
+import jpa.Customers;
 //import jpa.EJBControllerDemo;
 import crud.GenericCrudService;
 //import jpa.GenericCrudService;
@@ -45,17 +45,17 @@ public class TestButtons implements Serializable {
 	}
 
 	public void newUser() {
-		for (Customer customer : jpa.FakeData.CUSTOMERLIST) {
+		for (Customers customer : jpa.FakeData.CUSTOMERLIST) {
 			crudBean.create(customer);
 		}
-		for (Admin admin : jpa.FakeData.ADMINLIST) {
+		for (Admins admin : jpa.FakeData.ADMINLIST) {
 			crudBean.create(admin);
 		}
 	}
 
 	public void deleteAll() {
-		crudBean.nuke(Customer.class);
-		crudBean.nuke(Admin.class);
+		crudBean.nuke(Customers.class);
+		crudBean.nuke(Admins.class);
 	}
 
 }

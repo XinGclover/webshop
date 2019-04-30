@@ -15,7 +15,7 @@ import java.util.Map;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
-import jpa.Customer;
+import jpa.Customers;
 
 /**
  *
@@ -147,7 +147,7 @@ public class BeanController implements Serializable {
 	private void setNames() {
 		Map<String, Object> params = new HashMap<>();
 		params.put("email", email);
-		Customer c = (Customer) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
+		Customers c = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
 		firstName = c.getFirstName();
 		lastName = c.getLastName();
 	}

@@ -23,7 +23,7 @@ import javax.persistence.Table;
 	, @NamedQuery(name = "Customers.findByAddress", query = "SELECT c FROM Customers c WHERE c.address = :address")
 	, @NamedQuery(name = "Customers.findByPassword", query = "SELECT c FROM Customers c WHERE c.password = :password")
 	, @NamedQuery(name = "Customers.findByEmail", query = "SELECT c FROM Customers c WHERE c.email = :email")})
-public class Customer implements Serializable {
+public class Customers implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -45,14 +45,14 @@ public class Customer implements Serializable {
 	@Column(name = "EMAIL", length = 32)
 	private String email;
         
-	public Customer() {
+	public Customers() {
 	}
         
-        public Customer(Integer id) {
+        public Customers(Integer id) {
 		this.id = id;
 	}
 
-	public Customer(Integer id, String firstName, String lastName, String email,
+	public Customers(Integer id, String firstName, String lastName, String email,
 		String address, String password) {
 		this.id = id;
 		this.firstName = firstName;
@@ -62,7 +62,7 @@ public class Customer implements Serializable {
 		this.email = email;
 	}
 
-	public Customer(String firstName, String lastName, String email, String address, String password) {
+	public Customers(String firstName, String lastName, String email, String address, String password) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -144,10 +144,10 @@ public class Customer implements Serializable {
 	@Override
 	public boolean equals(Object object) {
 		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof Customer)) {
+		if (!(object instanceof Customers)) {
 			return false;
 		}
-		Customer other = (Customer) object;
+		Customers other = (Customers) object;
 		return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
 	}
 

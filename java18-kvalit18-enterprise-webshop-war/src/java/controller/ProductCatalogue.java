@@ -11,7 +11,7 @@ import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
-import jpa.Customer;
+import jpa.Customers;
 
 /**
  *
@@ -26,8 +26,8 @@ public class ProductCatalogue implements Serializable {
 	@EJB
 	private GenericCrudService crud;
 	private String searchedString;
-	private List<Customer> allCustomers = new ArrayList<>();
-	private List<Customer> productList = new ArrayList<>();
+	private List<Customers> allCustomers = new ArrayList<>();
+	private List<Customers> productList = new ArrayList<>();
 
 	public void ProductCatalogue() {
 
@@ -36,7 +36,7 @@ public class ProductCatalogue implements Serializable {
 	@PostConstruct
 	public void init() {
 		crud.findWithNamedQuery("Customers.findAll").forEach(e -> {
-			allCustomers.add((Customer) e);
+			allCustomers.add((Customers) e);
 		});
 		productList = allCustomers;
 	}
@@ -49,7 +49,7 @@ public class ProductCatalogue implements Serializable {
 		this.searchedString = searchedString;
 	}
 
-	public List<Customer> getProductList() {
+	public List<Customers> getProductList() {
 		return productList;
 	}
 
