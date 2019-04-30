@@ -10,13 +10,10 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import crud.userManagementBean;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.event.ValueChangeEvent;
-import javax.inject.Inject;
 import jpa.Customers;
 
 /**

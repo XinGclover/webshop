@@ -29,6 +29,15 @@ public class ProductCatalogue implements Serializable {
 	private String searchedString;
 	private List<Fruit> allFruit = new ArrayList<>();
 	private List<Fruit> fruitList = new ArrayList<>();
+	private Integer quantity;
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
 
 	public void ProductCatalogue() {
 
@@ -39,6 +48,7 @@ public class ProductCatalogue implements Serializable {
 		crud.findWithNamedQuery("Fruit.findAll").forEach(e -> {
 			allFruit.add((Fruit) e);
 		});
+		fruitList = allFruit;
 
 	}
 
@@ -58,5 +68,9 @@ public class ProductCatalogue implements Serializable {
 		fruitList = allFruit.stream()
 			.filter(e -> e.getFruitName().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
 			.collect(Collectors.toList());
+	}
+	
+	public void add(){
+		System.out.println(quantity);
 	}
 }
