@@ -8,15 +8,13 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import jpa.Admins;
 import jpa.Customers;
-//import jpa.EJBControllerDemo;
 import crud.GenericCrudService;
-//import jpa.GenericCrudService;
+import jpa.Fruit;
 
 @Named(value = "test")
 @SessionScoped
 public class TestButtons implements Serializable {
 
-//	private final EJBControllerDemo ejb = new EJBControllerDemo();
 	@EJB
 	private GenericCrudService crudBean;
 
@@ -36,12 +34,11 @@ public class TestButtons implements Serializable {
 		crudBean.findWithNamedQuery("Admins.findAll").forEach(e -> {
 			System.out.println(e);
 		});
-	}
 
-	public void testID() {
-		Map<String, Object> params = new HashMap<>();
-		params.put("id", 5);
-//		System.out.println((Customers) ejb.namedQuery("Customers.findById", params));
+		crudBean.findWithNamedQuery("Fruit.findAll").forEach(e -> {
+			System.out.println(e);
+		});
+
 	}
 
 	public void newUser() {
@@ -51,11 +48,15 @@ public class TestButtons implements Serializable {
 		for (Admins admin : jpa.FakeData.ADMINLIST) {
 			crudBean.create(admin);
 		}
+		for (Fruit fruit : jpa.FakeData.FRUITLIST) {
+			crudBean.create(fruit);
+		}
 	}
 
 	public void deleteAll() {
 		crudBean.nuke(Customers.class);
 		crudBean.nuke(Admins.class);
+		crudBean.nuke(Fruit.class);
 	}
 
 }

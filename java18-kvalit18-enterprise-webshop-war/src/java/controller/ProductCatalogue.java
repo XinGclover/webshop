@@ -8,26 +8,27 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.html.HtmlDataTable;
 import javax.faces.event.ValueChangeEvent;
 import jpa.Customers;
+import jpa.Fruit;
 
 /**
  *
- * @author nikalsNy
+ * @author nikalsh
  */
 @Named(value = "ProductCatalogue")
 @SessionScoped
 public class ProductCatalogue implements Serializable {
-	
-	//temporary listing customers, will be products when there is data
 
+	//temporary listing customers, will be products when there is data
 	@EJB
 	private GenericCrudService crud;
 	private String searchedString;
-	private List<Customers> allCustomers = new ArrayList<>();
-	private List<Customers> productList = new ArrayList<>();
+	private List<Fruit> allFruit = new ArrayList<>();
+	private List<Fruit> fruitList = new ArrayList<>();
 
 	public void ProductCatalogue() {
 
@@ -35,10 +36,10 @@ public class ProductCatalogue implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		crud.findWithNamedQuery("Customers.findAll").forEach(e -> {
-			allCustomers.add((Customers) e);
+		crud.findWithNamedQuery("Fruit.findAll").forEach(e -> {
+			allFruit.add((Fruit) e);
 		});
-		productList = allCustomers;
+
 	}
 
 	public String getSearchedString() {
@@ -49,13 +50,13 @@ public class ProductCatalogue implements Serializable {
 		this.searchedString = searchedString;
 	}
 
-	public List<Customers> getProductList() {
-		return productList;
+	public List<Fruit> getProductList() {
+		return fruitList;
 	}
 
 	public void searchedTextChanged(ValueChangeEvent event) {
-		productList = allCustomers.stream()
-			.filter(e -> e.getFirstName().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
+		fruitList = allFruit.stream()
+			.filter(e -> e.getFruitName().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
 			.collect(Collectors.toList());
 	}
 }

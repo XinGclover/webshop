@@ -25,102 +25,108 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "FRUIT")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Fruit.findAll", query = "SELECT f FROM Fruit f")
-    , @NamedQuery(name = "Fruit.findByFruitid", query = "SELECT f FROM Fruit f WHERE f.fruitid = :fruitid")
-    , @NamedQuery(name = "Fruit.findByFruitName", query = "SELECT f FROM Fruit f WHERE f.fruitName = :fruitName")
-    , @NamedQuery(name = "Fruit.findByUnit", query = "SELECT f FROM Fruit f WHERE f.unit = :unit")
-    , @NamedQuery(name = "Fruit.findByPrice", query = "SELECT f FROM Fruit f WHERE f.price = :price")
-    , @NamedQuery(name = "Fruit.findByImageurl", query = "SELECT f FROM Fruit f WHERE f.imageurl = :imageurl")})
+	@NamedQuery(name = "Fruit.findAll", query = "SELECT f FROM Fruit f")
+	, @NamedQuery(name = "Fruit.findByFruitid", query = "SELECT f FROM Fruit f WHERE f.fruitid = :fruitid")
+	, @NamedQuery(name = "Fruit.findByFruitName", query = "SELECT f FROM Fruit f WHERE f.fruitName = :fruitName")
+	, @NamedQuery(name = "Fruit.findByUnit", query = "SELECT f FROM Fruit f WHERE f.unit = :unit")
+	, @NamedQuery(name = "Fruit.findByPrice", query = "SELECT f FROM Fruit f WHERE f.price = :price")
+	, @NamedQuery(name = "Fruit.findByImageurl", query = "SELECT f FROM Fruit f WHERE f.imageurl = :imageurl")})
 public class Fruit implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "FRUITID")
-    private Integer fruitid;
-    @Size(max = 40)
-    @Column(name = "FRUIT_NAME")
-    private String fruitName;
-    @Size(max = 40)
-    @Column(name = "UNIT")
-    private String unit;
-    @Column(name = "PRICE")
-    private Integer price;
-    @Size(max = 200)
-    @Column(name = "IMAGEURL")
-    private String imageurl;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "FRUITID")
+	private Integer fruitid;
+	@Size(max = 40)
+	@Column(name = "FRUIT_NAME")
+	private String fruitName;
+	@Size(max = 40)
+	@Column(name = "UNIT")
+	private String unit;
+	@Column(name = "PRICE")
+	private Integer price;
+	@Size(max = 200)
+	@Column(name = "IMAGEURL")
+	private String imageurl;
 
-    public Fruit() {
-    }
+	public Fruit() {
+	}
 
-    public Fruit(Integer fruitid) {
-        this.fruitid = fruitid;
-    }
+	public Fruit(String fruit_name, String unit, Integer price) {
+		this.fruitName = fruit_name;
+		this.unit = unit;
+		this.price = price;
+	}
 
-    public Integer getFruitid() {
-        return fruitid;
-    }
+	public Fruit(Integer fruitid) {
+		this.fruitid = fruitid;
+	}
 
-    public void setFruitid(Integer fruitid) {
-        this.fruitid = fruitid;
-    }
+	public Integer getFruitid() {
+		return fruitid;
+	}
 
-    public String getFruitName() {
-        return fruitName;
-    }
+	public void setFruitid(Integer fruitid) {
+		this.fruitid = fruitid;
+	}
 
-    public void setFruitName(String fruitName) {
-        this.fruitName = fruitName;
-    }
+	public String getFruitName() {
+		return fruitName;
+	}
 
-    public String getUnit() {
-        return unit;
-    }
+	public void setFruitName(String fruitName) {
+		this.fruitName = fruitName;
+	}
 
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
+	public String getUnit() {
+		return unit;
+	}
 
-    public Integer getPrice() {
-        return price;
-    }
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
 
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
+	public Integer getPrice() {
+		return price;
+	}
 
-    public String getImageurl() {
-        return imageurl;
-    }
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
 
-    public void setImageurl(String imageurl) {
-        this.imageurl = imageurl;
-    }
+	public String getImageurl() {
+		return imageurl;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (fruitid != null ? fruitid.hashCode() : 0);
-        return hash;
-    }
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Fruit)) {
-            return false;
-        }
-        Fruit other = (Fruit) object;
-        if ((this.fruitid == null && other.fruitid != null) || (this.fruitid != null && !this.fruitid.equals(other.fruitid))) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (fruitid != null ? fruitid.hashCode() : 0);
+		return hash;
+	}
 
-    @Override
-    public String toString() {
-        return "jpa.Fruit[ fruitid=" + fruitid + " ]";
-    }
-    
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Fruit)) {
+			return false;
+		}
+		Fruit other = (Fruit) object;
+		if ((this.fruitid == null && other.fruitid != null) || (this.fruitid != null && !this.fruitid.equals(other.fruitid))) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("jpa.Fruit[ fruitid=%s fruitname=%s unit=%s price=%s ]",fruitid, fruitName, unit, price);
+	}
+
 }

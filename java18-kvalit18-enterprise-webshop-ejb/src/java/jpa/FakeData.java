@@ -30,4 +30,10 @@ public class FakeData {
 		new Admins("Admin.trean@mail.nu", "Admin3"),
 		new Admins("Admin.fyran@mail.nu", "Admin4"),
 		new Admins("Admin.femman@mail.nu", "Admin5")};
+
+	public static final Fruit[] FRUITLIST = new Fruit[]{
+		new Fruit("Banan", "1kg", 45),
+		new Fruit("Äpple", "1kg", 35),
+		new Fruit("Kiwi", "1kg", 25),
+		new Fruit("Apelsin", "1kg", 75)};
 }
