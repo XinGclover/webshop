@@ -1,21 +1,24 @@
 package controller;
 
 import crud.GenericCrudService;
+import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import javax.inject.Named;
 import jpa.Customers;
 
-@FacesValidator("emailValidator")
-public class EmailValidator implements Validator {
+
+@Named(value="emailValidator")
+@SessionScoped
+public class EmailValidator implements Validator, Serializable {
 
 	@EJB
 	private GenericCrudService crud;
@@ -27,16 +30,16 @@ public class EmailValidator implements Validator {
 	@Override
 	public void validate(FacesContext arg0, UIComponent arg1, Object arg2) throws ValidatorException {
 
-		String input = (String) arg2;
+		String email = (String) arg2;
 
-		if (input.equals("")) {
+		if (email.equals("")) {
 			throw new ValidatorException(
 				new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					(arg1.getId() + " cannot be empty!"),
 					null));
 		}
 
-		if (!validEmail.matcher(input).matches()) {
+		if (!validEmail.matcher(email).matches()) {
 			throw new ValidatorException(
 				new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					(arg1.getId() + " is not a valid email!"),
@@ -44,14 +47,16 @@ public class EmailValidator implements Validator {
 		}
 
 		Map<String, Object> params = new HashMap<>();
-		params.put("email", input);
+		params.put("email", email);
 		try {
-			crud.findWithNamedQuery("Customers.findByEmail", params);
-		} catch (NullPointerException e) {
+			Customers c = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
 			throw new ValidatorException(
 				new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					(arg1.getId() + " already exists!"),
 					null));
+		} catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+			//duplicate doesnt exist
 		}
+
 	}
 }

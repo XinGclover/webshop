@@ -30,5 +30,4 @@ public class FakeData {
 		new Admins("Admin.trean@mail.nu", "Admin3"),
 		new Admins("Admin.fyran@mail.nu", "Admin4"),
 		new Admins("Admin.femman@mail.nu", "Admin5")};
-
 }

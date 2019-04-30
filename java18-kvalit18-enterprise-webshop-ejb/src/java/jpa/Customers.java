@@ -44,7 +44,7 @@ public class Customers implements Serializable {
 	private String password;
 	@Column(name = "EMAIL", length = 32)
 	private String email;
-
+        
 	public Customers() {
 	}
         
