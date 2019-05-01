@@ -107,7 +107,7 @@ public class CartController implements Serializable{
         
         totalCartPrice = new BigDecimal("0");
         for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
-            totalCartPrice = totalCartPrice.add(entry.getKey().getUnitPrice().multiply(new BigDecimal(entry.getValue())));
+            totalCartPrice = totalCartPrice.add(entry.getKey().getUnitprice().multiply(new BigDecimal(entry.getValue())));
         }
         totalCartPrice = totalCartPrice.setScale(2);
     }
@@ -128,7 +128,7 @@ public class CartController implements Serializable{
         
         totalCartPrice = new BigDecimal("0");
         for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
-            totalCartPrice = totalCartPrice.add(entry.getKey().getUnitPrice().multiply(new BigDecimal(entry.getValue())));
+            totalCartPrice = totalCartPrice.add(entry.getKey().getUnitprice().multiply(new BigDecimal(entry.getValue())));
         }
         totalCartPrice = totalCartPrice.setScale(2);
     }

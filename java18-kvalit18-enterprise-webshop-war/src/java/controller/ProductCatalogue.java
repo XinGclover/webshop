@@ -72,7 +72,7 @@ public class ProductCatalogue implements Serializable {
 
 	public void searchedTextChanged(ValueChangeEvent event) {
 		productsList = allProducts.stream()
-			.filter(e -> e.getProductName().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
+			.filter(e -> e.getProductname().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
                         .collect(Collectors.toList());
 	}
 	
@@ -81,7 +81,7 @@ public class ProductCatalogue implements Serializable {
 	}
         
         public void getProductsInfo(Products p){
-            setProductDetail(p.getCategoryId().getCategoryName()+":"+p.getCategoryId().getDescription());  
+            setProductDetail(p.getCategoryid().getCategoryname()+":"+p.getCategoryid().getDescription());  
             
         }
 }
