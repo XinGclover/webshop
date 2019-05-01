@@ -9,12 +9,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.faces.component.html.HtmlDataTable;
 import javax.faces.event.ValueChangeEvent;
-import jpa.Customers;
-//import jpa.Products;
-import jpa.Fruit;
+import jpa.Products;
 
 /**
  *
@@ -29,14 +25,13 @@ public class ProductCatalogue implements Serializable {
 	private GenericCrudService crud;
 	private String searchedString;
         
-	/*
         private List<Products> allProducts = new ArrayList<>();
 	private List<Products> productsList = new ArrayList<>();
-        */
-        private List<Fruit> allFruit = new ArrayList<>();
-	private List<Fruit> fruitList = new ArrayList<>();
         
 	private Integer quantity;
+        
+        public ProductCatalogue() {
+	}
 
 	public Integer getQuantity() {
 		return quantity;
@@ -44,26 +39,6 @@ public class ProductCatalogue implements Serializable {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
-	}
-
-	public void ProductCatalogue() {
-
-	}
-
-	@PostConstruct
-	public void init() {
-            
-            /*
-            crud.findWithNamedQuery("Products.findAll").forEach(e -> {
-                    allProducts.add((Products) e);
-            });
-            productsList = allProducts;
-            */
-            crud.findWithNamedQuery("Fruit.findAll").forEach(e -> {
-			allFruit.add((Fruit) e);
-            });
-            fruitList = allFruit;
-
 	}
 
 	public String getSearchedString() {
@@ -74,24 +49,22 @@ public class ProductCatalogue implements Serializable {
 		this.searchedString = searchedString;
 	}
 
-	/*
-        public List<Products> getProductList() {
+        public List<Products> getProductsList() {
 		return productsList;
 	}
-        */
-        public List<Fruit> getProductList() {
-                return fruitList;
-        }
+        
+        @PostConstruct
+	public void init() {
+            crud.findWithNamedQuery("Products.findAll").forEach(e -> {
+                    allProducts.add((Products) e);
+            });
+            productsList = allProducts;
+	}
 
 	public void searchedTextChanged(ValueChangeEvent event) {
-                /*
 		productsList = allProducts.stream()
-			.filter(e -> e.getProductname().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
+			.filter(e -> e.getProductName().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
                         .collect(Collectors.toList());
-                */
-                fruitList = allFruit.stream()
-			.filter(e -> e.getFruitName().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
-			.collect(Collectors.toList());
 	}
 	
 	public void add(){

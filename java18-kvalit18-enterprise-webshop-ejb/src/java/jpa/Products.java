@@ -29,93 +29,93 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p")
-    , @NamedQuery(name = "Products.findByProductid", query = "SELECT p FROM Products p WHERE p.productid = :productid")
-    , @NamedQuery(name = "Products.findByProductname", query = "SELECT p FROM Products p WHERE p.productname = :productname")
-    , @NamedQuery(name = "Products.findByQuantityperunit", query = "SELECT p FROM Products p WHERE p.quantityperunit = :quantityperunit")
-    , @NamedQuery(name = "Products.findByUnitprice", query = "SELECT p FROM Products p WHERE p.unitprice = :unitprice")
-    , @NamedQuery(name = "Products.findByUnitsinstock", query = "SELECT p FROM Products p WHERE p.unitsinstock = :unitsinstock")})
+    , @NamedQuery(name = "Products.findByProductId", query = "SELECT p FROM Products p WHERE p.productId = :productId")
+    , @NamedQuery(name = "Products.findByProductName", query = "SELECT p FROM Products p WHERE p.productName = :productName")
+    , @NamedQuery(name = "Products.findByQuantityPerUnit", query = "SELECT p FROM Products p WHERE p.quantityPerUnit = :quantityPerUnit")
+    , @NamedQuery(name = "Products.findByUnitPrice", query = "SELECT p FROM Products p WHERE p.unitPrice = :unitPrice")
+    , @NamedQuery(name = "Products.findByUnitsInStock", query = "SELECT p FROM Products p WHERE p.unitsInStock = :unitsInStock")})
 public class Products implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PRODUCTID")
-    private Integer productid;
+    private Integer productId;
     @Size(max = 40)
     @Column(name = "PRODUCTNAME")
-    private String productname;
+    private String productName;
     @Size(max = 20)
     @Column(name = "QUANTITYPERUNIT")
-    private String quantityperunit;
+    private String quantityPerUnit;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "UNITPRICE")
-    private BigDecimal unitprice;
+    private BigDecimal unitPrice;
     @Column(name = "UNITSINSTOCK")
-    private Integer unitsinstock;
+    private Integer unitsInStock;
     @JoinColumn(name = "CATEGORYID", referencedColumnName = "CATEGORYID")
     @ManyToOne
-    private Categories categoryid;
+    private Categories categoryId;
 
     public Products() {
     }
 
-    public Products(Integer productid) {
-        this.productid = productid;
+    public Products(Integer productId) {
+        this.productId = productId;
     }
 
-    public Integer getProductid() {
-        return productid;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setProductid(Integer productid) {
-        this.productid = productid;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
-    public String getProductname() {
-        return productname;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProductname(String productname) {
-        this.productname = productname;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public String getQuantityperunit() {
-        return quantityperunit;
+    public String getQuantityPerUnit() {
+        return quantityPerUnit;
     }
 
-    public void setQuantityperunit(String quantityperunit) {
-        this.quantityperunit = quantityperunit;
+    public void setQuantityPerUnit(String quantityPerUnit) {
+        this.quantityPerUnit = quantityPerUnit;
     }
 
-    public BigDecimal getUnitprice() {
-        return unitprice;
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setUnitprice(BigDecimal unitprice) {
-        this.unitprice = unitprice;
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
-    public Integer getUnitsinstock() {
-        return unitsinstock;
+    public Integer getUnitsInStock() {
+        return unitsInStock;
     }
 
-    public void setUnitsinstock(Integer unitsinstock) {
-        this.unitsinstock = unitsinstock;
+    public void setUnitsInStock(Integer unitsInStock) {
+        this.unitsInStock = unitsInStock;
     }
 
-    public Categories getCategoryid() {
-        return categoryid;
+    public Categories getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryid(Categories categoryid) {
-        this.categoryid = categoryid;
+    public void setCategoryId(Categories categoryId) {
+        this.categoryId = categoryId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (productid != null ? productid.hashCode() : 0);
+        hash += (productId != null ? productId.hashCode() : 0);
         return hash;
     }
 
@@ -126,7 +126,7 @@ public class Products implements Serializable {
             return false;
         }
         Products other = (Products) object;
-        if ((this.productid == null && other.productid != null) || (this.productid != null && !this.productid.equals(other.productid))) {
+        if ((this.productId == null && other.productId != null) || (this.productId != null && !this.productId.equals(other.productId))) {
             return false;
         }
         return true;
@@ -134,7 +134,8 @@ public class Products implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.Products[ productid=" + productid + " ]";
+        return "Products{" + "productId=" + productId + ", productName=" + productName +
+                ", quantityPerUnit=" + quantityPerUnit + ", unitPrice=" + unitPrice +
+                ", unitsInStock=" + unitsInStock + ", categoryId=" + categoryId + '}';
     }
-    
 }

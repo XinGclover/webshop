@@ -4,6 +4,7 @@ import crud.GenericCrudService;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,10 +12,10 @@ import java.util.Map;
 import javax.ejb.EJB;
 import jpa.Customers;
 import javax.faces.component.UIComponentBase;
-import jpa.Fruit;
+import jpa.Products;
 
 
-@Named(value="cartController")
+@Named(value="CartController")
 @SessionScoped
 public class CartController implements Serializable{
 
@@ -24,12 +25,12 @@ public class CartController implements Serializable{
     private UIComponentBase logoutButton;
     private UIComponentBase orderPanel;
     
-    private Customers customer = new Customers();
+    private Customers customer;
     
-    private Map<Fruit, Integer> productCart = new HashMap();//Change Fruits into Products
-    private List<Fruit> cartProducts = new ArrayList();
+    private Map<Products, Integer> productCart = new HashMap();
+    private List<Products> cartProducts = new ArrayList();
     
-    private float totalCartPrice;
+    private BigDecimal totalCartPrice;
     
     private String recipt;
 
@@ -60,7 +61,7 @@ public class CartController implements Serializable{
         this.recipt = recipt;
     }
 
-    public List<Fruit> getCartProducts() {
+    public List<Products> getCartProducts() {
         return cartProducts;
     }
 
@@ -72,27 +73,27 @@ public class CartController implements Serializable{
         this.customer = customer;
     }
 
-    public Map<Fruit, Integer> getProductCart() {
+    public Map<Products, Integer> getProductCart() {
         return productCart;
     }
 
-    public float getTotalCartPrice() {
+    public BigDecimal getTotalCartPrice() {
         return totalCartPrice;
     }
 
-    public void setTotalCartPrice(float totalCartPrice) {
+    public void setTotalCartPrice(BigDecimal totalCartPrice) {
         this.totalCartPrice = totalCartPrice;
     }
     
     public void addProductToCart(Integer productId) {
         
         Map<String, Object> params = new HashMap<>();
-        params.put("fruitid", productId);
-        Fruit product = (Fruit) crud.findWithNamedQuery("Fruit.findByFruitid", params).get(0);
+        params.put("productId", productId);
+        Products product = (Products) crud.findWithNamedQuery("Products.findByProductId", params).get(0);
         
         boolean flag = false;
         
-        for (Map.Entry<Fruit, Integer> entry : productCart.entrySet()) {
+        for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
             if (product.equals(entry.getKey())) {
                 productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() + 1);
                 flag = true;
@@ -102,37 +103,40 @@ public class CartController implements Serializable{
         if (flag == false) {
             productCart.put(product, 1);
         }
-        cartProducts = new ArrayList<Fruit>(productCart.keySet());
+        cartProducts = new ArrayList<Products>(productCart.keySet());
         
-        totalCartPrice = 0;
-        for (Map.Entry<Fruit, Integer> entry : productCart.entrySet()) {
-            totalCartPrice += entry.getValue() * entry.getKey().getPrice();
-        }   
+        totalCartPrice = new BigDecimal("0");
+        for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
+            totalCartPrice = totalCartPrice.add(entry.getKey().getUnitPrice().multiply(new BigDecimal(entry.getValue())));
+        }
+        totalCartPrice = totalCartPrice.setScale(2);
     }
     
     public void removeProductFromCart(Integer productId) {
         
         Map<String, Object> params = new HashMap<>();
-        params.put("fruitid", productId);
-        Fruit product = (Fruit) crud.findWithNamedQuery("Fruit.findByFruitid", params).get(0);
+        params.put("productId", productId);
+        Products product = (Products) crud.findWithNamedQuery("Products.findByProductId", params).get(0);
         
-        for (Map.Entry<Fruit, Integer> entry : productCart.entrySet()) {
+        for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
             if (product.equals(entry.getKey())) {
                 productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() - 1);
             }
             productCart.values().remove(0);
         }
-        cartProducts = new ArrayList<Fruit>(productCart.keySet());
+        cartProducts = new ArrayList<Products>(productCart.keySet());
         
-        totalCartPrice = 0;
-        for (Map.Entry<Fruit, Integer> entry : productCart.entrySet()) {
-            totalCartPrice += entry.getValue() * entry.getKey().getPrice();
-        }       
+        totalCartPrice = new BigDecimal("0");
+        for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
+            totalCartPrice = totalCartPrice.add(entry.getKey().getUnitPrice().multiply(new BigDecimal(entry.getValue())));
+        }
+        totalCartPrice = totalCartPrice.setScale(2);
     }
     
     public String createOrder() {
         
-        /*BeanController beanController = new BeanController();
+        /*
+        BeanController beanController = new BeanController();
         String email = beanController.getEmail();
         
         Map<String, Object> params = new HashMap<>();
@@ -149,7 +153,7 @@ public class CartController implements Serializable{
     public void pay() {
         productCart.clear();
         cartProducts.clear();
-        totalCartPrice = 0;
+        totalCartPrice = new BigDecimal("0");
         
         recipt = "Congratulations! You have spent fake money on fake products!";
         orderPanel.setRendered(false);

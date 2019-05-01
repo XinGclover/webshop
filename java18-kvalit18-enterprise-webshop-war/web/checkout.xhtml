@@ -9,42 +9,42 @@
     <h:body>
         <center>
             <h:form>
-                <h:panelGrid bgcolor="#e6edfd" columns="1" binding="#{cartController.orderPanel}">
+                <h:panelGrid bgcolor="#e6edfd" columns="1" binding="#{CartController.orderPanel}">
                     <f:facet name="header">Order</f:facet>
                     
-                    <h:dataTable value="#{cartController.cartProducts}" var="p" style="text-align: center;">
+                    <h:dataTable value="#{CartController.cartProducts}" var="p">
                         <h:column>
                             <f:facet name="header">Name</f:facet>
-                            #{p.fruitName}
+                            #{p.productName}
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">Unit</f:facet>
-                            #{p.unit}
+                            <f:facet name="header">Units</f:facet>
+                            #{p.quantityPerUnit}
                         </h:column>
                     
                         <h:column>
                             <f:facet name="header">Quantity</f:facet>
-                            #{cartController.productCart[p]}
+                            #{CartController.productCart[p]}
                         </h:column>
 
                         <h:column>
                             <f:facet name="header">Price</f:facet>
-                            #{p.price * cartController.productCart[p]}
+                            #{p.unitPrice.setScale(2) * CartController.productCart[p]}
                         </h:column>
                     </h:dataTable>
                     
-                    <h:outputText value="Total price: #{cartController.totalCartPrice}"/>
+                    <h:outputText value="Total price: #{CartController.totalCartPrice}"/>
                     
                     <h:panelGroup>
                         <h:commandButton value="Back to store" action="store" style="margin-left: 10px;"/>
-                        <h:commandButton value="Pay" action="#{cartController.pay()}" style="float: right;"/>
+                        <h:commandButton value="Pay" action="#{CartController.pay()}" style="float: right;"/>
                     </h:panelGroup>
                 </h:panelGrid>
                 
                 <br/><br/><br/><br/>
-                <h:outputLabel value="#{cartController.recipt}"/><br/><br/>
-                <h:commandButton value="logout" action="index" binding="#{cartController.logoutButton}" rendered="false"/>
+                <h:outputLabel value="#{CartController.recipt}"/><br/><br/>
+                <h:commandButton value="logout" action="index" binding="#{CartController.logoutButton}" rendered="false"/>
             </h:form>
         </center>
     </h:body>

@@ -8,22 +8,20 @@
     </h:head>
     <h:body>
         <f:view>
-
-
             <h:form>
                 <h1><h:outputText value="List"/></h1>
                 <h:dataTable value="#{categoriesController.all}" var="item">
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Categoryid"/>
+                            <h:outputText value="Category Id"/>
                         </f:facet>
-                        <h:outputText value="#{item.categoryid}"/>
+                        <h:outputText value="#{item.categoryId}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Categoryname"/>
+                            <h:outputText value="Category Name"/>
                         </f:facet>
-                        <h:outputText value="#{item.categoryname}"/>
+                        <h:outputText value="#{item.categoryName}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
@@ -40,7 +38,6 @@
                 </h:dataTable>
             </h:form>
         </f:view>
-
     </h:body>
 </html>
 
