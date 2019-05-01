@@ -75,7 +75,7 @@ public class GenericCrudServiceBean implements GenericCrudService {
 	public <T> List<T> findWithNativeQuery(String sql, Class<T> type) {
 		return em.createNativeQuery(sql, type).getResultList();
 	}
-
+        
 	@Override
 	public <T> void nuke(Class<T> type) {
 		findWithNativeQuery("SELECT * from " + type.getSimpleName(), type).forEach(e -> {

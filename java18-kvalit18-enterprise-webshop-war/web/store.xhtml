@@ -16,7 +16,8 @@
 	    <h:form>
 		<h:inputText id="search" value="#{ProductCatalogue.searchedString}" valueChangeListener="#{ProductCatalogue.searchedTextChanged}">
 		    <f:ajax execute="search" render=":form:panel" event="blur"/>
-		</h:inputText>               
+		</h:inputText> 
+                <h:outputText value="#{ProductCatalogue.productDetail}"></h:outputText>
 	    </h:form>
 	    <h:panelGrid width="375px" bgcolor="#e6edfd" columns="2" border="0">
 
@@ -47,16 +48,18 @@
 				</h:column>
 
 				<h:column>
-				    <h:commandButton value="Add" action="#{dummyCart.add(p)}">
+                                    <h:commandButton value="Add" action="#{dummyCart.add(p)}" >
 				    </h:commandButton>
+                                    <h:commandButton value="Test" action="#{ProductCatalogue.getProductsInfo(p)}"></h:commandButton>
+                                                                            
 				</h:column>
-
-			    </h:dataTable>
+                               
+			    </h:dataTable>                          
 			</center>
 		    </h:panelGroup>
 		</h:form>
 	    </h:panelGrid>
-
-	</center>
+            
+	</center>        
     </h:body>
 </html>

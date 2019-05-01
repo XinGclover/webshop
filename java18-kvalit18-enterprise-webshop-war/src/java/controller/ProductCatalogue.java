@@ -12,6 +12,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlDataTable;
 import javax.faces.event.ValueChangeEvent;
+import jpa.Categories;
 import jpa.Customers;
 import jpa.Products;
 
@@ -30,6 +31,7 @@ public class ProductCatalogue implements Serializable {
 	private List<Products> allProducts = new ArrayList<>();
 	private List<Products> productsList = new ArrayList<>();
 	private Integer quantity;
+        private String productDetail;
 
 	public Integer getQuantity() {
 		return quantity;
@@ -64,6 +66,14 @@ public class ProductCatalogue implements Serializable {
 		return productsList;
 	}
 
+        public String getProductDetail() {
+            return productDetail;
+        }
+
+        public void setProductDetail(String productDetail) {
+            this.productDetail = productDetail;
+        }    
+
 	public void searchedTextChanged(ValueChangeEvent event) {
 		productsList = allProducts.stream()
 			.filter(e -> e.getProductname().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
@@ -73,4 +83,9 @@ public class ProductCatalogue implements Serializable {
 	public void add(){
 		System.out.println(quantity);
 	}
+        
+        public void getProductsInfo(Products p){
+            setProductDetail(p.getCategoryid().getCategoryname()+":"+p.getCategoryid().getDescription());  
+            
+        }
 }
