@@ -91,16 +91,16 @@ public class CartController implements Serializable{
         params.put("productId", productId);
         Products product = (Products) crud.findWithNamedQuery("Products.findByProductId", params).get(0);
         
-        boolean flag = false;
+        boolean productAlreadyInCart = false;
         
         for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
             if (product.equals(entry.getKey())) {
                 productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() + 1);
-                flag = true;
+                productAlreadyInCart = true;
             }
         }
         
-        if (flag == false) {
+        if (productAlreadyInCart == false) {
             productCart.put(product, 1);
         }
         cartProducts = new ArrayList<Products>(productCart.keySet());
@@ -124,7 +124,7 @@ public class CartController implements Serializable{
             }
             productCart.values().remove(0);
         }
-        cartProducts = new ArrayList<Products>(productCart.keySet());
+        cartProducts = new ArrayList<>(productCart.keySet());
         
         totalCartPrice = new BigDecimal("0");
         for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {

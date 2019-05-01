@@ -1,5 +1,7 @@
 package jpa;
 
+import java.math.BigDecimal;
+
 public class FakeData {
 
 	public static final Customers[] CUSTOMERLIST = new Customers[]{
@@ -36,4 +38,11 @@ public class FakeData {
 		new Fruit("Äpple", "1kg", 35),
 		new Fruit("Kiwi", "1kg", 25),
 		new Fruit("Apelsin", "1kg", 75)};
+
+	public static final Products[] PRODUCTLIST = new Products[]{
+		new Products("Banan", "1kg", new BigDecimal(1.0)),
+		new Products("Ryggbiff", "500g", new BigDecimal(159.0)),
+		new Products("Mjölk", "1,5L", new BigDecimal(12.0)),
+		new Products("Kaffe", "450g", new BigDecimal(49.0))};
+
 }
