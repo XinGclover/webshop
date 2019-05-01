@@ -10,15 +10,16 @@
     </h:head>
     
     <h:body>
-        <div style="">
+        <div>
             <div style="position: relative; left:20%; display: inline-block; text-align: center;">
                 <h:outputText value="Welcome to the store"/><br/><br/>
                 <h:form>
                     <h:inputText id="search" value="#{ProductCatalogue.searchedString}" valueChangeListener="#{ProductCatalogue.searchedTextChanged}"
                                  style="width: 250px; text-align: center;">
                         <f:ajax execute="search" render=":form:panel" event="blur"/>
-                    </h:inputText>
-                </h:form><br/>
+                    </h:inputText><br/><br/>
+                    <h:outputText value="#{ProductCatalogue.productDetail}"/>
+                </h:form>
 
                 <h:form id="form">
                     <h:panelGrid bgcolor="#e6edfd" columns="1">
@@ -43,6 +44,10 @@
                                 <h:commandButton value="-" action="#{CartController.removeProductFromCart(p.productId)}"/>
                                 #{CartController.productCart[p]}
                                 <h:commandButton value="+" action="#{CartController.addProductToCart(p.productId)}"/>
+                            </h:column>
+                            
+                            <h:column>
+                                <h:commandButton value="Info" action="#{ProductCatalogue.getProductsInfo(p)}"/>
                             </h:column>
                         </h:dataTable>
                     </h:panelGrid>
@@ -84,6 +89,6 @@
                     </h:panelGrid>
                 </h:form>
             </div>
-        </div>
+        </div>       
     </h:body>
 </html>

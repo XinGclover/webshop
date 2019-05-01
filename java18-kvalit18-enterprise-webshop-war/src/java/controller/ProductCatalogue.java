@@ -29,6 +29,7 @@ public class ProductCatalogue implements Serializable {
 	private List<Products> productsList = new ArrayList<>();
         
 	private Integer quantity;
+        private String productDetail;
         
         public ProductCatalogue() {
 	}
@@ -61,6 +62,14 @@ public class ProductCatalogue implements Serializable {
             productsList = allProducts;
 	}
 
+        public String getProductDetail() {
+            return productDetail;
+        }
+
+        public void setProductDetail(String productDetail) {
+            this.productDetail = productDetail;
+        }    
+
 	public void searchedTextChanged(ValueChangeEvent event) {
 		productsList = allProducts.stream()
 			.filter(e -> e.getProductName().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
@@ -70,4 +79,9 @@ public class ProductCatalogue implements Serializable {
 	public void add(){
 		System.out.println(quantity);
 	}
+        
+        public void getProductsInfo(Products p){
+            setProductDetail(p.getCategoryId().getCategoryName()+":"+p.getCategoryId().getDescription());  
+            
+        }
 }

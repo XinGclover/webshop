@@ -19,3 +19,4 @@ INSERT INTO Fruit (Fruit_name,Unit,Price,ImageURL) VALUES ('Kiwi','1 piece',6,'i
 INSERT INTO Fruit (Fruit_name,Unit,Price,ImageURL) VALUES ('Lemon','1 piece',5,'img/01.jpg');
 INSERT INTO Fruit (Fruit_name,Unit,Price,ImageURL) VALUES ('Pear','1kg',30,'img/01.jpg');
 
+select CategoryName from Categories join Products on Categories.CategoryID=Products.CategoryID and Products.ProductID=2
