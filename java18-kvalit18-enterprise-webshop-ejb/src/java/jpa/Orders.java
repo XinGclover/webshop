@@ -54,15 +54,11 @@ public class Orders implements Serializable {
     public Orders() {
     }
 
-    public Orders(Integer orderid) {
-        this.orderid = orderid;
-    }
-
-    public Orders(Integer orderid, Integer customerid, Date orderdate) {
+   /* public Orders(Integer orderid, Integer customerid, Date orderdate) {
         this.orderid = orderid;
         this.customerid = customerid;
         this.orderdate = orderdate;
-    }
+    }*/
     
     
 

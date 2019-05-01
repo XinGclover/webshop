@@ -1,17 +1,23 @@
 package controller;
 
+import static com.oracle.jrockit.jfr.ContentType.Timestamp;
 import crud.GenericCrudService;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import jpa.Customers;
 import javax.faces.component.UIComponentBase;
+import jpa.Orderdetails;
+import jpa.Orders;
 import jpa.Products;
 
 
@@ -157,6 +163,24 @@ public class CartController implements Serializable{
         
         recipt = "Congratulations! You have spent fake money on fake products!";
         orderPanel.setRendered(false);
-        logoutButton.setRendered(true);
+        logoutButton.setRendered(true); 
+        recordeOrder(3, new Timestamp(System.currentTimeMillis()));
+       // recordeOrderDetails(orderid, productid, Integer.SIZE);
     }
+       
+    public void recordeOrder(Integer customerid, Date orderdate){
+        Orders order=new Orders();
+        order.setCustomerid(customerid);
+        order.setOrderdate(orderdate);
+        crud.create(order);
+       // return "checkout";
+    }
+    
+    public void recordeOrderDetails(Orders orderid, Products productid,Integer quantity){
+        Orderdetails od=new Orderdetails();
+        od.setOrderid(orderid);
+        od.setProductid(productid);
+        od.setQuantity(quantity);
+    }
+    
 }
