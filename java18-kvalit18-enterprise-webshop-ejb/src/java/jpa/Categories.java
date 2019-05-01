@@ -69,7 +69,7 @@ public class Categories implements Serializable {
         this.categoryid = categoryid;
     }
 
-    public String getCategoryname() {
+    public String getCategoryName() {
         return categoryname;
     }
 

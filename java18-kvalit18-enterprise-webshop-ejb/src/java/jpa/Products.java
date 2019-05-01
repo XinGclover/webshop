@@ -78,7 +78,7 @@ public class Products implements Serializable {
         this.productid = productid;
     }
 
-    public String getProductname() {
+    public String getProductName() {
         return productname;
     }
 
@@ -94,7 +94,7 @@ public class Products implements Serializable {
         this.quantityperunit = quantityperunit;
     }
 
-    public BigDecimal getUnitprice() {
+    public BigDecimal getUnitPrice() {
         return unitprice;
     }
 
@@ -110,7 +110,7 @@ public class Products implements Serializable {
         this.unitsinstock = unitsinstock;
     }
 
-    public Categories getCategoryid() {
+    public Categories getCategoryId() {
         return categoryid;
     }
 
