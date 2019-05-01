@@ -58,6 +58,14 @@ public class Orders implements Serializable {
         this.orderid = orderid;
     }
 
+    public Orders(Integer orderid, Integer customerid, Date orderdate) {
+        this.orderid = orderid;
+        this.customerid = customerid;
+        this.orderdate = orderdate;
+    }
+    
+    
+
     public Integer getOrderid() {
         return orderid;
     }

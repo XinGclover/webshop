@@ -33,11 +33,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p")
-    , @NamedQuery(name = "Products.findByProductid", query = "SELECT p FROM Products p WHERE p.productid = :productid")
-    , @NamedQuery(name = "Products.findByProductname", query = "SELECT p FROM Products p WHERE p.productname = :productname")
-    , @NamedQuery(name = "Products.findByQuantityperunit", query = "SELECT p FROM Products p WHERE p.quantityperunit = :quantityperunit")
-    , @NamedQuery(name = "Products.findByUnitprice", query = "SELECT p FROM Products p WHERE p.unitprice = :unitprice")
-    , @NamedQuery(name = "Products.findByUnitsinstock", query = "SELECT p FROM Products p WHERE p.unitsinstock = :unitsinstock")})
+    , @NamedQuery(name = "Products.findByProductId", query = "SELECT p FROM Products p WHERE p.productId = :productId")
+    , @NamedQuery(name = "Products.findByProductName", query = "SELECT p FROM Products p WHERE p.productName = :productName")
+    , @NamedQuery(name = "Products.findByQuantityPerUnit", query = "SELECT p FROM Products p WHERE p.quantityPerUnit = :quantityPerUnit")
+    , @NamedQuery(name = "Products.findByUnitPrice", query = "SELECT p FROM Products p WHERE p.unitPrice = :unitPrice")
+    , @NamedQuery(name = "Products.findByUnitsInStock", query = "SELECT p FROM Products p WHERE p.unitsInStock = :unitsInStock")})
 public class Products implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,78 +45,84 @@ public class Products implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PRODUCTID")
-    private Integer productid;
+    private Integer productId;
     @Size(max = 40)
     @Column(name = "PRODUCTNAME")
-    private String productname;
+    private String productName;
     @Size(max = 20)
     @Column(name = "QUANTITYPERUNIT")
-    private String quantityperunit;
+    private String quantityPerUnit;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "UNITPRICE")
-    private BigDecimal unitprice;
+    private BigDecimal unitPrice;
     @Column(name = "UNITSINSTOCK")
-    private Integer unitsinstock;
+    private Integer unitsInStock;
     @JoinColumn(name = "CATEGORYID", referencedColumnName = "CATEGORYID")
-    @ManyToOne
-    private Categories categoryid;
+   @ManyToOne
+    private Categories categoryId;
     @OneToMany(mappedBy = "productid")
     private Collection<Orderdetails> orderdetailsCollection;
 
     public Products() {
     }
 
-    public Products(Integer productid) {
-        this.productid = productid;
-    }
+    public Products(String productName, String quantityPerUnit, BigDecimal unitPrice) {
+		this.productName = productName;
+		this.quantityPerUnit = quantityPerUnit;
+		this.unitPrice = unitPrice;
+	}
 
-    public Integer getProductid() {
-        return productid;
-    }
+	public Products(Integer productId) {
+		this.productId = productId;
+	}
 
-    public void setProductid(Integer productid) {
-        this.productid = productid;
-    }
+	public Integer getProductId() {
+		return productId;
+	}
 
-    public String getProductName() {
-        return productname;
-    }
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
 
-    public void setProductname(String productname) {
-        this.productname = productname;
-    }
+	public String getProductName() {
+		return productName;
+	}
 
-    public String getQuantityperunit() {
-        return quantityperunit;
-    }
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
 
-    public void setQuantityperunit(String quantityperunit) {
-        this.quantityperunit = quantityperunit;
-    }
+	public String getQuantityPerUnit() {
+		return quantityPerUnit;
+	}
 
-    public BigDecimal getUnitPrice() {
-        return unitprice;
-    }
+	public void setQuantityPerUnit(String quantityPerUnit) {
+		this.quantityPerUnit = quantityPerUnit;
+	}
 
-    public void setUnitprice(BigDecimal unitprice) {
-        this.unitprice = unitprice;
-    }
+	public BigDecimal getUnitPrice() {
+		return unitPrice;
+	}
 
-    public Integer getUnitsinstock() {
-        return unitsinstock;
-    }
+	public void setUnitPrice(BigDecimal unitPrice) {
+		this.unitPrice = unitPrice;
+	}
 
-    public void setUnitsinstock(Integer unitsinstock) {
-        this.unitsinstock = unitsinstock;
-    }
+	public Integer getUnitsInStock() {
+		return unitsInStock;
+	}
 
-    public Categories getCategoryId() {
-        return categoryid;
-    }
+	public void setUnitsInStock(Integer unitsInStock) {
+		this.unitsInStock = unitsInStock;
+	}
 
-    public void setCategoryid(Categories categoryid) {
-        this.categoryid = categoryid;
-    }
+	public Categories getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Categories categoryId) {
+		this.categoryId = categoryId;
+	}
 
     @XmlTransient
     public Collection<Orderdetails> getOrderdetailsCollection() {
@@ -128,28 +134,29 @@ public class Products implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (productid != null ? productid.hashCode() : 0);
-        return hash;
-    }
+	public int hashCode() {
+		int hash = 0;
+		hash += (productId != null ? productId.hashCode() : 0);
+		return hash;
+	}
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Products)) {
-            return false;
-        }
-        Products other = (Products) object;
-        if ((this.productid == null && other.productid != null) || (this.productid != null && !this.productid.equals(other.productid))) {
-            return false;
-        }
-        return true;
+            // TODO: Warning - this method won't work in the case the id fields are not set
+            if (!(object instanceof Products)) {
+                    return false;
+            }
+            Products other = (Products) object;
+            if ((this.productId == null && other.productId != null) || (this.productId != null && !this.productId.equals(other.productId))) {
+                    return false;
+            }
+            return true;
     }
 
     @Override
     public String toString() {
-        return "jpa.Products[ productid=" + productid + " ]";
+            return "Products{" + "productId=" + productId + ", productName=" + productName
+                    + ", quantityPerUnit=" + quantityPerUnit + ", unitPrice=" + unitPrice
+                    + ", unitsInStock=" + unitsInStock + ", categoryId=" + categoryId + '}';
     }
-    
 }

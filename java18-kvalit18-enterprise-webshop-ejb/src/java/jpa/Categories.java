@@ -30,8 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Categories.findAll", query = "SELECT c FROM Categories c")
-    , @NamedQuery(name = "Categories.findByCategoryid", query = "SELECT c FROM Categories c WHERE c.categoryid = :categoryid")
-    , @NamedQuery(name = "Categories.findByCategoryname", query = "SELECT c FROM Categories c WHERE c.categoryname = :categoryname")
+    , @NamedQuery(name = "Categories.findByCategoryId", query = "SELECT c FROM Categories c WHERE c.categoryId = :categoryId")
+    , @NamedQuery(name = "Categories.findByCategoryName", query = "SELECT c FROM Categories c WHERE c.categoryName = :categoryName")
     , @NamedQuery(name = "Categories.findByDescription", query = "SELECT c FROM Categories c WHERE c.description = :description")
     , @NamedQuery(name = "Categories.findByPicture", query = "SELECT c FROM Categories c WHERE c.picture = :picture")})
 public class Categories implements Serializable {
@@ -41,40 +41,40 @@ public class Categories implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "CATEGORYID")
-    private Integer categoryid;
+    private Integer categoryId;
     @Size(max = 15)
     @Column(name = "CATEGORYNAME")
-    private String categoryname;
+    private String categoryName;
     @Size(max = 45)
     @Column(name = "DESCRIPTION")
     private String description;
     @Size(max = 200)
     @Column(name = "PICTURE")
     private String picture;
-    @OneToMany(mappedBy = "categoryid")
+    @OneToMany(mappedBy = "categoryId")
     private Collection<Products> productsCollection;
 
     public Categories() {
     }
 
-    public Categories(Integer categoryid) {
-        this.categoryid = categoryid;
+    public Categories(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public Integer getCategoryid() {
-        return categoryid;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryid(Integer categoryid) {
-        this.categoryid = categoryid;
+    public void setCategoryid(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCategoryName() {
-        return categoryname;
+        return categoryName;
     }
 
-    public void setCategoryname(String categoryname) {
-        this.categoryname = categoryname;
+    public void setCategoryname(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getDescription() {
@@ -105,7 +105,7 @@ public class Categories implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (categoryid != null ? categoryid.hashCode() : 0);
+        hash += (categoryId != null ? categoryId.hashCode() : 0);
         return hash;
     }
 
@@ -116,7 +116,7 @@ public class Categories implements Serializable {
             return false;
         }
         Categories other = (Categories) object;
-        if ((this.categoryid == null && other.categoryid != null) || (this.categoryid != null && !this.categoryid.equals(other.categoryid))) {
+        if ((this.categoryId == null && other.categoryId != null) || (this.categoryId != null && !this.categoryId.equals(other.categoryId))) {
             return false;
         }
         return true;
@@ -124,7 +124,9 @@ public class Categories implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.Categories[ categoryid=" + categoryid + " ]";
+        return "Categories{" + "categoryId=" + categoryId + ", categoryName=" + categoryName +
+                ", description=" + description + ", picture=" + picture +
+                ", productsCollection=" + productsCollection + '}';
     }
     
 }
