@@ -10,11 +10,12 @@
     
 <h:body>
 	<h:form>
-            <p>Welcome #{BeanController.firstName}</p>
+      
+            <h:outputText value="Welcome to the admin page you are logged in as #{BeanController.email}"/><br/><br/>
+      
             <f:view>
                <h:commandButton action="#{BeanController.allCustomers()}" value="print the customers"></h:commandButton>
               
-               
                
                <h:form>
                     <h:dataTable value="#{BeanController.customers}" var="customer">

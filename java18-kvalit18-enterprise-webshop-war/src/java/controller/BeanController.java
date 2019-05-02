@@ -10,7 +10,6 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import crud.userManagementBean;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import jpa.Customers;
 
@@ -142,7 +140,7 @@ public class BeanController implements Serializable {
 				return response;
 
 			case "store":
-				setNames();
+				setCustomerNames();
 				return response;
 
 			case "incorrect":
@@ -154,14 +152,14 @@ public class BeanController implements Serializable {
 
 	}
 
-	private void setNames() {
+	private void setCustomerNames() {
 		Map<String, Object> params = new HashMap<>();
 		params.put("email", email);
 		Customers c = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
 		firstName = c.getFirstName();
 		lastName = c.getLastName();
 	}
-
+	
 	//Registers the new user to the database 
 	public String registerCustomer() {
 		return userManagementBean.register(firstName, lastName, email, address, password);
