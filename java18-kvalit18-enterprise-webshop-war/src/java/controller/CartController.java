@@ -180,7 +180,7 @@ public class CartController implements Serializable {
           recordeOrderDetails(currentOrder,p,entry.getValue());
           p.setUnitsInStock(p.getUnitsInStock()-entry.getValue());
           crud.update(p);
-              
+          
         }
          productCart.clear();
          cartProducts.clear();
@@ -201,5 +201,5 @@ public class CartController implements Serializable {
         od.setQuantity(quantity);
         crud.create(od);
     }
-    
+        
 }
