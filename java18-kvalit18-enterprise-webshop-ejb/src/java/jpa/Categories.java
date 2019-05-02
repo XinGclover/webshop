@@ -51,7 +51,7 @@ public class Categories implements Serializable {
     @Size(max = 200)
     @Column(name = "PICTURE")
     private String picture;
-    @OneToMany(mappedBy = "categoryId")
+    @OneToMany(mappedBy = "category")
     private Collection<Products> productsCollection;
 
     public Categories() {

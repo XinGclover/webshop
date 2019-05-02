@@ -166,9 +166,7 @@ public class CartController implements Serializable {
          Customers customer= (Customers)crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
          recordeOrder(customer.getId(),totalCartPrice, new Timestamp(System.currentTimeMillis()));
          Date date = new Date();
-         productCart.clear();
-        cartProducts.clear();
-        totalCartPrice = new BigDecimal("0");
+         
         System.out.println(new Timestamp(date.getTime()));
 
 
@@ -178,10 +176,13 @@ public class CartController implements Serializable {
          allOrders=crud.findWithNamedQuery("Orders.findAll");
          Orders currentOrder=allOrders.get(allOrders.size()-1);
          for(Map.Entry<Products, Integer> entry : productCart.entrySet()){
-          recordeOrderDetails(currentOrder.getOrderid(),entry.getKey().getProductId(),entry.getValue());
+          recordeOrderDetails(currentOrder,entry.getKey(),entry.getValue());
           Orderdetails od=new Orderdetails();
         
         }
+         productCart.clear();
+         cartProducts.clear();
+         totalCartPrice = new BigDecimal("0");
     }
        
     public void recordeOrder(Integer customerid,BigDecimal totalCartPrice, Date orderdate){
@@ -191,10 +192,10 @@ public class CartController implements Serializable {
        // return "checkout";
     }
     
-    public void recordeOrderDetails(Integer orderid, Integer productid ,Integer quantity){
+    public void recordeOrderDetails(Orders order, Products product ,Integer quantity){
         Orderdetails od=new Orderdetails();
-        od.setOrderid(orderid);
-        od.setProductid(productid);
+        od.setOrder(order);
+        od.setProduct(product);
         od.setQuantity(quantity);
         crud.create(od);
     }

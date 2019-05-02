@@ -6,7 +6,9 @@
 package jpa;
 
 import java.io.Serializable;
+import static javax.jms.DeliveryMode.PERSISTENT;
 import javax.persistence.Basic;
+import static javax.persistence.CascadeType.PERSIST;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,32 +42,18 @@ public class Orderdetails implements Serializable {
     private Integer id;
     @Column(name = "QUANTITY")
     private Integer quantity;
-    @JoinColumn(name = "ORDERID", referencedColumnName = "ORDERID")
+    
     @ManyToOne
-    private Integer orderid;
-    @JoinColumn(name = "PRODUCTID", referencedColumnName = "PRODUCTID")
+    @JoinColumn(name = "ORDERID")
+    private Orders order;
+    
     @ManyToOne
-    private Integer productid;
+    @JoinColumn(name = "PRODUCTID")
+    private Products product;
 
     public Orderdetails() {
     }
     
-      public Orderdetails(Integer id) {
-        this.id = id;
-    }
-
-    public Orderdetails( Integer id,Integer quantity, Integer orderid, Integer productid) {
-        this.quantity = quantity;
-        this.orderid = orderid;
-        this.productid = productid;
-        this.id=id;
-    }
-    
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -82,25 +70,21 @@ public class Orderdetails implements Serializable {
         this.quantity = quantity;
     }
 
-    public Integer getOrderid() {
-        return orderid;
+    public Orders getOrder() {
+        return order;
     }
 
-    public void setOrderid(Integer orderid) {
-        this.orderid = orderid;
+    public void setOrder(Orders order) {
+        this.order = order;
     }
 
-    public Integer getProductid() {
-        return productid;
+    public Products getProduct() {
+        return product;
     }
 
-    public void setProductid(Integer productid) {
-        this.productid = productid;
+    public void setProduct(Products product) {
+        this.product = product;
     }
-
-    
-
-   
 
     @Override
     public int hashCode() {

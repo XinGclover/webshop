@@ -58,9 +58,9 @@ public class Products implements Serializable {
     @Column(name = "UNITSINSTOCK")
     private Integer unitsInStock;
     @JoinColumn(name = "CATEGORYID", referencedColumnName = "CATEGORYID")
-   @ManyToOne
-    private Categories categoryId;
-    @OneToMany(mappedBy = "productid")
+    @ManyToOne
+    private Categories category;
+    @OneToMany(mappedBy = "product")
     private Collection<Orderdetails> orderdetailsCollection;
 
     public Products() {
@@ -118,12 +118,12 @@ public class Products implements Serializable {
             this.unitsInStock = unitsInStock;
     }
 
-    public Categories getCategoryId() {
-            return categoryId;
+    public Categories getCategory() {
+            return category;
     }
 
-    public void setCategoryId(Categories categoryId) {
-            this.categoryId = categoryId;
+    public void setCategory(Categories category) {
+            this.category = category;
     }
 
     @XmlTransient
@@ -159,6 +159,6 @@ public class Products implements Serializable {
     public String toString() {
             return "Products{" + "productId=" + productId + ", productName=" + productName
                     + ", quantityPerUnit=" + quantityPerUnit + ", unitPrice=" + unitPrice
-                    + ", unitsInStock=" + unitsInStock + ", categoryId=" + categoryId + '}';
+                    + ", unitsInStock=" + unitsInStock + ", categoryId=" + category + '}';
     }
 }

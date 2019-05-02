@@ -51,7 +51,7 @@ public class Orders implements Serializable {
     @Column(name = "ORDERDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderdate;
-    @OneToMany(mappedBy = "orderid")
+    @OneToMany(mappedBy = "order")
     private Collection<Orderdetails> orderdetailsCollection;
 
     public Orders() {
