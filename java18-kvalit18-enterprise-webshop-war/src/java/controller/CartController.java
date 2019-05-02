@@ -155,9 +155,6 @@ public class CartController implements Serializable {
     }
     
     public void pay(String email) {
-        productCart.clear();
-        cartProducts.clear();
-        totalCartPrice = new BigDecimal("0");
         
         recipt = "Congratulations! You have spent fake money on fake products!";
         orderPanel.setRendered(false);
@@ -167,29 +164,34 @@ public class CartController implements Serializable {
          Map<String, Object> params = new HashMap<>();
          params.put("email", email);
          Customers customer= (Customers)crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
-         recordeOrder(customer.getId(), new Timestamp(System.currentTimeMillis()));
+         recordeOrder(customer.getId(),totalCartPrice, new Timestamp(System.currentTimeMillis()));
          Date date = new Date();
-         
+         productCart.clear();
+        cartProducts.clear();
+        totalCartPrice = new BigDecimal("0");
         System.out.println(new Timestamp(date.getTime()));
 
 
+        
          
         
-        /* allOrders=crud.findWithNamedQuery("Orders.findAll");
+         allOrders=crud.findWithNamedQuery("Orders.findAll");
          Orders currentOrder=allOrders.get(allOrders.size()-1);
          for(Map.Entry<Products, Integer> entry : productCart.entrySet()){
           recordeOrderDetails(currentOrder.getOrderid(),entry.getKey().getProductId(),entry.getValue());
-        }*/
+          Orderdetails od=new Orderdetails();
+        
+        }
     }
        
-    public void recordeOrder(Integer customerid, Date orderdate){
-        Orders order=new Orders(customerid,orderdate);
+    public void recordeOrder(Integer customerid,BigDecimal totalCartPrice, Date orderdate){
+        Orders order=new Orders(customerid,totalCartPrice,orderdate);
         crud.create(order);
        
        // return "checkout";
     }
     
-    public void recordeOrderDetails(Orders orderid, Products productid,int quantity){
+    public void recordeOrderDetails(Integer orderid, Integer productid ,Integer quantity){
         Orderdetails od=new Orderdetails();
         od.setOrderid(orderid);
         od.setProductid(productid);

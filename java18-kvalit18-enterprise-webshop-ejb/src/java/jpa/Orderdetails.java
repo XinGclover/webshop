@@ -42,27 +42,29 @@ public class Orderdetails implements Serializable {
     private Integer quantity;
     @JoinColumn(name = "ORDERID", referencedColumnName = "ORDERID")
     @ManyToOne
-    private Orders orderid;
+    private Integer orderid;
     @JoinColumn(name = "PRODUCTID", referencedColumnName = "PRODUCTID")
     @ManyToOne
-    private Products productid;
+    private Integer productid;
 
     public Orderdetails() {
     }
-
-    public Orderdetails(Integer id) {
+    
+      public Orderdetails(Integer id) {
         this.id = id;
     }
 
-    public Orderdetails(Integer id, Integer quantity, Orders orderid, Products productid) {
-        this.id = id;
+    public Orderdetails( Integer id,Integer quantity, Integer orderid, Integer productid) {
         this.quantity = quantity;
         this.orderid = orderid;
         this.productid = productid;
+        this.id=id;
     }
-
     
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Integer getId() {
         return id;
@@ -80,21 +82,25 @@ public class Orderdetails implements Serializable {
         this.quantity = quantity;
     }
 
-    public Orders getOrderid() {
+    public Integer getOrderid() {
         return orderid;
     }
 
-    public void setOrderid(Orders orderid) {
+    public void setOrderid(Integer orderid) {
         this.orderid = orderid;
     }
 
-    public Products getProductid() {
+    public Integer getProductid() {
         return productid;
     }
 
-    public void setProductid(Products productid) {
+    public void setProductid(Integer productid) {
         this.productid = productid;
     }
+
+    
+
+   
 
     @Override
     public int hashCode() {

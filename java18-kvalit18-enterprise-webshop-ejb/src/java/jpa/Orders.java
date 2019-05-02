@@ -6,6 +6,7 @@
 package jpa;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -45,6 +46,8 @@ public class Orders implements Serializable {
     private Integer orderid;
     @Column(name = "CUSTOMERID")
     private Integer customerid;
+    @Column(name = "ORDERPRICE")
+    private BigDecimal orderprice;
     @Column(name = "ORDERDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderdate;
@@ -54,20 +57,14 @@ public class Orders implements Serializable {
     public Orders() {
     }
 
-    public Orders(Integer customerid, Date orderdate) {
+    public Orders(Integer customerid, BigDecimal orderprice, Date orderdate) {
         this.customerid = customerid;
+        this.orderprice=orderprice;
         this.orderdate = orderdate;
-    }
-
-    
-    public Orders(Integer orderid,Integer customerid, Date orderdate) {
-        this.orderid = orderid;
-        this.customerid = customerid;
-        this.orderdate = orderdate;
+        
+     
     }
     
-    
-
     public Integer getOrderid() {
         return orderid;
     }
@@ -84,6 +81,14 @@ public class Orders implements Serializable {
         this.customerid = customerid;
     }
 
+    public BigDecimal getOrderprice() {
+        return orderprice;
+    }
+
+    public void setOrderprice(BigDecimal orderprice) {
+        this.orderprice = orderprice;
+    }
+
     public Date getOrderdate() {
         return orderdate;
     }
@@ -91,14 +96,15 @@ public class Orders implements Serializable {
     public void setOrderdate(Date orderdate) {
         this.orderdate = orderdate;
     }
-
-    @XmlTransient
-    public Collection<Orderdetails> getOrderdetailsCollection() {
-        return orderdetailsCollection;
-    }
+    
 
     public void setOrderdetailsCollection(Collection<Orderdetails> orderdetailsCollection) {
         this.orderdetailsCollection = orderdetailsCollection;
+    }
+    
+    @XmlTransient
+    public Collection<Orderdetails> getOrderdetailsCollection() {
+        return orderdetailsCollection;
     }
 
     @Override
