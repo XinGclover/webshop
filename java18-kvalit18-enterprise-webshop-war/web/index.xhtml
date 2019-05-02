@@ -14,11 +14,11 @@
 		    </f:facet>
 
 		    <h:outputText value="E-Mail:"/>
-                    <h:inputText id="email" value="#{BeanController.email}" />
+                    <h:inputText maxlength="20" id="email" value="#{BeanController.email}" />
 		    <h:message for="email"></h:message>
 
 		    <h:outputText value="Password: "/>
-                    <h:inputSecret id="password" value="#{BeanController.password}" />
+                    <h:inputSecret maxlength="32" id="password" value="#{BeanController.password}" />
                     <h:message for="password"></h:message><h:column/>
                     
                     
