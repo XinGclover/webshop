@@ -13,7 +13,6 @@ import crud.userManagementBean;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -28,7 +27,7 @@ import jpa.Customers;
  * @author carlo
  */
 @Named(value = "BeanController")
-@RequestScoped
+@SessionScoped
 public class BeanController implements Serializable {
 
 	@EJB

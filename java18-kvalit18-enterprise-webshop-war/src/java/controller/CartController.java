@@ -39,6 +39,7 @@ public class CartController implements Serializable{
     private BigDecimal totalCartPrice;
     
     private String recipt;
+    private List<Orders> allOrders= new ArrayList<>();
 
     public CartController() {
     }
@@ -156,7 +157,7 @@ public class CartController implements Serializable{
         return "checkout";
     }
     
-    public void pay() {
+    public void pay(String email) {
         productCart.clear();
         cartProducts.clear();
         totalCartPrice = new BigDecimal("0");
@@ -164,23 +165,33 @@ public class CartController implements Serializable{
         recipt = "Congratulations! You have spent fake money on fake products!";
         orderPanel.setRendered(false);
         logoutButton.setRendered(true); 
-        recordeOrder(3, new Timestamp(System.currentTimeMillis()));
-       // recordeOrderDetails(orderid, productid, Integer.SIZE);
+        
+        
+         Map<String, Object> params = new HashMap<>();
+         params.put("email", email);
+         Customers customer= (Customers)crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
+         recordeOrder(customer.getId(), new Timestamp(System.currentTimeMillis()));
+        
+        //allOrders=crud.findWithNamedQuery("Orders.findAll");
+        //Orders currentOrder=allOrders.get(allOrders.size()-1);
+        //for(Map.Entry<Products, Integer> entry : productCart.entrySet()){
+        //   recordeOrderDetails(currentOrder.getOrderid(),entry.getKey().getProductId(),entry.getValue());
+        //}
     }
        
     public void recordeOrder(Integer customerid, Date orderdate){
-        Orders order=new Orders();
-        order.setCustomerid(customerid);
-        order.setOrderdate(orderdate);
+        Orders order=new Orders(customerid,orderdate);
         crud.create(order);
+       
        // return "checkout";
     }
     
-    public void recordeOrderDetails(Orders orderid, Products productid,Integer quantity){
+    public void recordeOrderDetails(Orders orderid, Products productid,int quantity){
         Orderdetails od=new Orderdetails();
         od.setOrderid(orderid);
         od.setProductid(productid);
         od.setQuantity(quantity);
+        crud.create(od);
     }
     
 }

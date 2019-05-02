@@ -54,12 +54,8 @@ public class Orderdetails implements Serializable {
         this.id = id;
     }
 
-    public Orderdetails(Integer id, Orders orderid, Products productid,Integer quantity) {
-        this.id = id;
-        this.quantity = quantity;
-        this.orderid = orderid;
-        this.productid = productid;
-    }   
+    
+
 
     public Integer getId() {
         return id;

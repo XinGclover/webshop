@@ -38,7 +38,7 @@
                     
                     <h:panelGroup>
                         <h:commandButton value="Back to store" action="store" style="margin-left: 10px;"/>
-                        <h:commandButton value="Pay" action="#{CartController.pay()}" style="float: right;"/>
+                        <h:commandButton value="Pay" action="#{CartController.pay(BeanController.email)}" style="float: right;"/>
                     </h:panelGroup>
                 </h:panelGrid>
                 
