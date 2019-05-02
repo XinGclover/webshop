@@ -42,9 +42,9 @@
 
 			    <h:column>
 				<f:facet name="header">Quantity</f:facet>
-                                <h:commandButton value="-" action="#{CartController.alterProductCart(p.productId, '-')}"></h:commandButton>
+                                <h:commandButton value="-" action="#{CartController.alterProductCart(p.productId, '-')}"/>
 				#{CartController.productCart[p]}
-				<h:commandButton value="+" action="#{CartController.alterProductCart(p.productId, '+')}"></h:commandButton>
+				<h:commandButton value="+" action="#{CartController.alterProductCart(p.productId, '+')}"/>
 			    </h:column>
 
 			    <h:column>
