@@ -176,9 +176,11 @@ public class CartController implements Serializable {
          allOrders=crud.findWithNamedQuery("Orders.findAll");
          Orders currentOrder=allOrders.get(allOrders.size()-1);
          for(Map.Entry<Products, Integer> entry : productCart.entrySet()){
-          recordeOrderDetails(currentOrder,entry.getKey(),entry.getValue());
-          Orderdetails od=new Orderdetails();
-        
+          Products p=entry.getKey();
+          recordeOrderDetails(currentOrder,p,entry.getValue());
+          p.setUnitsInStock(p.getUnitsInStock()-entry.getValue());
+          crud.update(p);
+              
         }
          productCart.clear();
          cartProducts.clear();
