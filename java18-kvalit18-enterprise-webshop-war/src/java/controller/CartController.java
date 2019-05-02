@@ -85,47 +85,42 @@ public class CartController implements Serializable{
         this.totalCartPrice = totalCartPrice;
     }
     
-    public void addProductToCart(Integer productId) {
+    public void alterProductCart(Integer productId, String variance) {
         
         Map<String, Object> params = new HashMap<>();
         params.put("productId", productId);
         Products product = (Products) crud.findWithNamedQuery("Products.findByProductId", params).get(0);
         
-        boolean productAlreadyInCart = false;
+        switch(variance) {
+            case "+":
+                boolean productAlreadyInCart = false;
         
-        for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
-            if (product.equals(entry.getKey())) {
-                productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() + 1);
-                productAlreadyInCart = true;
-            }
+                for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
+                    if (product.equals(entry.getKey())) {
+                        productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() + 1);
+                        productAlreadyInCart = true;
+                    }
+                }
+
+                if (productAlreadyInCart == false) {
+                    productCart.put(product, 1);
+                }
+                
+                break;
+                
+            case "-":
+                for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
+                    if (product.equals(entry.getKey())) {
+                        productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() - 1);
+                    }
+                    productCart.values().remove(0);
+                }
+                
+                break;
         }
-        
-        if (productAlreadyInCart == false) {
-            productCart.put(product, 1);
-        }
-        cartProducts = new ArrayList<Products>(productCart.keySet());
-        
-        totalCartPrice = new BigDecimal("0");
-        for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
-            totalCartPrice = totalCartPrice.add(entry.getKey().getUnitPrice().multiply(new BigDecimal(entry.getValue())));
-        }
-        totalCartPrice = totalCartPrice.setScale(2);
-    }
-    
-    public void removeProductFromCart(Integer productId) {
-        
-        Map<String, Object> params = new HashMap<>();
-        params.put("productId", productId);
-        Products product = (Products) crud.findWithNamedQuery("Products.findByProductId", params).get(0);
-        
-        for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
-            if (product.equals(entry.getKey())) {
-                productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() - 1);
-            }
-            productCart.values().remove(0);
-        }
+                
         cartProducts = new ArrayList<>(productCart.keySet());
-        
+
         totalCartPrice = new BigDecimal("0");
         for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
             totalCartPrice = totalCartPrice.add(entry.getKey().getUnitPrice().multiply(new BigDecimal(entry.getValue())));
