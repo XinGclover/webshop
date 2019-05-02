@@ -18,7 +18,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import jpa.Customers;
 
@@ -43,10 +42,9 @@ public class BeanController implements Serializable {
 	private String address;
 	private String loginMessage;
 	private List<Customers> customers;
-
-	public void BeanController() {
-
-	}
+	private boolean login;
+	private boolean premium = false;
+	private boolean admin = false;
 
 	public GenericCrudService getCrud() {
 		return crud;
@@ -71,9 +69,6 @@ public class BeanController implements Serializable {
 	public void setLoginMessage(String loginMessage) {
 		this.loginMessage = loginMessage;
 	}
-	private boolean login;
-	private boolean premium = false;
-	private boolean admin = false;
 
 	public BeanController() {
 
@@ -145,7 +140,7 @@ public class BeanController implements Serializable {
 				return response;
 
 			case "store":
-				setNames();
+				setCustomerNames();
 				return response;
 
 			case "incorrect":
@@ -157,14 +152,14 @@ public class BeanController implements Serializable {
 
 	}
 
-	private void setNames() {
+	private void setCustomerNames() {
 		Map<String, Object> params = new HashMap<>();
 		params.put("email", email);
 		Customers c = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
 		firstName = c.getFirstName();
 		lastName = c.getLastName();
 	}
-
+	
 	//Registers the new user to the database 
 	public String registerCustomer() {
 		return userManagementBean.register(firstName, lastName, email, address, password);
@@ -181,6 +176,8 @@ public class BeanController implements Serializable {
 	}
 
 	public void validatePassword(FacesContext arg0, UIComponent arg1, Object arg2) throws ValidatorException {
+		customers = userManagementBean.fetchAllCustomers();
+		customers.forEach(s -> System.out.println(s.toString()));
 
 		// Retrieve the value passed to this method
 		String confirmPassword = (String) arg2;
@@ -191,7 +188,7 @@ public class BeanController implements Serializable {
 		if (password == null) {
 			throw new ValidatorException(
 				new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					(arg1.getId() + " cannot be empty!"),
+					(arg1.getId() + ": passwords do no match!"),
 					null));
 		}
 
@@ -201,6 +198,6 @@ public class BeanController implements Serializable {
 					(arg1.getId() + ": passwords do no match!"),
 					null));
 		}
-
 	}
+
 }
