@@ -109,15 +109,20 @@ public class CartController implements Serializable {
 				break;
 
 			case "-":
-				Iterator<Map.Entry<Products, Integer>> iterator = productCart.entrySet().iterator();
-
-				while (iterator.hasNext()) {
-					Map.Entry<Products, Integer> entry = iterator.next();
+				
+//				Products[] keys = productCart.keySet().toArray();
+//				Integer[] values = productCart.values().toArray();
+				Object[] entries = productCart.entrySet().toArray();
+				
+				for (Object e : entries) {
+					Map.Entry<Products, Integer> entry = (Map.Entry<Products, Integer>) e;
 					if (product.equals(entry.getKey())) {
 						productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() - 1);
 					}
 					productCart.values().remove(0);
+
 				}
+
 				break;
 		}
 
