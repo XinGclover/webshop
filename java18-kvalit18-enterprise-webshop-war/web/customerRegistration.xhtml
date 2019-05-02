@@ -40,18 +40,18 @@
 			<h:outputText value="First Name:"/>		
 
 			<h:inputText id="firstName" value="#{BeanController.firstName}">
-			    <f:validator validatorId="emptyValidator"/>
+			    <f:validator validatorId="emptyAndSpecialCharValidator"/>
 			</h:inputText>
 
 			<h:outputText value="Last Name:"/>
 
 			<h:inputText id="lastName" value="#{BeanController.lastName}">
-			    <f:validator validatorId="emptyValidator"/>
+			    <f:validator validatorId="emptyAndSpecialCharValidator"/>
 			</h:inputText>
 
 			<h:outputText value="Address:"/>
 			<h:inputText id="address" value="#{BeanController.address}">
-			    <f:validator validatorId="emptyValidator"/>
+			    <f:validator validatorId="emptyAndSpecialCharValidator"/>
 			</h:inputText>
 
 			<h:column/>				

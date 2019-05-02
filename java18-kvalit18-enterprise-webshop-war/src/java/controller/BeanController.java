@@ -189,6 +189,13 @@ public class BeanController implements Serializable {
 		UIInput passwordInput = (UIInput) arg1.findComponent("password");
 		String password = (String) passwordInput.getLocalValue();
 
+		if (password == null) {
+			throw new ValidatorException(
+				new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					(arg1.getId() + " cannot be empty!"),
+					null));
+		}
+
 		if (!password.equals(confirmPassword)) {
 			throw new ValidatorException(
 				new FacesMessage(FacesMessage.SEVERITY_ERROR,
