@@ -20,18 +20,31 @@ import jpa.Products;
 @SessionScoped
 public class ProductCatalogue implements Serializable {
 
-	//temporary listing customers, will be products when there is data
 	@EJB
 	private GenericCrudService crud;
 	private String searchedString;
-        
-        private List<Products> allProducts = new ArrayList<>();
+
+	private List<Products> allProducts = new ArrayList<>();
 	private List<Products> productsList = new ArrayList<>();
-        
+
 	private Integer quantity;
-        private String productDetail;
-        
-        public ProductCatalogue() {
+	private String productDetail;
+
+	public ProductCatalogue() {
+	}
+
+	@PostConstruct
+	public void init() {
+		crud.findWithNamedQuery("Products.findAll").forEach(e -> {
+			allProducts.add((Products) e);
+		});
+		productsList = allProducts;
+	}
+	
+	public void test(){
+		System.out.println("HELLO");
+		System.out.println(productsList);
+		productsList.forEach((e -> {System.out.println(e);}));
 	}
 
 	public Integer getQuantity() {
@@ -50,38 +63,30 @@ public class ProductCatalogue implements Serializable {
 		this.searchedString = searchedString;
 	}
 
-        public List<Products> getProductsList() {
+	public List<Products> getProductsList() {
 		return productsList;
 	}
-        
-        @PostConstruct
-	public void init() {
-            crud.findWithNamedQuery("Products.findAll").forEach(e -> {
-                    allProducts.add((Products) e);
-            });
-            productsList = allProducts;
+
+	public String getProductDetail() {
+		return productDetail;
 	}
-
-        public String getProductDetail() {
-            return productDetail;
-        }
-
-        public void setProductDetail(String productDetail) {
-            this.productDetail = productDetail;
-        }    
 
 	public void searchedTextChanged(ValueChangeEvent event) {
 		productsList = allProducts.stream()
 			.filter(e -> e.getProductName().toLowerCase().contains(event.getNewValue().toString().toLowerCase()))
-                        .collect(Collectors.toList());
+			.collect(Collectors.toList());
 	}
-	
-	public void add(){
+
+	public void add() {
 		System.out.println(quantity);
 	}
-        
-        public void getProductsInfo(Products p){
-            setProductDetail(p.getCategoryId().getCategoryName()+":"+p.getCategoryId().getDescription());  
-            
-        }
+
+	public void getProductsInfo(Products p) {
+		setProductDetail(p.getCategoryId().getCategoryName() + ":" + p.getCategoryId().getDescription());
+
+	}
+
+	public void setProductDetail(String productDetail) {
+		this.productDetail = productDetail;
+	}
 }

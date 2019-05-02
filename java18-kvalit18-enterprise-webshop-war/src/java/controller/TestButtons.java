@@ -10,6 +10,7 @@ import jpa.Admins;
 import jpa.Customers;
 import crud.GenericCrudService;
 import jpa.Fruit;
+import jpa.Products;
 
 @Named(value = "test")
 @SessionScoped
@@ -50,6 +51,9 @@ public class TestButtons implements Serializable {
 		}
 		for (Fruit fruit : jpa.FakeData.FRUITLIST) {
 			crudBean.create(fruit);
+		}
+		for (Products product : jpa.FakeData.PRODUCTLIST){
+			crudBean.create(product);
 		}
 	}
 

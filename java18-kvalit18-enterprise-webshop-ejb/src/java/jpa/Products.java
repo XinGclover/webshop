@@ -32,12 +32,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "PRODUCTS")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p")
-    , @NamedQuery(name = "Products.findByProductId", query = "SELECT p FROM Products p WHERE p.productId = :productId")
-    , @NamedQuery(name = "Products.findByProductName", query = "SELECT p FROM Products p WHERE p.productName = :productName")
-    , @NamedQuery(name = "Products.findByQuantityPerUnit", query = "SELECT p FROM Products p WHERE p.quantityPerUnit = :quantityPerUnit")
-    , @NamedQuery(name = "Products.findByUnitPrice", query = "SELECT p FROM Products p WHERE p.unitPrice = :unitPrice")
-    , @NamedQuery(name = "Products.findByUnitsInStock", query = "SELECT p FROM Products p WHERE p.unitsInStock = :unitsInStock")})
+	@NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p")
+	, @NamedQuery(name = "Products.findByProductId", query = "SELECT p FROM Products p WHERE p.productId = :productId")
+	, @NamedQuery(name = "Products.findByProductName", query = "SELECT p FROM Products p WHERE p.productName = :productName")
+	, @NamedQuery(name = "Products.findByQuantityPerUnit", query = "SELECT p FROM Products p WHERE p.quantityPerUnit = :quantityPerUnit")
+	, @NamedQuery(name = "Products.findByUnitPrice", query = "SELECT p FROM Products p WHERE p.unitPrice = :unitPrice")
+	, @NamedQuery(name = "Products.findByUnitsInStock", query = "SELECT p FROM Products p WHERE p.unitsInStock = :unitsInStock")})
 public class Products implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,64 +65,66 @@ public class Products implements Serializable {
 
     public Products() {
     }
+    
+    
 
     public Products(String productName, String quantityPerUnit, BigDecimal unitPrice) {
-		this.productName = productName;
-		this.quantityPerUnit = quantityPerUnit;
-		this.unitPrice = unitPrice;
-	}
+            this.productName = productName;
+            this.quantityPerUnit = quantityPerUnit;
+            this.unitPrice = unitPrice;
+    }
 
-	public Products(Integer productId) {
-		this.productId = productId;
-	}
+    public Products(Integer productId) {
+            this.productId = productId;
+    }
 
-	public Integer getProductId() {
-		return productId;
-	}
+    public Integer getProductId() {
+            return productId;
+    }
 
-	public void setProductId(Integer productId) {
-		this.productId = productId;
-	}
+    public void setProductId(Integer productId) {
+            this.productId = productId;
+    }
 
-	public String getProductName() {
-		return productName;
-	}
+    public String getProductName() {
+            return productName;
+    }
 
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
+    public void setProductName(String productName) {
+            this.productName = productName;
+    }
 
-	public String getQuantityPerUnit() {
-		return quantityPerUnit;
-	}
+    public String getQuantityPerUnit() {
+            return quantityPerUnit;
+    }
 
-	public void setQuantityPerUnit(String quantityPerUnit) {
-		this.quantityPerUnit = quantityPerUnit;
-	}
+    public void setQuantityPerUnit(String quantityPerUnit) {
+            this.quantityPerUnit = quantityPerUnit;
+    }
 
-	public BigDecimal getUnitPrice() {
-		return unitPrice;
-	}
+    public BigDecimal getUnitPrice() {
+            return unitPrice;
+    }
 
-	public void setUnitPrice(BigDecimal unitPrice) {
-		this.unitPrice = unitPrice;
-	}
+    public void setUnitPrice(BigDecimal unitPrice) {
+            this.unitPrice = unitPrice;
+    }
 
-	public Integer getUnitsInStock() {
-		return unitsInStock;
-	}
+    public Integer getUnitsInStock() {
+            return unitsInStock;
+    }
 
-	public void setUnitsInStock(Integer unitsInStock) {
-		this.unitsInStock = unitsInStock;
-	}
+    public void setUnitsInStock(Integer unitsInStock) {
+            this.unitsInStock = unitsInStock;
+    }
 
-	public Categories getCategoryId() {
-		return categoryId;
-	}
+    public Categories getCategoryId() {
+            return categoryId;
+    }
 
-	public void setCategoryId(Categories categoryId) {
-		this.categoryId = categoryId;
-	}
+    public void setCategoryId(Categories categoryId) {
+            this.categoryId = categoryId;
+    }
 
     @XmlTransient
     public Collection<Orderdetails> getOrderdetailsCollection() {
@@ -134,11 +136,11 @@ public class Products implements Serializable {
     }
 
     @Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (productId != null ? productId.hashCode() : 0);
-		return hash;
-	}
+    public int hashCode() {
+            int hash = 0;
+            hash += (productId != null ? productId.hashCode() : 0);
+            return hash;
+    }
 
     @Override
     public boolean equals(Object object) {
