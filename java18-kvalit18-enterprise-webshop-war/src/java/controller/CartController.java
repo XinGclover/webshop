@@ -28,17 +28,17 @@ public class CartController implements Serializable {
 
 	private BigDecimal totalCartPrice;
 
-	private String recipt;
+	private String receipt;
 
 	public CartController() {
 	}
 
-	public String getRecipt() {
-		return recipt;
+	public String getReceipt() {
+		return receipt;
 	}
 
-	public void setRecipt(String recipt) {
-		this.recipt = recipt;
+	public void setReceipt(String receipt) {
+		this.receipt = receipt;
 	}
 
 	public List<Products> getCartProducts() {
@@ -124,8 +124,8 @@ public class CartController implements Serializable {
 		productCart.clear();
 		cartProducts.clear();
 		totalCartPrice = new BigDecimal("0");
-		recipt = "Congratulations! You have spent fake money on fake products!";
+		receipt = "Congratulations! You have spent fake money on fake products!";
                 
-                return "recipt";
+                return "receipt";
 	}
 }
