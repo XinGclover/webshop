@@ -1,6 +1,8 @@
 package jpa;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -31,7 +34,7 @@ public class Customers implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@Column(name = "TOTAL_MONEY_SPENT")
-	private Integer totalMoneySpent;
+	private double totalMoneySpent;
 	@Column(name = "FIRSTNAME", length = 20)
 	private String firstName;
 	@Column(name = "LASTNAME", length = 20)
@@ -44,7 +47,7 @@ public class Customers implements Serializable {
 	private String password;
 	@Column(name = "EMAIL", length = 32)
 	private String email;
-        
+               
 	public Customers() {
 	}
         
@@ -62,14 +65,16 @@ public class Customers implements Serializable {
 		this.email = email;
 	}
 
-	public Customers(String firstName, String lastName, String email, String address, String password) {
+	public Customers(String firstName, String lastName, String email, String address, String password, boolean premium, double totalMoney) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.address = address;
 		this.password = password;
+                this.premium = premium;
+                this.totalMoneySpent = totalMoney;               
 	}
-
+        
 	public String getEmail() {
 		return email;
 	}
@@ -86,11 +91,11 @@ public class Customers implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getTotalMoneySpent() {
+	public double getTotalMoneySpent() {
 		return totalMoneySpent;
 	}
 
-	public void setTotalMoneySpent(Integer totalMoneySpent) {
+	public void setTotalMoneySpent(double totalMoneySpent) {
 		this.totalMoneySpent = totalMoneySpent;
 	}
 

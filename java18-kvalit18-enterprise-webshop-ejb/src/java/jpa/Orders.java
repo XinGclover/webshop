@@ -53,6 +53,7 @@ public class Orders implements Serializable {
     private Date orderdate;
     @OneToMany(mappedBy = "order")
     private Collection<Orderdetails> orderdetailsCollection;
+    
 
     public Orders() {
     }

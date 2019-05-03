@@ -5,6 +5,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -133,8 +134,9 @@ public class CartController implements Serializable {
                     Products p = entry.getKey();
                     recordeOrderDetails(currentOrder,p,entry.getValue());
                     p.setUnitsInStock(p.getUnitsInStock()-entry.getValue());
-                    crud.update(p);
+                    crud.update(p);                                        
             }
+            checkPremium(customer,totalCartPrice.doubleValue());
         
             productCart.clear();
             cartProducts.clear();
@@ -154,5 +156,15 @@ public class CartController implements Serializable {
             od.setProduct(product);
             od.setQuantity(quantity);
             crud.create(od);
+    }
+    
+    public void checkPremium(Customers c,double newcost){
+            double newTotalCost=c.getTotalMoneySpent()+newcost;
+            c.setTotalMoneySpent(newTotalCost);
+            crud.update(c);
+            if(newTotalCost>=500000){
+                    c.setPremium(true);
+                    crud.update(c);
+            }
     }
 }
