@@ -103,7 +103,7 @@ public class CartController implements Serializable {
                             boolean productAlreadyInCart = false;
 
                             for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
-                                    if (product.equals(entry.getKey())) {
+                                    if (product.equals(entry.getKey())) {           
                                             productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() + 1);
                                             productAlreadyInCart = true;
                                     }
