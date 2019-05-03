@@ -45,7 +45,7 @@ public class Admins implements Serializable {
 		this.email = email;
 		this.password = password;
 	}
-
+        
 	public Admins(Integer id) {
 		this.id = id;
 	}

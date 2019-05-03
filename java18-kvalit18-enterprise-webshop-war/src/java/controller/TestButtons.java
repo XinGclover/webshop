@@ -39,6 +39,9 @@ public class TestButtons implements Serializable {
 		crudBean.findWithNamedQuery("Fruit.findAll").forEach(e -> {
 			System.out.println(e);
 		});
+                crudBean.findWithNamedQuery("Products.findAll").forEach(e -> {
+			System.out.println(e);
+		});
 
 	}
 
@@ -61,6 +64,7 @@ public class TestButtons implements Serializable {
 		crudBean.nuke(Customers.class);
 		crudBean.nuke(Admins.class);
 		crudBean.nuke(Fruit.class);
+                crudBean.nuke(Products.class);
 	}
 
 }
