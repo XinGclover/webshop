@@ -89,13 +89,7 @@ public class CartController implements Serializable {
 				break;
 
 			case "-":
-				
-//				Products[] keys = productCart.keySet().toArray();
-//				Integer[] values = productCart.values().toArray();
-				Object[] entries = productCart.entrySet().toArray();
-				
-				for (Object e : entries) {
-					Map.Entry<Products, Integer> entry = (Map.Entry<Products, Integer>) e;
+				for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
 					if (product.equals(entry.getKey())) {
 						productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() - 1);
 					}
@@ -105,7 +99,6 @@ public class CartController implements Serializable {
 		}
                 
                 productCart.values().remove(0);
-
 		cartProducts = new ArrayList<>(productCart.keySet());
                 
 		totalCartPrice = new BigDecimal("0");
