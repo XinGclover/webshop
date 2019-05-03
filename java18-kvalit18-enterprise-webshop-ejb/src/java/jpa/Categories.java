@@ -1,6 +1,7 @@
 /*
- *  
-Java18-OOJ
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package jpa;
 
@@ -50,7 +51,7 @@ public class Categories implements Serializable {
     @Size(max = 200)
     @Column(name = "PICTURE")
     private String picture;
-    @OneToMany(mappedBy = "categoryId")
+    @OneToMany(mappedBy = "category")
     private Collection<Products> productsCollection;
 
     public Categories() {

@@ -60,3 +60,5 @@ INSERT INTO Products VALUES(default, 'Perth Pasties', 4, '43 pieces', 32.3, 1);
 INSERT INTO Products VALUES(default, 'Tourtire',  4, '14 pies', 2.45, 21);
 INSERT INTO Products VALUES(default, 'Pt chinois',  4, '24 boxes x 2 pies', 24, 115);
 INSERT INTO Products VALUES(default, 'Gnocchi di nonna Alice', 5, '24 - 250 g pkgs.', 33, 21);
+
+INSERT INTO Products(UnitsInStock) VALUES(30);
