@@ -42,6 +42,7 @@ public class TestButtons implements Serializable {
                 crudBean.findWithNamedQuery("Products.findAll").forEach(e -> {
 			System.out.println(e);
 		});
+		
 
 	}
 
