@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import jpa.Customers;
-import javax.faces.component.UIComponentBase;
 import jpa.Products;
 
 @Named(value = "CartController")
@@ -21,9 +20,6 @@ public class CartController implements Serializable {
 
 	@EJB
 	private GenericCrudService crud;
-
-	private UIComponentBase logoutButton;
-	private UIComponentBase orderPanel;
 
 	private Customers customer;
 
@@ -35,22 +31,6 @@ public class CartController implements Serializable {
 	private String recipt;
 
 	public CartController() {
-	}
-
-	public UIComponentBase getOrderPanel() {
-		return orderPanel;
-	}
-
-	public void setOrderPanel(UIComponentBase orderPanel) {
-		this.orderPanel = orderPanel;
-	}
-
-	public UIComponentBase getLogoutButton() {
-		return logoutButton;
-	}
-
-	public void setLogoutButton(UIComponentBase logoutButton) {
-		this.logoutButton = logoutButton;
 	}
 
 	public String getRecipt() {
@@ -86,11 +66,11 @@ public class CartController implements Serializable {
 	}
 
 	public void alterProductCart(Integer productId, String variance) {
-
-		Map<String, Object> params = new HashMap<>();
+            
+                Map<String, Object> params = new HashMap<>();
 		params.put("productId", productId);
 		Products product = (Products) crud.findWithNamedQuery("Products.findByProductId", params).get(0);
-
+                
 		switch (variance) {
 			case "+":
 				boolean productAlreadyInCart = false;
@@ -116,13 +96,14 @@ public class CartController implements Serializable {
 					if (product.equals(entry.getKey())) {
 						productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() - 1);
 					}
-					productCart.values().remove(0);
 				}
 				break;
 		}
+                
+                productCart.values().remove(0);
 
 		cartProducts = new ArrayList<>(productCart.keySet());
-
+                
 		totalCartPrice = new BigDecimal("0");
 		for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
 			totalCartPrice = totalCartPrice.add(entry.getKey().getUnitPrice().multiply(new BigDecimal(entry.getValue())));
@@ -132,27 +113,15 @@ public class CartController implements Serializable {
 
 	public String createOrder() {
 
-		/*
-        BeanController beanController = new BeanController();
-        String email = beanController.getEmail();
-        
-        Map<String, Object> params = new HashMap<>();
-        params.put("email", email);
-        customer = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
-        Order order = new Order(productCart, customer, totalCartPrice, date?);
-
-        crud.create(order);
-		 */
 		return "checkout";
 	}
 
-	public void pay() {
+	public String pay() {
 		productCart.clear();
 		cartProducts.clear();
 		totalCartPrice = new BigDecimal("0");
-
 		recipt = "Congratulations! You have spent fake money on fake products!";
-		orderPanel.setRendered(false);
-		logoutButton.setRendered(true);
+                
+                return "recipt";
 	}
 }

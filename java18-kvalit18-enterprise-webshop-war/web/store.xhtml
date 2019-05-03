@@ -61,10 +61,9 @@
                     <h:panelGrid bgcolor="#e6edfd" columns="1">
                         <f:facet name="header">Product Cart</f:facet>
 
-                        <h:outputText value="Total price: #{CartController.totalCartPrice}"/>   
+                        <h:outputText value="Total price: #{CartController.totalCartPrice}"/>
 
                         <h:dataTable value="#{CartController.cartProducts}" var="p" style="text-align: left;">
-
                             <h:column>
                                 <f:facet name="header">Name</f:facet>
 				    #{p.productName}
