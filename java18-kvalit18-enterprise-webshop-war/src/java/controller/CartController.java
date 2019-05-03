@@ -1,22 +1,18 @@
 package controller;
 
-import static com.oracle.jrockit.jfr.ContentType.Timestamp;
 import crud.GenericCrudService;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import jpa.Customers;
-import javax.faces.component.UIComponentBase;
 import jpa.Orderdetails;
 import jpa.Orders;
 import jpa.Products;
@@ -28,9 +24,6 @@ public class CartController implements Serializable {
     @EJB
     private GenericCrudService crud;
     
-    private UIComponentBase logoutButton;
-    private UIComponentBase orderPanel;
-    
     private Customers customer;
     
     private Map<Products, Integer> productCart = new HashMap();
@@ -38,40 +31,22 @@ public class CartController implements Serializable {
     
     private BigDecimal totalCartPrice;
     
-    private String recipt;
+    private String receipt;
     private List<Orders> allOrders= new ArrayList<>();
 	
     public CartController() {
     }
 
-    public UIComponentBase getOrderPanel() {
-            return orderPanel;
-    }
-
-    public void setOrderPanel(UIComponentBase orderPanel) {
-            this.orderPanel = orderPanel;
-    }
-
-    public UIComponentBase getLogoutButton() {
-            return logoutButton;
-    }
-
-    public void setLogoutButton(UIComponentBase logoutButton) {
-            this.logoutButton = logoutButton;
-    }
-
-    public String getRecipt() {
-            return recipt;
-    }
-
-    public void setRecipt(String recipt) {
-            this.recipt = recipt;
-    }
-
     public List<Products> getCartProducts() {
             return cartProducts;
     }
+    public String getReceipt() {
+            return receipt;
+    }
 
+    public void setReceipt(String receipt) {
+            this.receipt = receipt;
+    }
     public Customers getCustomer() {
             return customer;
     }
@@ -116,90 +91,68 @@ public class CartController implements Serializable {
                             break;
 
                     case "-":
-                            Iterator<Map.Entry<Products, Integer>> iterator = productCart.entrySet().iterator();
-
-                            while (iterator.hasNext()) {
-                                    Map.Entry<Products, Integer> entry = iterator.next();
+                            for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
                                     if (product.equals(entry.getKey())) {
                                             productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() - 1);
                                     }
-                                    productCart.values().remove(0);
                             }
+
                             break;
-            }
+		}
+                
+                productCart.values().remove(0);
+		cartProducts = new ArrayList<>(productCart.keySet());
+                
+		totalCartPrice = new BigDecimal("0");
+		for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
+			totalCartPrice = totalCartPrice.add(entry.getKey().getUnitPrice().multiply(new BigDecimal(entry.getValue())));
+		}
+		totalCartPrice = totalCartPrice.setScale(2);
+	}
 
-            cartProducts = new ArrayList<>(productCart.keySet());
+	public String createOrder() {
 
-            totalCartPrice = new BigDecimal("0");
-            for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
-                    totalCartPrice = totalCartPrice.add(entry.getKey().getUnitPrice().multiply(new BigDecimal(entry.getValue())));
-            }
-            totalCartPrice = totalCartPrice.setScale(2);
-    }
-
-    public String createOrder() {
-        
-		/*
-        BeanController beanController = new BeanController();
-        String email = beanController.getEmail();
-
-        Map<String, Object> params = new HashMap<>();
-        params.put("email", email);
-        customer = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
-        Order order = new Order(productCart, customer, totalCartPrice, date?);
-
-        crud.create(order);
-        */
-
-        return "checkout";
-    }
+		return "checkout";
+	}
     
-    public void pay(String email) {
+    public String pay(String email) {
         
-        recipt = "Congratulations! You have spent fake money on fake products!";
-        orderPanel.setRendered(false);
-        logoutButton.setRendered(true); 
-        
-        
-         Map<String, Object> params = new HashMap<>();
-         params.put("email", email);
-         Customers customer= (Customers)crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
-         recordeOrder(customer.getId(),totalCartPrice, new Timestamp(System.currentTimeMillis()));
-         Date date = new Date();
-         
-        System.out.println(new Timestamp(date.getTime()));
+            receipt = "Congratulations! You have spent fake money on fake products!";
 
+            Map<String, Object> params = new HashMap<>();
+            params.put("email", email);
+            Customers customer= (Customers)crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
+            recordeOrder(customer.getId(),totalCartPrice, new Timestamp(System.currentTimeMillis()));
+            Date date = new Date();
 
+            System.out.println(new Timestamp(date.getTime()));
+
+            allOrders=crud.findWithNamedQuery("Orders.findAll");
+            Orders currentOrder=allOrders.get(allOrders.size()-1);
+            for(Map.Entry<Products, Integer> entry : productCart.entrySet()){
+                    Products p = entry.getKey();
+                    recordeOrderDetails(currentOrder,p,entry.getValue());
+                    p.setUnitsInStock(p.getUnitsInStock()-entry.getValue());
+                    crud.update(p);
+            }
         
-         
-        
-         allOrders=crud.findWithNamedQuery("Orders.findAll");
-         Orders currentOrder=allOrders.get(allOrders.size()-1);
-         for(Map.Entry<Products, Integer> entry : productCart.entrySet()){
-          Products p=entry.getKey();
-          recordeOrderDetails(currentOrder,p,entry.getValue());
-          p.setUnitsInStock(p.getUnitsInStock()-entry.getValue());
-          crud.update(p);
-          
-        }
-         productCart.clear();
-         cartProducts.clear();
-         totalCartPrice = new BigDecimal("0");
+            productCart.clear();
+            cartProducts.clear();
+            totalCartPrice = new BigDecimal("0");
+            
+            return "receipt";
     }
        
     public void recordeOrder(Integer customerid,BigDecimal totalCartPrice, Date orderdate){
-        Orders order=new Orders(customerid,totalCartPrice,orderdate);
-        crud.create(order);
-       
-       // return "checkout";
+            Orders order=new Orders(customerid,totalCartPrice,orderdate);
+            crud.create(order);
     }
     
     public void recordeOrderDetails(Orders order, Products product ,Integer quantity){
-        Orderdetails od=new Orderdetails();
-        od.setOrder(order);
-        od.setProduct(product);
-        od.setQuantity(quantity);
-        crud.create(od);
+            Orderdetails od=new Orderdetails();
+            od.setOrder(order);
+            od.setProduct(product);
+            od.setQuantity(quantity);
+            crud.create(od);
     }
-        
 }

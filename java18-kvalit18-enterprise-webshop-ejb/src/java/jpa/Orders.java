@@ -59,10 +59,8 @@ public class Orders implements Serializable {
 
     public Orders(Integer customerid, BigDecimal orderprice, Date orderdate) {
         this.customerid = customerid;
-        this.orderprice=orderprice;
+        this.orderprice = orderprice;
         this.orderdate = orderdate;
-        
-     
     }
     
     public Integer getOrderid() {

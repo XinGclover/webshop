@@ -9,10 +9,9 @@
     <h:body>
         <center>
             <h:form>
-                <h:panelGrid bgcolor="#e6edfd" columns="1" binding="#{CartController.orderPanel}">
-                    <f:facet name="header">Order</f:facet>
-                    
+                <h:panelGrid bgcolor="#e6edfd" columns="1">
                     <h:dataTable value="#{CartController.cartProducts}" var="p">
+                        <f:facet name="header">Order</f:facet>
                         <h:column>
                             <f:facet name="header">Name</f:facet>
                             #{p.productName}
@@ -41,10 +40,6 @@
                         <h:commandButton value="Pay" action="#{CartController.pay(BeanController.email)}" style="float: right;"/>
                     </h:panelGroup>
                 </h:panelGrid>
-                
-                <br/><br/><br/><br/>
-                <h:outputLabel value="#{CartController.recipt}"/><br/><br/>
-                <h:commandButton value="logout" action="index" binding="#{CartController.logoutButton}" rendered="false"/>
             </h:form>
         </center>
     </h:body>
