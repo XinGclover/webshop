@@ -1,0 +1,14 @@
+    body{
+            background:url("../brooke-lark-230140-unsplash.jpg") 
+                no-repeat
+                center center fixed;  
+            background-size: cover; 
+    }
+    
+    
+    
+    .login-section{
+        
+        padding-top: 160px; 
+        
+    }

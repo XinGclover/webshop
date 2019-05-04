@@ -5,37 +5,88 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Login</title>
+
+        <!-- font awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+              integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"></link>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"></link>
+
+        <link type="text/css" rel="stylesheet" href="resource/css/style.css"></link>
     </h:head>
+
+
+
+
+
+
     <h:body>
-	<center><h:form>
-		<h:panelGrid bgcolor="#e6edfd" columns="3" border="0">
-		    <f:facet name="header">
-			<h:outputText value="User Login"/>
-		    </f:facet>
+        <!--Navbar-->
+        <header>
+            <nav class="nav-wrapper transparent">
 
-		    <h:outputText value="E-Mail:"/>
-                    <h:inputText maxlength="32" id="email" value="#{BeanController.email}" />
-		    <h:message for="email"></h:message>
+                <div class="row">
+                    <div class="col l6">
+                        <a href="" class="brand-logo blue-grey-text darken-3 center">Food Chainz</a>
+                    </div>
+                </div>
 
-		    <h:outputText value="Password: "/>
-                    <h:inputSecret maxlength="32" id="password" value="#{BeanController.password}" />
-                    <h:message for="password"></h:message><h:column/>
-                    
-                    
-                    <h:outputText value="#{BeanController.loginMessage}"/>
+            </nav>        
+        </header>
 
-                    <h:panelGroup>
-			<h:commandButton value="Login" action="#{BeanController.checkValidUser()}" />	
-			<h:commandLink value="Register Here" action="customerRegistration" />
-                    </h:panelGroup>
-		</h:panelGrid>
-                <!--testknappar-->
-		<h:commandButton value="generate fake data" action="#{test.newUser()}"></h:commandButton>
-		<h:commandButton value="print db posts to console" action="#{test.test()}"></h:commandButton>
-		<h:commandButton value="delete all" action="#{test.deleteAll()}"></h:commandButton>
-                <!--test-->
-	    </h:form>
-	</center>
+        <div class='login-section'>
+            <div class="container">s
+                <div class="section">
+                    <div class="row" >
+                        <div class="col s6 right" >
+
+
+                            <h3 class=' blue-grey-text darken-3 center'>Login</h3   >
+                            <div class="row" >
+                                <div class="col s8 push-s2" >
+
+                                    <h:form>
+                                        <h:outputText value="E-Mail:"/>
+                                        <h:inputText maxlength="32" id="email" value="#{BeanController.email}" />
+                                        <h:message for="email"></h:message>
+
+                                        <h:outputText value="Password: "/>
+                                        <h:inputSecret maxlength="32" id="password" value="#{BeanController.password}" />
+                                        <h:message for="password"></h:message><h:column/>
+
+
+                                        <h:outputText value="#{BeanController.loginMessage}"/>
+
+
+                                        <h:commandButton value="Login" action="#{BeanController.checkValidUser()}" />	
+                                        <h:commandLink value="Register Here" action="customerRegistration" />
+
+                                        <!--testknappar-->
+                                        <h:commandButton value="generate fake data" action="#{test.newUser()}"></h:commandButton>
+                                        <h:commandButton value="print db posts to console" action="#{test.test()}"></h:commandButton>
+                                        <h:commandButton value="delete all" action="#{test.deleteAll()}"></h:commandButton>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!--JavaScript at end of body for optimized loading-->
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script> 
+
+
+
+
 
     </h:body>
 
