@@ -5,129 +5,105 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import jpa.Customers;
-import javax.faces.component.UIComponentBase;
+import jpa.Orderdetails;
+import jpa.Orders;
 import jpa.Products;
 
 @Named(value = "CartController")
 @SessionScoped
 public class CartController implements Serializable {
 
-	@EJB
-	private GenericCrudService crud;
+    @EJB
+    private GenericCrudService crud;
+    
+    private Customers customer;
+    
+    private Map<Products, Integer> productCart = new HashMap();
+    private List<Products> cartProducts = new ArrayList();
+    
+    private BigDecimal totalCartPrice;
+    
+    private String receipt;
+    private List<Orders> allOrders= new ArrayList<>();
+	
+    public CartController() {
+    }
 
-	private UIComponentBase logoutButton;
-	private UIComponentBase orderPanel;
+    public List<Products> getCartProducts() {
+            return cartProducts;
+    }
+    public String getReceipt() {
+            return receipt;
+    }
 
-	private Customers customer;
+    public void setReceipt(String receipt) {
+            this.receipt = receipt;
+    }
+    public Customers getCustomer() {
+            return customer;
+    }
 
-	private Map<Products, Integer> productCart = new HashMap();
-	private List<Products> cartProducts = new ArrayList();
+    public void setCustomer(Customers customer) {
+            this.customer = customer;
+    }
 
-	private BigDecimal totalCartPrice;
+    public Map<Products, Integer> getProductCart() {
+            return productCart;
+    }
 
-	private String recipt;
+    public BigDecimal getTotalCartPrice() {
+            return totalCartPrice;
+    }
 
-	public CartController() {
-	}
+    public void setTotalCartPrice(BigDecimal totalCartPrice) {
+            this.totalCartPrice = totalCartPrice;
+    }
 
-	public UIComponentBase getOrderPanel() {
-		return orderPanel;
-	}
+    public void alterProductCart(Integer productId, String variance) {
 
-	public void setOrderPanel(UIComponentBase orderPanel) {
-		this.orderPanel = orderPanel;
-	}
+            Map<String, Object> params = new HashMap<>();
+            params.put("productId", productId);
+            Products product = (Products) crud.findWithNamedQuery("Products.findByProductId", params).get(0);
 
-	public UIComponentBase getLogoutButton() {
-		return logoutButton;
-	}
+            switch (variance) {
+                    case "+":
+                            boolean productAlreadyInCart = false;
 
-	public void setLogoutButton(UIComponentBase logoutButton) {
-		this.logoutButton = logoutButton;
-	}
+                            for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
+                                    if (product.equals(entry.getKey())) {           
+                                            productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() + 1);
+                                            productAlreadyInCart = true;
+                                    }
+                            }
 
-	public String getRecipt() {
-		return recipt;
-	}
+                            if (productAlreadyInCart == false) {
+                                    productCart.put(product, 1);
+                            }
 
-	public void setRecipt(String recipt) {
-		this.recipt = recipt;
-	}
+                            break;
 
-	public List<Products> getCartProducts() {
-		return cartProducts;
-	}
+                    case "-":
+                            for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
+                                    if (product.equals(entry.getKey())) {
+                                            productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() - 1);
+                                    }
+                            }
 
-	public Customers getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customers customer) {
-		this.customer = customer;
-	}
-
-	public Map<Products, Integer> getProductCart() {
-		return productCart;
-	}
-
-	public BigDecimal getTotalCartPrice() {
-		return totalCartPrice;
-	}
-
-	public void setTotalCartPrice(BigDecimal totalCartPrice) {
-		this.totalCartPrice = totalCartPrice;
-	}
-
-	public void alterProductCart(Integer productId, String variance) {
-
-		Map<String, Object> params = new HashMap<>();
-		params.put("productId", productId);
-		Products product = (Products) crud.findWithNamedQuery("Products.findByProductId", params).get(0);
-
-		switch (variance) {
-			case "+":
-				boolean productAlreadyInCart = false;
-
-				for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
-					if (product.equals(entry.getKey())) {
-						productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() + 1);
-						productAlreadyInCart = true;
-					}
-				}
-
-				if (productAlreadyInCart == false) {
-					productCart.put(product, 1);
-				}
-
-				break;
-
-			case "-":
-				
-//				Products[] keys = productCart.keySet().toArray();
-//				Integer[] values = productCart.values().toArray();
-				Object[] entries = productCart.entrySet().toArray();
-				
-				for (Object e : entries) {
-					Map.Entry<Products, Integer> entry = (Map.Entry<Products, Integer>) e;
-					if (product.equals(entry.getKey())) {
-						productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() - 1);
-					}
-					productCart.values().remove(0);
-
-				}
-
-				break;
+                            break;
 		}
-
+                
+                productCart.values().remove(0);
 		cartProducts = new ArrayList<>(productCart.keySet());
-
+                
 		totalCartPrice = new BigDecimal("0");
 		for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
 			totalCartPrice = totalCartPrice.add(entry.getKey().getUnitPrice().multiply(new BigDecimal(entry.getValue())));
@@ -137,27 +113,58 @@ public class CartController implements Serializable {
 
 	public String createOrder() {
 
-		/*
-        BeanController beanController = new BeanController();
-        String email = beanController.getEmail();
-        
-        Map<String, Object> params = new HashMap<>();
-        params.put("email", email);
-        customer = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
-        Order order = new Order(productCart, customer, totalCartPrice, date?);
-
-        crud.create(order);
-		 */
 		return "checkout";
 	}
+    
+    public String pay(String email) {
+        
+            receipt = "Congratulations! You have spent fake money on fake products!";
 
-	public void pay() {
-		productCart.clear();
-		cartProducts.clear();
-		totalCartPrice = new BigDecimal("0");
+            Map<String, Object> params = new HashMap<>();
+            params.put("email", email);
+            Customers customer= (Customers)crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
+            recordeOrder(customer.getId(),totalCartPrice, new Timestamp(System.currentTimeMillis()));
+            Date date = new Date();
 
-		recipt = "Congratulations! You have spent fake money on fake products!";
-		orderPanel.setRendered(false);
-		logoutButton.setRendered(true);
-	}
+            System.out.println(new Timestamp(date.getTime()));
+
+            allOrders=crud.findWithNamedQuery("Orders.findAll");
+            Orders currentOrder=allOrders.get(allOrders.size()-1);
+            for(Map.Entry<Products, Integer> entry : productCart.entrySet()){
+                    Products p = entry.getKey();
+                    recordeOrderDetails(currentOrder,p,entry.getValue());
+                    p.setUnitsInStock(p.getUnitsInStock()-entry.getValue());
+                    crud.update(p);                                        
+            }
+            checkPremium(customer,totalCartPrice.doubleValue());
+        
+            productCart.clear();
+            cartProducts.clear();
+            totalCartPrice = new BigDecimal("0");
+            
+            return "receipt";
+    }
+       
+    public void recordeOrder(Integer customerid,BigDecimal totalCartPrice, Date orderdate){
+            Orders order=new Orders(customerid,totalCartPrice,orderdate);
+            crud.create(order);
+    }
+    
+    public void recordeOrderDetails(Orders order, Products product ,Integer quantity){
+            Orderdetails od=new Orderdetails();
+            od.setOrder(order);
+            od.setProduct(product);
+            od.setQuantity(quantity);
+            crud.create(od);
+    }
+    
+    public void checkPremium(Customers c,double newcost){
+            double newTotalCost=c.getTotalMoneySpent()+newcost;
+            c.setTotalMoneySpent(newTotalCost);
+            crud.update(c);
+            if(newTotalCost>=500000){
+                    c.setPremium(true);
+                    crud.update(c);
+            }
+    }
 }

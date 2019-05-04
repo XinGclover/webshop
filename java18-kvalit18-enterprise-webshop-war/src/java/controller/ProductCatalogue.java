@@ -82,7 +82,7 @@ public class ProductCatalogue implements Serializable {
 	}
 
 	public void getProductsInfo(Products p) {
-		setProductDetail(p.getCategoryId().getCategoryName() + ":" + p.getCategoryId().getDescription());
+		setProductDetail(p.getCategory().getCategoryName() + ":" + p.getCategory().getDescription());
 
 	}
 
