@@ -123,7 +123,7 @@ public class CartController implements Serializable {
             Map<String, Object> params = new HashMap<>();
             params.put("email", email);
             Customers customer= (Customers)crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
-            recordeOrder(customer.getId(),totalCartPrice, new Timestamp(System.currentTimeMillis()));
+            recordeOrder(customer,totalCartPrice, new Timestamp(System.currentTimeMillis()));
             Date date = new Date();
 
             System.out.println(new Timestamp(date.getTime()));
@@ -145,8 +145,8 @@ public class CartController implements Serializable {
             return "receipt";
     }
        
-    public void recordeOrder(Integer customerid,BigDecimal totalCartPrice, Date orderdate){
-            Orders order=new Orders(customerid,totalCartPrice,orderdate);
+    public void recordeOrder(Customers customer,BigDecimal totalCartPrice, Date orderdate){
+            Orders order=new Orders(customer,totalCartPrice,orderdate);
             crud.create(order);
     }
     
