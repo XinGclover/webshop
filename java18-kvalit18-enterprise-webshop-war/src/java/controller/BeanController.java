@@ -12,7 +12,9 @@ import javax.inject.Named;
 import crud.userManagementBean;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -45,6 +47,11 @@ public class BeanController implements Serializable {
 	private boolean login;
 	private boolean premium = false;
 	private boolean admin = false;
+	
+	@PostConstruct
+	public void init(){
+		Locale.setDefault(new Locale("sv", "SE"));
+	}
 
 	public GenericCrudService getCrud() {
 		return crud;

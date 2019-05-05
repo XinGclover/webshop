@@ -2,7 +2,9 @@ package crud;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -28,9 +30,13 @@ public class userManagementBean {
 	@EJB
 	private GenericCrudService genericCrudServiceBean;
 
+	
+	@PostConstruct
+	public void init(){
+		Locale.setDefault(new Locale("sv", "SE"));
+		
+	}
             
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
     public String login(String email, String password, boolean login) {
 
         int userType = 0;
