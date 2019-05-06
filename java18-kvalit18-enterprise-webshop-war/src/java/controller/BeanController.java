@@ -149,7 +149,7 @@ public class BeanController implements Serializable {
 	 */
 	public String checkValidUser() {
 
-		String response = userManagementBean.login(email, password, login);
+		String response = userManagementBean.login(email.toLowerCase(), password, login);
 
 		switch (response) {
 
@@ -181,7 +181,7 @@ public class BeanController implements Serializable {
 	
 	//Registers the new user to the database 
 	public String registerCustomer() {
-		return userManagementBean.register(firstName, lastName, email, address, password);
+		return userManagementBean.register(firstName, lastName, email.toLowerCase(), address, password);
 	}
 
 	/**

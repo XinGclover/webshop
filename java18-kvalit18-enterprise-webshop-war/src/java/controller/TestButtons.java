@@ -46,7 +46,7 @@ public class TestButtons implements Serializable {
 
 	}
 
-	public void newUser() {
+	public void create() {
 		for (Customers customer : jpa.FakeData.CUSTOMERLIST) {
 			crudBean.create(customer);
 		}
