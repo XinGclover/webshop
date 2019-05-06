@@ -130,15 +130,18 @@ public class CartController implements Serializable {
 
             allOrders=crud.findWithNamedQuery("Orders.findAll");
             Orders currentOrder=allOrders.get(allOrders.size()-1);
+            List<Orderdetails> currentorderdetailslist=currentOrder.getOrderdetailsCollection();
             List<Orders> orders=customer.getOrdersList();
-            orders.add(currentOrder);
-            customer.setOrdersList(orders);
+            
             for(Map.Entry<Products, Integer> entry : productCart.entrySet()){
                     Products p = entry.getKey();
-                    recordeOrderDetails(currentOrder,p,entry.getValue());
+                    currentorderdetailslist.add(recordeOrderDetails(currentOrder,p,entry.getValue()));
                     p.setUnitsInStock(p.getUnitsInStock()-entry.getValue());
                     crud.update(p);                                        
             }
+            currentOrder.setOrderdetailsCollection(currentorderdetailslist);
+            orders.add(currentOrder);
+            customer.setOrdersList(orders);
             checkPremium(customer,totalCartPrice.doubleValue());
         
             productCart.clear();
@@ -153,12 +156,13 @@ public class CartController implements Serializable {
             crud.create(order);
     }
     
-    public void recordeOrderDetails(Orders order, Products product ,Integer quantity){
+    public Orderdetails recordeOrderDetails(Orders order, Products product ,Integer quantity){
             Orderdetails od=new Orderdetails();
             od.setOrder(order);
             od.setProduct(product);
             od.setQuantity(quantity);
             crud.create(od);
+            return od;
     }
     
     public void checkPremium(Customers c,double newcost){
