@@ -58,11 +58,11 @@ public class Customers implements Serializable {
 	}
 
     public List<Orders> getOrderList() {
-        return orderList;
+        return ordersList;
     }
 
     public void setOrderList(List<Orders> orderList) {
-        this.orderList = orderList;
+        this.ordersList = orderList;
     }
         
         public Customers(Integer id) {
