@@ -52,11 +52,11 @@
                 <h:form>
                     <h:dataTable value="#{BeanController.customers}" var="customer">
                         <h:column>
-                            <f:facet name="header">Name</f:facet>   
-                            <h:outputText value="#{customer.firstName}"></h:outputText>
-                            <h:outputText value="#{customer.lastName}"></h:outputText>
-                            <!-- TODO adda a button that calls a method that fetches all the orders for said customer> -->
-                            <h:commandButton value="See Orders" ></h:commandButton> 
+                          <f:facet name="header">Name</f:facet>   
+                        <h:outputText value="#{customer.firstName}"></h:outputText>
+                        <h:outputText value="#{customer.lastName}"></h:outputText>
+                        <!-- TODO adda a button that calls a method that fetches all the orders for said customer> -->
+                        <h:commandButton value="See Orders" action="#{BeanController.getOrderListofCustomer(customer)}" ></h:commandButton> 
                         </h:column>
                     </h:dataTable>
                 </h:form>

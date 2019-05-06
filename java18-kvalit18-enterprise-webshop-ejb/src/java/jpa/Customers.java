@@ -2,9 +2,11 @@ package jpa;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
+import static javax.persistence.CascadeType.PERSIST;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,8 +33,9 @@ public class Customers implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name = "ID", updatable = false, nullable = false)
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
+        @Basic(optional = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(name = "TOTAL_MONEY_SPENT")
 	private double totalMoneySpent;
@@ -48,8 +51,8 @@ public class Customers implements Serializable {
 	private String password;
 	@Column(name = "EMAIL", length = 32)
 	private String email;
-        @OneToMany(mappedBy = "customer")
-        private List<Orders> orderList;
+        @OneToMany(mappedBy="customer")
+        private List<Orders> ordersList;
                
 	public Customers() {
 	}
@@ -149,6 +152,16 @@ public class Customers implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+        public List<Orders> getOrdersList() {
+            return ordersList;
+        }
+
+        public void setOrdersList(List<Orders> ordersList) {
+            this.ordersList = ordersList;
+        }
+        
+        
 
 	@Override
 	public int hashCode() {

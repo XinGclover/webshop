@@ -44,11 +44,11 @@ public class Orderdetails implements Serializable {
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "ORDERID")
+    @JoinColumn(name = "ORDERID",referencedColumnName = "ORDERID")
     private Orders order;
 
     @ManyToOne
-    @JoinColumn(name = "PRODUCTID")
+    @JoinColumn(name = "PRODUCTID",referencedColumnName = "PRODUCTID")
     private Products product;
 
     public Orderdetails() {

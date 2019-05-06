@@ -10,6 +10,7 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import crud.userManagementBean;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -22,6 +23,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import jpa.Customers;
+import jpa.Orders;
 
 /**
  *
@@ -47,6 +49,7 @@ public class BeanController implements Serializable {
 	private boolean login;
 	private boolean premium = false;
 	private boolean admin = false;
+        private List<Orders> ordersofcustomer;
 	
 	@PostConstruct
 	public void init(){
@@ -129,6 +132,15 @@ public class BeanController implements Serializable {
 		this.address = address;
 	}
 
+        public List<Orders> getOrdersofcustomer() {
+                return ordersofcustomer;
+        }
+
+        public void setOrdersofcustomer(List<Orders> ordersofcustomer) {
+                this.ordersofcustomer = ordersofcustomer;
+        }
+        
+
 	/**
 	 * Sends information from the login to EJB layer for database check
 	 *
@@ -206,5 +218,10 @@ public class BeanController implements Serializable {
 					null));
 		}
 	}
+        
+        public String getOrderListofCustomer(Customers c){
+               setOrdersofcustomer(c.getOrdersList());
+               return "history";
+        }
 
 }
