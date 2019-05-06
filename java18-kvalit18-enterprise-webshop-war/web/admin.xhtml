@@ -46,7 +46,7 @@
                         <h:outputText value="#{customer.firstName}"></h:outputText>
                         <h:outputText value="#{customer.lastName}"></h:outputText>
                         <!-- TODO adda a button that calls a method that fetches all the orders for said customer> -->
-                        <h:commandButton value="See Orders" ></h:commandButton> 
+                        <h:commandButton value="See Orders" action="#{BeanController.getOrderListofCustomer(customer)}" ></h:commandButton> 
                         </h:column>
                     </h:dataTable>
                 </h:form>

@@ -53,7 +53,7 @@ public class Orders implements Serializable {
     @OneToMany(mappedBy = "order")
     private Collection<Orderdetails> orderdetailsCollection;
     @ManyToOne
-    @JoinColumn(name = "CUSTOMERID",referencedColumnName = "CUSTOMERID")
+    @JoinColumn(name = "CUSTOMERID",referencedColumnName = "ID")
     private Customers customer;
     
 
