@@ -56,6 +56,14 @@ public class Customers implements Serializable {
                
 	public Customers() {
 	}
+
+    public List<Orders> getOrderList() {
+        return ordersList;
+    }
+
+    public void setOrderList(List<Orders> orderList) {
+        this.ordersList = orderList;
+    }
         
         public Customers(Integer id) {
 		this.id = id;

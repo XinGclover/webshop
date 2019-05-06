@@ -42,18 +42,18 @@ public class Orderdetails implements Serializable {
     private Integer id;
     @Column(name = "QUANTITY")
     private Integer quantity;
-    
+
     @ManyToOne
     @JoinColumn(name = "ORDERID",referencedColumnName = "ORDERID")
     private Orders order;
-    
+
     @ManyToOne
     @JoinColumn(name = "PRODUCTID",referencedColumnName = "PRODUCTID")
     private Products product;
 
     public Orderdetails() {
     }
-    
+
     public Integer getId() {
         return id;
     }
@@ -110,5 +110,5 @@ public class Orderdetails implements Serializable {
     public String toString() {
         return "jpa.Orderdetails[ id=" + id + " ]";
     }
-    
+
 }

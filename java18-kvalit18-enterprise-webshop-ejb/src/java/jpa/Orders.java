@@ -7,8 +7,8 @@ package jpa;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,7 +51,7 @@ public class Orders implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderdate;
     @OneToMany(mappedBy = "order")
-    private Collection<Orderdetails> orderdetailsCollection;
+    private List<Orderdetails> orderdetailsCollection;
     @ManyToOne
     @JoinColumn(name = "CUSTOMERID",referencedColumnName = "ID")
     private Customers customer;
@@ -99,12 +99,12 @@ public class Orders implements Serializable {
     }
     
 
-    public void setOrderdetailsCollection(Collection<Orderdetails> orderdetailsCollection) {
+    public void setOrderdetailsCollection(List<Orderdetails> orderdetailsCollection) {
         this.orderdetailsCollection = orderdetailsCollection;
     }
     
     @XmlTransient
-    public Collection<Orderdetails> getOrderdetailsCollection() {
+    public List<Orderdetails> getOrderdetailsCollection() {
         return orderdetailsCollection;
     }
 
