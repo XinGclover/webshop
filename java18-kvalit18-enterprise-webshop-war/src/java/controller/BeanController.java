@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import crud.GenericCrudService;
@@ -10,7 +5,6 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import crud.userManagementBean;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -22,7 +16,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
-import jpa.Admins;
 import jpa.Customers;
 import jpa.Orderdetails;
 import jpa.Orders;
@@ -184,7 +177,7 @@ public class BeanController implements Serializable {
 
     private void setCustomerNames() {
         Map<String, Object> params = new HashMap<>();
-        params.put("email", email);
+        params.put("email", email.toLowerCase());
         Customers c = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
         firstName = c.getFirstName();
         lastName = c.getLastName();
