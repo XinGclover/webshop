@@ -137,7 +137,8 @@ public class CartController implements Serializable {
                     Products p = entry.getKey();
                     currentorderdetailslist.add(recordeOrderDetails(currentOrder,p,entry.getValue()));
                     p.setUnitsInStock(p.getUnitsInStock()-entry.getValue());
-                    crud.update(p);                                        
+                    crud.update(p);        
+                    
             }
             currentOrder.setOrderdetailsCollection(currentorderdetailslist);
             orders.add(currentOrder);
