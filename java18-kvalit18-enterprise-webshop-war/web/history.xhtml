@@ -23,9 +23,25 @@
                     <h:column>
                         <f:facet name="date">Date</f:facet>
                             #{item.orderdate}
+
                         <h:commandButton value="Get Details" ></h:commandButton>
+
                     </h:column>
-                    
+
+
+                    <h:dataTable value="#{orderdetailsCollection}" var="product">
+                        <h:column>
+                            <f:facet name="id">RowId</f:facet>
+                           
+                        </h:column>
+
+                    </h:dataTable>
+
+
+
+
+
+
 
                 </h:dataTable>
             </h:form>
