@@ -168,8 +168,8 @@ public class BeanController implements Serializable {
 	}
 
 	public void setAdminNames() {
-//		firstName = email.split("@")[0];
-//		lastName = email.split("@")[1].split(".")[0];
+		firstName = email.split("@")[0];
+		lastName = email.split("@")[1].split("\\.")[0];
 	}
 
 	private void setCustomerNames() {
