@@ -20,88 +20,81 @@ import jpa.Customers;
 @LocalBean
 public class userManagementBean {
 
-    //user identifiers
-    private final int ADMIN = 1;
-    private final int CUSTOMER = 2;
-    private final String adminS = "admin";
-    private final String store = "store";
-    private final String incorrect = "incorrect";
+	//user identifiers
+	private final int ADMIN = 1;
+	private final int CUSTOMER = 2;
+	private final String adminS = "admin";
+	private final String store = "store";
+	private final String incorrect = "incorrect";
 
 	@EJB
 	private GenericCrudService genericCrudServiceBean;
 
-	
 	@PostConstruct
-	public void init(){
+	public void init() {
 		Locale.setDefault(new Locale("sv", "SE"));
-		
+
 	}
-            
-    public String login(String email, String password, boolean login) {
 
-        int userType = 0;
+	public String login(String email, String password, boolean login) {
 
-        Customers sessionCustomer = null;
-        Admins sessionAdmin = null;
+		int userType = 0;
 
-        try {
+		Customers sessionCustomer = null;
+		Admins sessionAdmin = null;
 
-            //crudBean EJB method invocation
-            Map<String, Object> params = new HashMap<>();
-            params.put("email", email);
+		try {
+			Map<String, Object> params = new HashMap<>();
+			params.put("email", email);
+			sessionCustomer = (Customers) genericCrudServiceBean.findWithNamedQuery("Customers.findByEmail", params).get(0);
+			userType = CUSTOMER;
+			
+			System.out.println(sessionCustomer.toString());
 
-            sessionCustomer = (Customers) genericCrudServiceBean.findWithNamedQuery("Customers.findByEmail", params).get(0);
+		} catch (NoResultException | NullPointerException | IndexOutOfBoundsException e1) {
 
-            userType = CUSTOMER;
+			try {
+				Map<String, Object> params = new HashMap<>();
+				params.put("email", email);
+				sessionAdmin = (Admins) genericCrudServiceBean.findWithNamedQuery("Admins.findByEmail", params).get(0);
+				userType = ADMIN;
 
-            System.out.println(sessionCustomer.toString());
+				System.out.println(sessionAdmin.toString());//change to 
 
-        } catch (NoResultException | NullPointerException | IndexOutOfBoundsException e1) {
+			} catch (NoResultException | NullPointerException | IndexOutOfBoundsException e2) {
 
-            try {
+				System.out.println("There is no User matching that email ");
+				return incorrect;
+			}
 
-                Map<String, Object> params = new HashMap<>();
-                params.put("email", email);
-                sessionAdmin = (Admins) genericCrudServiceBean.findWithNamedQuery("Admins.findByEmail", params).get(0);
-                userType = ADMIN;
+		}
 
-                System.out.println(sessionAdmin.toString());//change to 
+		if (userType == CUSTOMER && sessionCustomer.getPassword().equals(password)) {
 
-            } catch (NoResultException | NullPointerException | IndexOutOfBoundsException e2) {
+			System.out.println("there is a customer with that name and password!");
+			return store;
 
-                System.out.println("There is no User matching that email ");
-                return incorrect;
-            }
+		} else if (userType == ADMIN && sessionAdmin.getPassword().equals(password)) {
+			System.out.println("there is an Admin with that name and password!");
+			return adminS;
 
-        }
+		} else {
 
-        if (userType == CUSTOMER && sessionCustomer.getPassword().equals(password)) {
+			//return "incorrect"; 
+			//^this code has to go in when the trycatch below is deleted after Front end messages are ready^
+			try {    //TEST PRINT DELETE BEFORE LAUNCH 
+				System.out.println("sesh: " + sessionCustomer.getPassword());
+				System.out.println("pwd: " + password);
+				System.out.println("Wrong Password");
 
-            System.out.println("there is a customer with that name and password!");
-            return store;
+			} catch (NullPointerException | IndexOutOfBoundsException e2) {
+				//catch for the test pring on the catch block 
+				return incorrect;
+			}
+		}
+		return incorrect;
 
-        } else if (userType == ADMIN && sessionAdmin.getPassword().equals(password)) {
-            System.out.println("there is an Admin with that name and password!");
-            return adminS;
-
-        } else {
-
-            //return "incorrect"; 
-            //^this code has to go in when the trycatch below is deleted after Front end messages are ready^
-            try {    //TEST PRINT DELETE BEFORE LAUNCH 
-                System.out.println("sesh: " + sessionCustomer.getPassword());
-                System.out.println("pwd: " + password);
-                System.out.println("Wrong Password");
-
-            } catch (NullPointerException | IndexOutOfBoundsException e2) {
-                //catch for the test pring on the catch block 
-                return incorrect;
-            }
-        }
-        return incorrect;
-
-    }
-	
+	}
 
 	public String register(Integer id, String firstName, String lastName, String email, String address, String password) {
 
@@ -120,21 +113,13 @@ public class userManagementBean {
 		return "index";
 	}
 
- 
-    public List<Customers> fetchAllCustomers() {
-        return genericCrudServiceBean.findWithNamedQuery("Customers.findAll");
-    }
-   
-        
-            /**
-             * 
-             * fetches a list with all the customers in the DB 
-             * 
-             */
-        
+	public List<Customers> fetchAllCustomers() {
+		return genericCrudServiceBean.findWithNamedQuery("Customers.findAll");
+	}
 
-
-
-            
-        
+	/**
+	 *
+	 * fetches a list with all the customers in the DB
+	 *
+	 */
 }
