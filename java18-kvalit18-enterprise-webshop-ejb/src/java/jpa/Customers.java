@@ -3,6 +3,7 @@ package jpa;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,10 +48,19 @@ public class Customers implements Serializable {
 	private String password;
 	@Column(name = "EMAIL", length = 32)
 	private String email;
-        
+        @OneToMany(mappedBy = "customer")
+        private List<Orders> orderList;
                
 	public Customers() {
 	}
+
+    public List<Orders> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Orders> orderList) {
+        this.orderList = orderList;
+    }
         
         public Customers(Integer id) {
 		this.id = id;
