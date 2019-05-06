@@ -22,6 +22,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+import jpa.Admins;
 import jpa.Customers;
 import jpa.Orders;
 
@@ -49,10 +50,10 @@ public class BeanController implements Serializable {
 	private boolean login;
 	private boolean premium = false;
 	private boolean admin = false;
-        private List<Orders> ordersofcustomer;
-	
+	private List<Orders> ordersofcustomer;
+
 	@PostConstruct
-	public void init(){
+	public void init() {
 		Locale.setDefault(new Locale("sv", "SE"));
 	}
 
@@ -132,14 +133,13 @@ public class BeanController implements Serializable {
 		this.address = address;
 	}
 
-        public List<Orders> getOrdersofcustomer() {
-                return ordersofcustomer;
-        }
+	public List<Orders> getOrdersofcustomer() {
+		return ordersofcustomer;
+	}
 
-        public void setOrdersofcustomer(List<Orders> ordersofcustomer) {
-                this.ordersofcustomer = ordersofcustomer;
-        }
-        
+	public void setOrdersofcustomer(List<Orders> ordersofcustomer) {
+		this.ordersofcustomer = ordersofcustomer;
+	}
 
 	/**
 	 * Sends information from the login to EJB layer for database check
@@ -148,14 +148,12 @@ public class BeanController implements Serializable {
 	 *
 	 */
 	public String checkValidUser() {
-
 		String response = userManagementBean.login(email.toLowerCase(), password, login);
 
 		switch (response) {
-
 			case "admin":
 				admin = true;
-				//setNames();  fix to get current Admin not customer                                
+				setAdminNames();
 				return response;
 
 			case "store":
@@ -166,9 +164,12 @@ public class BeanController implements Serializable {
 				loginMessage = "Incorrect email or password";
 				return null;
 		}
-
 		return response;
+	}
 
+	public void setAdminNames() {
+//		firstName = email.split("@")[0];
+//		lastName = email.split("@")[1].split(".")[0];
 	}
 
 	private void setCustomerNames() {
@@ -178,7 +179,7 @@ public class BeanController implements Serializable {
 		firstName = c.getFirstName();
 		lastName = c.getLastName();
 	}
-	
+
 	//Registers the new user to the database 
 	public String registerCustomer() {
 		return userManagementBean.register(firstName, lastName, email.toLowerCase(), address, password);
@@ -188,10 +189,8 @@ public class BeanController implements Serializable {
 	 * generates a list of all the customers for the Admin Page
 	 */
 	public void allCustomers() {
-
 		customers = userManagementBean.fetchAllCustomers();
 		customers.forEach(s -> System.out.println(s.toString()));
-
 	}
 
 	public void validatePassword(FacesContext arg0, UIComponent arg1, Object arg2) throws ValidatorException {
@@ -218,10 +217,10 @@ public class BeanController implements Serializable {
 					null));
 		}
 	}
-        
-        public String getOrderListofCustomer(Customers c){
-               setOrdersofcustomer(c.getOrdersList());
-               return "history";
-        }
+
+	public String getOrderListofCustomer(Customers c) {
+		setOrdersofcustomer(c.getOrdersList());
+		return "history";
+	}
 
 }
