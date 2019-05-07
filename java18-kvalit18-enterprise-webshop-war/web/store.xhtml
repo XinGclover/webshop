@@ -63,9 +63,13 @@
 
 				<h:column>
 				    <f:facet name="header">Quantity</f:facet>
-				    <h:commandButton value="-" action="#{CartController.alterProductCart(p.productId, '-')}"/>
+				    <h:commandButton id="minus" value="-" action="#{CartController.alterProductCart(p.productId, '-')}">
+					<f:ajax execute="minus" render="cartPanel"  />
+				    </h:commandButton>
 				    #{CartController.productCart[p]}
-				    <h:commandButton value="+" action="#{CartController.alterProductCart(p.productId, '+')}"/>
+				    <h:commandButton id="plus" value="+" action="#{CartController.alterProductCart(p.productId, '+')}">
+					<f:ajax execute="plus" render="cartPanel"  />
+				    </h:commandButton>
 				</h:column>
 
 				<h:column>
@@ -77,42 +81,45 @@
                 </h:form>
             </div>
 
-            <div style="position: absolute; display: inline-block; margin-left: 25%;">
-                <h:form>
-                    <h:panelGrid bgcolor="#e6edfd" columns="1">
-                        <f:facet name="header">Product Cart</f:facet>
+            <div  style="position: absolute; display: inline-block; margin-left: 25%;">
 
-                        <h:outputText value="Total price: #{BeanController.isPremium()==1 ? 
-							    CartController.totalCartPricePremium() :
-							    CartController.totalCartPrice}"/>
+		<h:panelGroup id ="cartPanel">
+		    <h:form>
+			<h:panelGrid bgcolor="#e6edfd" columns="1">
+			    <f:facet name="header">Product Cart</f:facet>
 
-                        <h:dataTable value="#{CartController.cartProducts}" var="p" style="text-align: left;">
-                            <h:column>
-                                <f:facet name="header">Name</f:facet>
-				    #{p.productName}
-                            </h:column>
+			    <h:outputText value="Total price: #{BeanController.isPremium()==1 ? 
+								CartController.totalCartPricePremium() :
+								CartController.totalCartPrice}"/>
 
-                            <h:column>
-                                <f:facet name="header">Units</f:facet>
-				    #{p.quantityPerUnit}
-                            </h:column>
+			    <h:dataTable value="#{CartController.cartProducts}" var="p" style="text-align: left;">
+				<h:column>
+				    <f:facet name="header">Name</f:facet>
+					#{p.productName}
+				</h:column>
 
-                            <h:column>
-                                <f:facet name="header">Quantity</f:facet>
-                                <h:commandButton value="-" action="#{CartController.alterProductCart(p.productId, '-')}"/>
-                                #{CartController.productCart[p]}
-                                <h:commandButton value="+" action="#{CartController.alterProductCart(p.productId, '+')}"/>
-                            </h:column>
+				<h:column>
+				    <f:facet name="header">Units</f:facet>
+					#{p.quantityPerUnit}
+				</h:column>
 
-                            <h:column>
-                                <f:facet name="header">Price</f:facet>
-				    #{p.unitPrice.setScale(2) * CartController.productCart[p]}
-                            </h:column>
-                        </h:dataTable>
-                        <h:commandButton value="Go to checkout" action="#{CartController.createOrder()}" style="float: right;"/>
-                    </h:panelGrid>
-		    Premium: #{BeanController.isPremium() == 1}
-                </h:form>
+				<h:column>
+				    <f:facet name="header">Quantity</f:facet>
+				    <h:commandButton value="-" action="#{CartController.alterProductCart(p.productId, '-')}"/>
+				    #{CartController.productCart[p]}
+				    <h:commandButton value="+" action="#{CartController.alterProductCart(p.productId, '+')}"/>
+				</h:column>
+
+				<h:column>
+				    <f:facet name="header">Price</f:facet>
+					#{p.unitPrice.setScale(2) * CartController.productCart[p]}
+				</h:column>
+			    </h:dataTable>
+			    <h:commandButton value="Go to checkout" action="#{CartController.createOrder()}" style="float: right;"/>
+			</h:panelGrid>
+			Premium: #{BeanController.isPremium() == 1}
+		    </h:form>
+		</h:panelGroup>
             </div>
         </div>       
     </h:body>
