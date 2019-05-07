@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -196,9 +197,11 @@ public class BeanController implements Serializable {
 	}
 
 	public void validatePassword(FacesContext arg0, UIComponent arg1, Object arg2) throws ValidatorException {
+		Pattern aao = Pattern.compile("[ÅÄÖåäö]");
+		
 		customers = userManagementBean.fetchAllCustomers();
 		customers.forEach(s -> System.out.println(s.toString()));
-
+		
 		// Retrieve the value passed to this method
 		String confirmPassword = (String) arg2;
 		// Retrieve the temporary value from the password field
@@ -217,6 +220,13 @@ public class BeanController implements Serializable {
 				new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					(arg1.getId() + ": passwords do no match!"),
 					null));
+		}
+		
+		if (aao.matcher(password).find()){
+			throw new ValidatorException(
+				new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					(arg1.getId() + ": password cannot contain ÅÄÖ"), null));
+			
 		}
 	}
 
