@@ -127,7 +127,7 @@ public class Fruit implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("jpa.Fruit[ fruitid=%s fruitname=%s unit=%s price=%s ]",fruitid, fruitName, unit, price);
+		return String.format("jpa.Fruit[ fruitid=%s fruitname=%s unit=%s price=%s ]", fruitid, fruitName, unit, price);
 	}
 
 }

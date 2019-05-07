@@ -7,7 +7,7 @@
 
     <h:head>
 	<title>Store</title>
-           <!-- font awesome -->
+	<!-- font awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
               integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"></link>
         <!--Import Google Icon Font-->
@@ -19,7 +19,7 @@
     </h:head>
 
     <h:body>
-            <!--Navbar-->
+	<!--Navbar-->
         <header>
             <nav class="nav-wrapper transparent">
 
@@ -35,7 +35,7 @@
             <div style="position: relative; left:20%; display: inline-block; text-align: center;">
                 <h:outputText value="Welcome to the store"/><br/><br/>
                 <h:form>
-                     <h:inputText id="search" value="#{ProductCatalogue.searchedString}" valueChangeListener="#{ProductCatalogue.searchedTextChanged}"
+		    <h:inputText id="search" value="#{ProductCatalogue.searchedString}" valueChangeListener="#{ProductCatalogue.searchedTextChanged}"
                                  style="width: 250px; text-align: center;">
                         <f:ajax execute="search" render=":form:panel" event="blur"/>
                     </h:inputText><br/><br/>
@@ -45,33 +45,33 @@
                 <h:form id="form">
 		    <h:panelGroup id="panel">
 			<h:panelGrid bgcolor="#e6edfd" columns="1">
-			<h:dataTable id="table" value="#{ProductCatalogue.productsList}" var="p" style="text-align: left;">
-			    <h:column>
-				<f:facet name="header">Name</f:facet>
-				    #{p.productName}
-			    </h:column>
+			    <h:dataTable id="table" value="#{ProductCatalogue.productsList}" var="p" style="text-align: left;">
+				<h:column>
+				    <f:facet name="header">Name</f:facet>
+					#{p.productName}
+				</h:column>
 
-			    <h:column>
-				<f:facet name="header">Units</f:facet>
-				    #{p.quantityPerUnit}
-			    </h:column>
+				<h:column>
+				    <f:facet name="header">Units</f:facet>
+					#{p.quantityPerUnit}
+				</h:column>
 
-			    <h:column>
-				<f:facet name="header">Price</f:facet>
-				    #{p.unitPrice.setScale(2)}
-			    </h:column>
+				<h:column>
+				    <f:facet name="header">Price</f:facet>
+					#{p.unitPrice.setScale(2)}
+				</h:column>
 
-			    <h:column>
-				<f:facet name="header">Quantity</f:facet>
-                                <h:commandButton value="-" action="#{CartController.alterProductCart(p.productId, '-')}"/>
-				#{CartController.productCart[p]}
-				<h:commandButton value="+" action="#{CartController.alterProductCart(p.productId, '+')}"/>
-			    </h:column>
+				<h:column>
+				    <f:facet name="header">Quantity</f:facet>
+				    <h:commandButton value="-" action="#{CartController.alterProductCart(p.productId, '-')}"/>
+				    #{CartController.productCart[p]}
+				    <h:commandButton value="+" action="#{CartController.alterProductCart(p.productId, '+')}"/>
+				</h:column>
 
-			    <h:column>
-				<h:commandButton value="Info" action="#{ProductCatalogue.getProductsInfo(p)}"/>
-			    </h:column>
-			</h:dataTable>
+				<h:column>
+				    <h:commandButton value="Info" action="#{ProductCatalogue.getProductsInfo(p)}"/>
+				</h:column>
+			    </h:dataTable>
 			</h:panelGrid>
 		    </h:panelGroup>
                 </h:form>

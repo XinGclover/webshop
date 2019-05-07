@@ -48,7 +48,7 @@ public class userManagementBean {
 			params.put("email", email);
 			sessionCustomer = (Customers) genericCrudServiceBean.findWithNamedQuery("Customers.findByEmail", params).get(0);
 			userType = CUSTOMER;
-			
+
 			System.out.println(sessionCustomer.toString());
 
 		} catch (NoResultException | NullPointerException | IndexOutOfBoundsException e1) {

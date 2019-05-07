@@ -1,12 +1,8 @@
 package jpa;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
-import static javax.persistence.CascadeType.PERSIST;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,7 +30,7 @@ public class Customers implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "ID")
-        @Basic(optional = false)
+	@Basic(optional = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(name = "TOTAL_MONEY_SPENT")
@@ -51,21 +47,21 @@ public class Customers implements Serializable {
 	private String password;
 	@Column(name = "EMAIL", length = 32)
 	private String email;
-        @OneToMany(mappedBy="customer")
-        private List<Orders> ordersList;
-               
+	@OneToMany(mappedBy = "customer")
+	private List<Orders> ordersList;
+
 	public Customers() {
 	}
 
-    public List<Orders> getOrderList() {
-        return ordersList;
-    }
+	public List<Orders> getOrderList() {
+		return ordersList;
+	}
 
-    public void setOrderList(List<Orders> orderList) {
-        this.ordersList = orderList;
-    }
-        
-        public Customers(Integer id) {
+	public void setOrderList(List<Orders> orderList) {
+		this.ordersList = orderList;
+	}
+
+	public Customers(Integer id) {
 		this.id = id;
 	}
 
@@ -85,10 +81,10 @@ public class Customers implements Serializable {
 		this.email = email;
 		this.address = address;
 		this.password = password;
-                this.premium = premium;
-                this.totalMoneySpent = totalMoney;               
+		this.premium = premium;
+		this.totalMoneySpent = totalMoney;
 	}
-        
+
 	public String getEmail() {
 		return email;
 	}
@@ -153,15 +149,13 @@ public class Customers implements Serializable {
 		this.password = password;
 	}
 
-        public List<Orders> getOrdersList() {
-            return ordersList;
-        }
+	public List<Orders> getOrdersList() {
+		return ordersList;
+	}
 
-        public void setOrdersList(List<Orders> ordersList) {
-            this.ordersList = ordersList;
-        }
-        
-        
+	public void setOrdersList(List<Orders> ordersList) {
+		this.ordersList = ordersList;
+	}
 
 	@Override
 	public int hashCode() {
