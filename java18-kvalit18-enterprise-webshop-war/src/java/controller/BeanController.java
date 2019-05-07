@@ -160,7 +160,7 @@ public class BeanController implements Serializable {
 				return response;
 
 			case "store":
-				setCustomerNames();
+				setCustomerInformation();
 				return response;
 
 			case "incorrect":
@@ -175,10 +175,12 @@ public class BeanController implements Serializable {
 		lastName = email.split("@")[1].split("\\.")[0];
 	}
 
-	private void setCustomerNames() {
+	private void setCustomerInformation() {
 		Map<String, Object> params = new HashMap<>();
 		params.put("email", email.toLowerCase());
 		Customers c = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
+		premium = c.getPremium();
+
 		firstName = c.getFirstName();
 		lastName = c.getLastName();
 	}
@@ -198,10 +200,10 @@ public class BeanController implements Serializable {
 
 	public void validatePassword(FacesContext arg0, UIComponent arg1, Object arg2) throws ValidatorException {
 		Pattern aao = Pattern.compile("[ÅÄÖåäö]");
-		
+
 		customers = userManagementBean.fetchAllCustomers();
 		customers.forEach(s -> System.out.println(s.toString()));
-		
+
 		// Retrieve the value passed to this method
 		String confirmPassword = (String) arg2;
 		// Retrieve the temporary value from the password field
@@ -221,12 +223,12 @@ public class BeanController implements Serializable {
 					(arg1.getId() + ": passwords do no match!"),
 					null));
 		}
-		
-		if (aao.matcher(password).find()){
+
+		if (aao.matcher(password).find()) {
 			throw new ValidatorException(
 				new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					(arg1.getId() + ": password cannot contain ÅÄÖ"), null));
-			
+
 		}
 	}
 
@@ -243,28 +245,35 @@ public class BeanController implements Serializable {
 		return "orderDetails";
 
 	}
-        
-        public String logout(){
-            
-            
-            System.out.println("logout");
-            
-            if(!admin){
-               admin=false;  
-               firstName = "firstNamePlaceholder";
-               lastName = "lastNamePlaceholder";
-               return "index"; 
-            }
-            else {
-               firstName = "firstNamePlaceholder";
-               lastName = "lastNamePlaceholder";
-               email = null; 
-               password = null; 
-               return "index"; 
-            }
-            
-   
-        }
-        
+
+	public String logout() {
+
+		System.out.println("logout");
+
+		if (!admin) {
+			admin = false;
+			firstName = "firstNamePlaceholder";
+			lastName = "lastNamePlaceholder";
+			return "index";
+		} else {
+			firstName = "firstNamePlaceholder";
+			lastName = "lastNamePlaceholder";
+			email = null;
+			password = null;
+			return "index";
+		}
+
+	}
+
+	public boolean isPremium() {
+		Map<String, Object> params = new HashMap<>();
+		params.put("email", email.toLowerCase());
+		Customers c = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
+		premium = c.getPremium();
+		return premium;
+	}
+
+	public void setPremium() {
+	}
 
 }

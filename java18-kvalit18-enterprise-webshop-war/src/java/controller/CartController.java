@@ -5,6 +5,8 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import jpa.Customers;
 import jpa.Orderdetails;
 import jpa.Orders;
@@ -23,6 +26,9 @@ public class CartController implements Serializable {
 
 	@EJB
 	private GenericCrudService crud;
+
+	@Inject
+	private BeanController beanController;
 
 	private Customers customer;
 
@@ -154,7 +160,8 @@ public class CartController implements Serializable {
 	}
 
 	public void recordeOrder(Customers customer, BigDecimal totalCartPrice, Date orderdate) {
-		Orders order = new Orders(customer, totalCartPrice, orderdate);
+		BigDecimal totalPrice = (beanController.isPremium() ? totalCartPricePremium() : totalCartPrice);
+		Orders order = new Orders(customer, totalPrice, orderdate);
 		crud.create(order);
 	}
 
@@ -176,4 +183,15 @@ public class CartController implements Serializable {
 			crud.update(c);
 		}
 	}
+
+	public BigDecimal totalCartPricePremium() {
+		BigDecimal tot = new BigDecimal(0);
+		try {
+			tot = totalCartPrice.multiply(new BigDecimal(0.9)).setScale(2, RoundingMode.DOWN);
+		} catch (NullPointerException ex) {
+			System.out.println("swallow null because totalcartprice is not set yet");
+		}
+		return tot;
+	}
+
 }
