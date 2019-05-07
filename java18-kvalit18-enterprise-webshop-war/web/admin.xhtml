@@ -43,8 +43,6 @@
         </header>
         <h:form>
 
-
-
             <f:view>
                 <h:commandButton action="#{BeanController.allCustomers()}" value="print the customers"></h:commandButton>
 
@@ -54,38 +52,23 @@
                         <h:column>
                             <f:facet name="header">Name</f:facet>   
                             <h:outputText value="#{customer.firstName}"></h:outputText>
-                            <h:outputText value="#{customer.lastName}"></h:outputText>
-                            <!-- TODO adda a button that calls a method that fetches all the orders for said customer> -->
-                            <h:commandButton value="See Orders" action="#{BeanController.getOrderListofCustomer(customer)}" ></h:commandButton> 
-                            <h:form>
-                                <h:dataTable value="#{BeanController.ordersofcustomer}" var="order">
-                                    <h:column>
-                                        <f:facet name="header">Order Number</f:facet>  
-                                        <h:outputText value="#{order.orderid}"></h:outputText>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Order Total Ammount</f:facet>  
-                                        <h:outputText value="#{order.orderprice}"></h:outputText>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Date</f:facet>  
-                                        <h:outputText value="#{order.date}"></h:outputText>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Details</f:facet>  
-                                        <h:commandButton action="#{BeanController.getOrderDetails(order)}" value="See Order Details"></h:commandButton>
-                                    </h:column>
-                                </h:dataTable>
-                            </h:form>
-
                         </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Last Name</f:facet>   
+                            <h:outputText value="#{customer.lastName}"></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Number of orders</f:facet>   
+                            <h:outputText value="#{customer.orderList.size()}"></h:outputText> <br/>
+                            <h:commandButton value="See Orders" action="#{BeanController.getOrderListofCustomer(customer)}" ></h:commandButton> 
+                        </h:column>
+                        
+
+
+
                     </h:dataTable>
                 </h:form>
-
-
-
-
-
             </f:view>
 
 
