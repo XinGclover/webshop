@@ -36,7 +36,6 @@
                             <p class="navbar-data">You are logged in as #{BeanController.email}</p>
 
                         </div>
-
                     </div>
                 </div>
             </nav>        
@@ -67,6 +66,11 @@
                             <f:facet name="header">Total money Spent</f:facet>   
                             <h:outputText value="#{customer.totalMoneySpent}"></h:outputText> <br/>                     
                         </h:column>
+                        <h:column>
+                            <f:facet name="header">Premium Status</f:facet>   
+                            <h:outputText value="#{customer.premium}"></h:outputText> <br/>                     
+                        </h:column>
+                        
                     </h:dataTable>
                     <h:commandButton action="#{BeanController.logout()}" value="Logout"></h:commandButton>
                 </h:form>
