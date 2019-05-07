@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Checkout</title>
-           <!-- font awesome -->
+	<!-- font awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
               integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"></link>
         <!--Import Google Icon Font-->
@@ -16,7 +16,7 @@
         <link type="text/css" rel="stylesheet" href="resource/css/style.css"></link>
     </h:head>
     <h:body>
-            <!--Navbar-->
+	<!--Navbar-->
         <header>
             <nav class="nav-wrapper grey transparent">
 
@@ -36,27 +36,27 @@
                         <f:facet name="header">Order</f:facet>
                         <h:column>
                             <f:facet name="header">Name</f:facet>
-                            #{p.productName}
+				#{p.productName}
                         </h:column>
 
                         <h:column>
                             <f:facet name="header">Units</f:facet>
-                            #{p.quantityPerUnit}
+				#{p.quantityPerUnit}
                         </h:column>
-                    
+
                         <h:column>
                             <f:facet name="header">Quantity</f:facet>
-                            #{CartController.productCart[p]}
+				#{CartController.productCart[p]}
                         </h:column>
 
                         <h:column>
                             <f:facet name="header">Price</f:facet>
-                            #{p.unitPrice.setScale(2) * CartController.productCart[p]}
+				#{p.unitPrice.setScale(2) * CartController.productCart[p]}
                         </h:column>
                     </h:dataTable>
-                    
+
                     <h:outputText value="Total price: #{CartController.totalCartPrice}"/>
-                    
+
                     <h:panelGroup>
                         <h:commandButton value="Back to store" action="store" style="margin-left: 10px;"/>
                         <h:commandButton value="Pay" action="#{CartController.pay(BeanController.email)}" style="float: right;"/>

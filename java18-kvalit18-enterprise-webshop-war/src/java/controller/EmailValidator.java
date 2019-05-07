@@ -15,8 +15,7 @@ import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
 import jpa.Customers;
 
-
-@Named(value="emailValidator")
+@Named(value = "emailValidator")
 @SessionScoped
 public class EmailValidator implements Validator, Serializable {
 

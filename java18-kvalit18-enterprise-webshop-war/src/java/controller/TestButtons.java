@@ -39,10 +39,9 @@ public class TestButtons implements Serializable {
 		crudBean.findWithNamedQuery("Fruit.findAll").forEach(e -> {
 			System.out.println(e);
 		});
-                crudBean.findWithNamedQuery("Products.findAll").forEach(e -> {
+		crudBean.findWithNamedQuery("Products.findAll").forEach(e -> {
 			System.out.println(e);
 		});
-		
 
 	}
 
@@ -56,7 +55,7 @@ public class TestButtons implements Serializable {
 		for (Fruit fruit : jpa.FakeData.FRUITLIST) {
 			crudBean.create(fruit);
 		}
-		for (Products product : jpa.FakeData.PRODUCTLIST){
+		for (Products product : jpa.FakeData.PRODUCTLIST) {
 			crudBean.create(product);
 		}
 	}
@@ -65,7 +64,7 @@ public class TestButtons implements Serializable {
 		crudBean.nuke(Customers.class);
 		crudBean.nuke(Admins.class);
 		crudBean.nuke(Fruit.class);
-                crudBean.nuke(Products.class);
+		crudBean.nuke(Products.class);
 	}
 
 }

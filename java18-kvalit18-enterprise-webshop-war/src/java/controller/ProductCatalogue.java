@@ -40,11 +40,13 @@ public class ProductCatalogue implements Serializable {
 		});
 		productsList = allProducts;
 	}
-	
-	public void test(){
+
+	public void test() {
 		System.out.println("HELLO");
 		System.out.println(productsList);
-		productsList.forEach((e -> {System.out.println(e);}));
+		productsList.forEach((e -> {
+			System.out.println(e);
+		}));
 	}
 
 	public Integer getQuantity() {
