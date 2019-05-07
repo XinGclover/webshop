@@ -22,8 +22,9 @@ public class Admins implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name = "ID", nullable = false, updatable = false)
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
+	@Basic(optional = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	// @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
 	@Column(name = "EMAIL", length = 20)

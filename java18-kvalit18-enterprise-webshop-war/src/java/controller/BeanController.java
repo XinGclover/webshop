@@ -42,7 +42,7 @@ public class BeanController implements Serializable {
 	private String address;
 	private String loginMessage;
 	private List<Customers> customers;
-	private boolean premium = false;
+	private Integer premium = 0;
 	private boolean admin = false;
 	private List<Orders> ordersofcustomer;
 	private List<Orderdetails> orderDetails;
@@ -265,7 +265,7 @@ public class BeanController implements Serializable {
 
 	}
 
-	public boolean isPremium() {
+	public Integer isPremium() {
 		Map<String, Object> params = new HashMap<>();
 		params.put("email", email.toLowerCase());
 		Customers c = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);

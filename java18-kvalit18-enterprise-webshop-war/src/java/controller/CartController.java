@@ -5,7 +5,6 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -160,7 +159,7 @@ public class CartController implements Serializable {
 	}
 
 	public void recordeOrder(Customers customer, BigDecimal totalCartPrice, Date orderdate) {
-		BigDecimal totalPrice = (beanController.isPremium() ? totalCartPricePremium() : totalCartPrice);
+		BigDecimal totalPrice = (beanController.isPremium() == 1 ? totalCartPricePremium() : totalCartPrice);
 		Orders order = new Orders(customer, totalPrice, orderdate);
 		crud.create(order);
 	}
@@ -179,7 +178,7 @@ public class CartController implements Serializable {
 		c.setTotalMoneySpent(newTotalCost);
 		crud.update(c);
 		if (newTotalCost >= 500000) {
-			c.setPremium(true);
+			c.setPremium(1);
 			crud.update(c);
 		}
 	}

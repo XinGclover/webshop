@@ -82,7 +82,9 @@
                     <h:panelGrid bgcolor="#e6edfd" columns="1">
                         <f:facet name="header">Product Cart</f:facet>
 
-                        <h:outputText value="Total price: #{BeanController.premium ? CartController.totalCartPricePremium() : CartController.totalCartPrice}"/>
+                        <h:outputText value="Total price: #{BeanController.isPremium()==1 ? 
+							    CartController.totalCartPricePremium() :
+							    CartController.totalCartPrice}"/>
 
                         <h:dataTable value="#{CartController.cartProducts}" var="p" style="text-align: left;">
                             <h:column>
@@ -109,7 +111,7 @@
                         </h:dataTable>
                         <h:commandButton value="Go to checkout" action="#{CartController.createOrder()}" style="float: right;"/>
                     </h:panelGrid>
-		    Premium: #{BeanController.premium}
+		    Premium: #{BeanController.isPremium() == 1}
                 </h:form>
             </div>
         </div>       

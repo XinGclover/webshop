@@ -60,3 +60,30 @@ INSERT INTO Products VALUES(default, 'Perth Pasties', 4, '43 pieces', 32000.3, 1
 INSERT INTO Products VALUES(default, 'Tourtire',  4, '14 pies', 2000.45, 21);
 INSERT INTO Products VALUES(default, 'Pt chinois',  4, '24 boxes x 2 pies', 24000, 115);
 INSERT INTO Products VALUES(default, 'Gnocchi di nonna Alice', 5, '24 - 250 g pkgs.', 33000, 21);
+
+INSERT INTO Customers VALUES(default, 'Ettan', 'Etsson', 'ettan.ettson@mail.nu', 'Ettgatan 1, 12301, Ettan', 'Losen1', 0, 0);
+INSERT INTO Customers VALUES(default, 'Tvåan', 'Tvåson', 'tvåan.tvåson@mail.nu', 'Tvågatan 2,12302,Tvåan', 'Losen2', 0, 0);
+INSERT INTO Customers VALUES(default, 'Trean', 'Treson', 'trean.treson@mail.nu', 'Tregatan 3, 12303, Trean', 'Losen3', 0, 0);
+INSERT INTO Customers VALUES(default, 'Fyran', 'Fyrson', 'fyran.fyrson@mail.nu', 'Fyrgatan 4,12304,Fyran', 'Losen4', 0, 0);
+INSERT INTO Customers VALUES(default, 'Femman', 'Femson', 'femman.femson@mail.nu', 'Femgatan 5,12305,Femman', 'Losen5', 0, 0);
+INSERT INTO Customers VALUES(default, 'Sexan', 'Sexson', 'sexan.sexson@mail.nu', 'Sexgatan 6,12306, Sexan', 'Losen6', 0, 0);
+INSERT INTO Customers VALUES(default, 'Sjuan', 'Sjuson', 'sjuan.sjuson@mail.nu', 'Sjugatan 7,12307,Sjuan', 'Losen7', 0, 0);
+INSERT INTO Customers VALUES(default, 'Åttan', 'Åttson', 'åttan.åttson@mail.nu', 'Åttgatan 8, 12308, Åttan', 'Losen8', 0, 0);
+INSERT INTO Customers VALUES(default, 'Nian', 'Nison', 'nian.nison@mail.nu', 'Niagatan 9, 12309, Nian', 'Losen9', 0, 0);
+INSERT INTO Customers VALUES(default, 'Tian', 'Tison', 'tian.tison@mail.nu', 'Tiagatan 10,12310,Tian', 'Losen10', 0, 0);
+INSERT INTO Customers VALUES(default, 'Elvan', 'Elvson', 'elvan.elvson@mail.nu', 'Elvgatan 11, 12311, Elvan', 'Losen11', 0, 0);
+INSERT INTO Customers VALUES(default, 'Tolvan', 'Tolvson', 'tolvan.tolvson@mail.nu', 'Tolvgatan 12,12312,Tolvan', 'Losen12', 0, 0);
+INSERT INTO Customers VALUES(default, 'Trettonet', 'Trettson', 'trettonet.trettson@mail.nu', 'Tregatan 13,12313,Trettonet', 'Losen13', 0, 0);
+INSERT INTO Customers VALUES(default, 'Fjortonet', 'Fjortson', 'fjortonet.fjortson@mail.nu', 'Fjortgatan 14,12314,Fjortonet', 'Losen14', 0, 0);
+INSERT INTO Customers VALUES(default, 'Femtonet', 'Femtson', 'femtonet.femtson@mail.nu', 'Femgatan 15,12315,Femtonet', 'Losen15', 0, 0);
+INSERT INTO Customers VALUES(default, 'Sextonet', 'Sextson', 'sextonet.sextson@mail.nu', 'Sexgatan 16, 12316, Sextonet', 'Losen16', 0, 0);
+INSERT INTO Customers VALUES(default, 'Sjuttonet', 'Sjuttson', 'sjuttonet.sjuttson@mail.nu', 'Sjugatan 17,12317,Sjuttonet', 'Losen17', 0, 0);
+INSERT INTO Customers VALUES(default, 'Artonet', 'Artson', 'artonet.artson@mail.nu', 'Artgatan 18,12318,Artonet', 'Losen18', 0, 0);
+INSERT INTO Customers VALUES(default, 'Nittonet', 'Nittson', 'nittonet.nittson@mail.nu', 'Nitgatan 19,12319,Nittonet', 'Losen19', 0, 0);
+INSERT INTO Customers VALUES(default, 'Tjugan', 'Tjugson', 'tjugan.tjugson@mail.nu', 'Tjugatan 20,12320,Tjugan', 'Losen20', 0, 0);
+
+INSERT INTO Admins VALUES(default, 'admin.ettan@mail.nu', 'Admin1');
+INSERT INTO Admins VALUES(default, 'admin.tvåan@mail.nu', 'Admin2');
+INSERT INTO Admins VALUES(default, 'admin.trean@mail.nu', 'Admin3');
+INSERT INTO Admins VALUES(default, 'admin.fyran@mail.nu', 'Admin4');
+INSERT INTO Admins VALUES(default, 'admin.femman@mail.nu', 'Admin5');

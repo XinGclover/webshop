@@ -46,24 +46,23 @@ public class TestButtons implements Serializable {
 	}
 
 	public void create() {
-		for (Customers customer : jpa.FakeData.CUSTOMERLIST) {
-			crudBean.create(customer);
-		}
-		for (Admins admin : jpa.FakeData.ADMINLIST) {
-			crudBean.create(admin);
-		}
-		for (Fruit fruit : jpa.FakeData.FRUITLIST) {
-			crudBean.create(fruit);
-		}
-		for (Products product : jpa.FakeData.PRODUCTLIST) {
-			crudBean.create(product);
-		}
+//		for (Customers customer : jpa.FakeData.CUSTOMERLIST) {
+//			crudBean.create(customer);
+//		}
+//		for (Admins admin : jpa.FakeData.ADMINLIST) {
+//			crudBean.create(admin);
+//		}
+//		for (Fruit fruit : jpa.FakeData.FRUITLIST) {
+//			crudBean.create(fruit);
+//		}
+//		for (Products product : jpa.FakeData.PRODUCTLIST) {
+//			crudBean.create(product);
+//		}
 	}
 
 	public void deleteAll() {
 		crudBean.nuke(Customers.class);
 		crudBean.nuke(Admins.class);
-		crudBean.nuke(Fruit.class);
 		crudBean.nuke(Products.class);
 	}
 
