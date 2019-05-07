@@ -41,7 +41,6 @@ public class BeanController implements Serializable {
 	private String address;
 	private String loginMessage;
 	private List<Customers> customers;
-	private boolean login;
 	private boolean premium = false;
 	private boolean admin = false;
 	private List<Orders> ordersofcustomer;
@@ -151,7 +150,7 @@ public class BeanController implements Serializable {
 	 *
 	 */
 	public String checkValidUser() {
-		String response = userManagementBean.login(email.toLowerCase(), password, login);
+		String response = userManagementBean.login(email.toLowerCase(), password);
 
 		switch (response) {
 			case "admin":
@@ -234,5 +233,28 @@ public class BeanController implements Serializable {
 		return "orderDetails";
 
 	}
+        
+        public String logout(){
+            
+            
+            System.out.println("logout");
+            
+            if(!admin){
+               admin=false;  
+               firstName = "firstNamePlaceholder";
+               lastName = "lastNamePlaceholder";
+               return "index"; 
+            }
+            else {
+               firstName = "firstNamePlaceholder";
+               lastName = "lastNamePlaceholder";
+               email = null; 
+               password = null; 
+               return "index"; 
+            }
+            
+   
+        }
+        
 
 }

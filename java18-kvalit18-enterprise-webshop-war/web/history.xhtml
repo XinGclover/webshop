@@ -21,10 +21,8 @@
                     <h:column>
                         <f:facet name="header">Date</f:facet>
                             #{order.orderdate}
-                        <h:commandButton action="#{BeanController.getAllOrderDetails(order)}" value="See Order Details"></h:commandButton>>
+                        <h:commandButton action="#{BeanController.getAllOrderDetails(order)}" value="See Order Details"></h:commandButton>
                     </h:column>
-
-
                 </h:dataTable>
             </h:form>
         </f:view>

@@ -36,7 +36,7 @@ public class userManagementBean {
 
 	}
 
-	public String login(String email, String password, boolean login) {
+	public String login(String email, String password) {
 
 		int userType = 0;
 

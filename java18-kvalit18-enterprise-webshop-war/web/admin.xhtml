@@ -63,16 +63,25 @@
                             <h:outputText value="#{customer.orderList.size()}"></h:outputText> <br/>
                             <h:commandButton value="See Orders" action="#{BeanController.getOrderListofCustomer(customer)}" ></h:commandButton> 
                         </h:column>
-                        
-
+                        <h:column>
+                            <f:facet name="header">Total money Spent</f:facet>   
+                            <h:outputText value="#{customer.totalMoneySpent}"></h:outputText> <br/>                     
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Total money Spent</f:facet>   
+                            <h:outputText value="#{customer.totalMoneySpent}"></h:outputText> <br/>                     
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Total money Spent</f:facet>   
+                            <h:outputText value="#{customer.totalMoneySpent}"></h:outputText> <br/>                     
+                        </h:column>
 
 
                     </h:dataTable>
+                    <h:commandButton action="#{BeanController.logout()}" value="Logout"></h:commandButton>
                 </h:form>
+
             </f:view>
-
-
-            <h:commandLink action="#{login.logout()}" value="index"></h:commandLink>
         </h:form>
     </h:body>
 </html>
