@@ -193,4 +193,17 @@ public class CartController implements Serializable {
 		return tot;
 	}
 
+	public BigDecimal unitPricePremium(BigDecimal p) {
+		BigDecimal price = new BigDecimal(0);
+//		try {
+			price = (beanController.isPremium() == 1
+				? p.multiply(new BigDecimal(0.9)).setScale(2, RoundingMode.DOWN)
+				: p);
+//		} catch (NullPointerException ex) {
+//			System.out.println("swallow null because p is not set yet");
+//
+//		}
+		return price;
+	}
+
 }

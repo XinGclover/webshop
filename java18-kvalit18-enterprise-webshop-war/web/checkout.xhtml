@@ -55,13 +55,18 @@
                         </h:column>
                     </h:dataTable>
 
-                    <h:outputText value="Total price: #{CartController.totalCartPrice}"/>
+                    <h:outputText value="Total price: #{BeanController.isPremium()==1 ? 
+							CartController.totalCartPricePremium() :
+							CartController.totalCartPrice}"/>
 
                     <h:panelGroup>
                         <h:commandButton value="Back to store" action="store" style="margin-left: 10px;"/>
                         <h:commandButton value="Pay" action="#{CartController.pay()}" style="float: right;"/>
                     </h:panelGroup>
                 </h:panelGrid>
+		Premium: #{BeanController.isPremium() == 1}
+		<br></br>
+		<i>Premium customers recieves a 10% discount on all products!</i>
             </h:form>
         </center>
     </h:body>
