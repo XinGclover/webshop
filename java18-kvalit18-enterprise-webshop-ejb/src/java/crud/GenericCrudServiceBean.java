@@ -2,15 +2,12 @@ package crud;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
-//@Local(GenericCrudService.class)
-//@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class GenericCrudServiceBean implements GenericCrudService {
 
 	@PersistenceContext(name = "webshopPU")

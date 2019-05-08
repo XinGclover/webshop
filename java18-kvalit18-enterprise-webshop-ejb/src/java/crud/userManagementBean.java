@@ -109,6 +109,8 @@ public class userManagementBean {
 		customer.setEmail(email);
 		customer.setAddress(address);
 		customer.setPassword(password);
+		customer.setPremium(0);
+		customer.setTotalMoneySpent(0.0);
 		genericCrudServiceBean.create(customer);
 		return "index";
 	}

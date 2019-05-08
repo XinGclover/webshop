@@ -122,12 +122,12 @@ public class CartController implements Serializable {
 		return "checkout";
 	}
 
-	public String pay(String email) {
+	public String pay() {
 
 		receipt = "Congratulations! You have spent fake money on fake products!";
 
 		Map<String, Object> params = new HashMap<>();
-		params.put("email", email);
+		params.put("email", beanController.getEmail());
 		Customers customer = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
 		recordeOrder(customer, totalCartPrice, new Timestamp(System.currentTimeMillis()));
 		Date date = new Date();
