@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
 	@NamedQuery(name = "Orderdetails.findAll", query = "SELECT o FROM Orderdetails o")
 	, @NamedQuery(name = "Orderdetails.findById", query = "SELECT o FROM Orderdetails o WHERE o.id = :id")
+	, @NamedQuery(name = "Orderdetails.findByOrderId", query = "SELECT o FROM Orderdetails o WHERE o.order = :id")
 	, @NamedQuery(name = "Orderdetails.findByQuantity", query = "SELECT o FROM Orderdetails o WHERE o.quantity = :quantity")})
 public class Orderdetails implements Serializable {
 
@@ -104,9 +105,11 @@ public class Orderdetails implements Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "jpa.Orderdetails[ id=" + id + " ]";
-	}
+    @Override
+    public String toString() {
+        return "Orderdetails{" + "id=" + id + ", quantity=" + quantity + ", order=" + order + ", product=" + product + '}';
+    }
+
+	
 
 }

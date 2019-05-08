@@ -8,9 +8,14 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import jpa.Admins;
 import jpa.Customers;
+import jpa.Orderdetails;
+import jpa.Orders;
 
 /**
  *
@@ -20,108 +25,115 @@ import jpa.Customers;
 @LocalBean
 public class userManagementBean {
 
-	//user identifiers
-	private final int ADMIN = 1;
-	private final int CUSTOMER = 2;
-	private final String adminS = "admin";
-	private final String store = "store";
-	private final String incorrect = "incorrect";
+    //user identifiers
+    private final int ADMIN = 1;
+    private final int CUSTOMER = 2;
+    private final String adminS = "admin";
+    private final String store = "store";
+    private final String incorrect = "incorrect";
 
-	@EJB
-	private GenericCrudService genericCrudServiceBean;
+    @PersistenceContext(name = "webshopPU")
+    private EntityManager em;
 
-	@PostConstruct
-	public void init() {
-		Locale.setDefault(new Locale("sv", "SE"));
+    @EJB
+    private GenericCrudService genericCrudServiceBean;
 
-	}
+    @PostConstruct
+    public void init() {
+        Locale.setDefault(new Locale("sv", "SE"));
 
-	public String login(String email, String password) {
+    }
 
-		int userType = 0;
+    public String login(String email, String password) {
 
-		Customers sessionCustomer = null;
-		Admins sessionAdmin = null;
+        int userType = 0;
 
-		try {
-			Map<String, Object> params = new HashMap<>();
-			params.put("email", email);
-			sessionCustomer = (Customers) genericCrudServiceBean.findWithNamedQuery("Customers.findByEmail", params).get(0);
-			userType = CUSTOMER;
+        Customers sessionCustomer = null;
+        Admins sessionAdmin = null;
 
-			System.out.println(sessionCustomer.toString());
+        try {
+            Map<String, Object> params = new HashMap<>();
+            params.put("email", email);
+            sessionCustomer = (Customers) genericCrudServiceBean.findWithNamedQuery("Customers.findByEmail", params).get(0);
+            userType = CUSTOMER;
 
-		} catch (NoResultException | NullPointerException | IndexOutOfBoundsException e1) {
+            System.out.println(sessionCustomer.toString());
 
-			try {
-				Map<String, Object> params = new HashMap<>();
-				params.put("email", email);
-				sessionAdmin = (Admins) genericCrudServiceBean.findWithNamedQuery("Admins.findByEmail", params).get(0);
-				userType = ADMIN;
+        } catch (NoResultException | NullPointerException | IndexOutOfBoundsException e1) {
 
-				System.out.println(sessionAdmin.toString());//change to 
+            try {
+                Map<String, Object> params = new HashMap<>();
+                params.put("email", email);
+                sessionAdmin = (Admins) genericCrudServiceBean.findWithNamedQuery("Admins.findByEmail", params).get(0);
+                userType = ADMIN;
 
-			} catch (NoResultException | NullPointerException | IndexOutOfBoundsException e2) {
+                System.out.println(sessionAdmin.toString());//change to 
 
-				System.out.println("There is no User matching that email ");
-				return incorrect;
-			}
+            } catch (NoResultException | NullPointerException | IndexOutOfBoundsException e2) {
 
-		}
+                System.out.println("There is no User matching that email ");
+                return incorrect;
+            }
 
-		if (userType == CUSTOMER && sessionCustomer.getPassword().equals(password)) {
+        }
 
-			System.out.println("there is a customer with that name and password!");
-			return store;
+        if (userType == CUSTOMER && sessionCustomer.getPassword().equals(password)) {
 
-		} else if (userType == ADMIN && sessionAdmin.getPassword().equals(password)) {
-			System.out.println("there is an Admin with that name and password!");
-			return adminS;
+            System.out.println("there is a customer with that name and password!");
+            return store;
 
-		} else {
+        } else if (userType == ADMIN && sessionAdmin.getPassword().equals(password)) {
+            System.out.println("there is an Admin with that name and password!");
+            return adminS;
 
-			//return "incorrect"; 
-			//^this code has to go in when the trycatch below is deleted after Front end messages are ready^
-			try {    //TEST PRINT DELETE BEFORE LAUNCH 
-				System.out.println("sesh: " + sessionCustomer.getPassword());
-				System.out.println("pwd: " + password);
-				System.out.println("Wrong Password");
+        } else {
 
-			} catch (NullPointerException | IndexOutOfBoundsException e2) {
-				//catch for the test pring on the catch block 
-				return incorrect;
-			}
-		}
-		return incorrect;
+            //return "incorrect"; 
+            //^this code has to go in when the trycatch below is deleted after Front end messages are ready^
+            try {    //TEST PRINT DELETE BEFORE LAUNCH 
+                System.out.println("sesh: " + sessionCustomer.getPassword());
+                System.out.println("pwd: " + password);
+                System.out.println("Wrong Password");
 
-	}
+            } catch (NullPointerException | IndexOutOfBoundsException e2) {
+                //catch for the test pring on the catch block 
+                return incorrect;
+            }
+        }
+        return incorrect;
 
-	public String register(Integer id, String firstName, String lastName, String email, String address, String password) {
+    }
 
-		genericCrudServiceBean.create(new Customers(id, firstName, lastName, email, address, password));
-		return "index";
-	}
+    public String register(Integer id, String firstName, String lastName, String email, String address, String password) {
 
-	public String register(String firstName, String lastName, String email, String address, String password) {
-		Customers customer = new Customers();
-		customer.setFirstName(firstName);
-		customer.setLastName(lastName);
-		customer.setEmail(email);
-		customer.setAddress(address);
-		customer.setPassword(password);
-		customer.setPremium(0);
-		customer.setTotalMoneySpent(0.0);
-		genericCrudServiceBean.create(customer);
-		return "index";
-	}
+        genericCrudServiceBean.create(new Customers(id, firstName, lastName, email, address, password));
+        return "index";
+    }
 
-	public List<Customers> fetchAllCustomers() {
-		return genericCrudServiceBean.findWithNamedQuery("Customers.findAll");
-	}
+    public String register(String firstName, String lastName, String email, String address, String password) {
+        Customers customer = new Customers();
+        customer.setFirstName(firstName);
+        customer.setLastName(lastName);
+        customer.setEmail(email);
+        customer.setAddress(address);
+        customer.setPassword(password);
+        customer.setPremium(0);
+        customer.setTotalMoneySpent(0.0);
+        genericCrudServiceBean.create(customer);
+        return "index";
+    }
 
-	/**
-	 *
-	 * fetches a list with all the customers in the DB
-	 *
-	 */
+    public List<Customers> fetchAllCustomers() {
+        return genericCrudServiceBean.findWithNamedQuery("Customers.findAll");
+    }
+
+    public List<Orderdetails> getOrderDetailsById(Orders s) {
+
+        Query q = em.createNamedQuery("Orderdetails.findByOrderId");
+
+        List<Orderdetails> a = q.setParameter("id", s).getResultList();
+
+        return a;
+    }
+
 }

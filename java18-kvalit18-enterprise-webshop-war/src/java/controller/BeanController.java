@@ -275,5 +275,16 @@ public class BeanController implements Serializable {
 
 	public void setPremium() {
 	}
+        
+        
+      public String fetchCurrentOrderDetailsFromId(Orders a){
+          
+    
+          orderDetails = userManagementBean.getOrderDetailsById(a);
+          
+         return "orderDetails";
+     
+      }
+        
 
 }

@@ -76,17 +76,18 @@ INSERT INTO Customers VALUES(default, 'Tolvan', 'Tolvson', 'tolvan.tolvson@mail.
 INSERT INTO Customers VALUES(default, 'Trettonet', 'Trettson', 'trettonet.trettson@mail.nu', 'Tregatan 13,12313,Trettonet', 'Losen13', 0, 0);
 INSERT INTO Customers VALUES(default, 'Fjortonet', 'Fjortson', 'fjortonet.fjortson@mail.nu', 'Fjortgatan 14,12314,Fjortonet', 'Losen14', 0, 0);
 INSERT INTO Customers VALUES(default, 'Femtonet', 'Femtson', 'femtonet.femtson@mail.nu', 'Femgatan 15,12315,Femtonet', 'Losen15', 0, 0);
-INSERT INTO Customers VALUES(default, 'Sextonet', 'Sextson', 'sextonet.sextson@mail.nu', 'Sexgatan 16, 12316, Sextonet', 'Losen16', 0, 0);
-INSERT INTO Customers VALUES(default, 'Sjuttonet', 'Sjuttson', 'sjuttonet.sjuttson@mail.nu', 'Sjugatan 17,12317,Sjuttonet', 'Losen17', 0, 0);
-INSERT INTO Customers VALUES(default, 'Artonet', 'Artson', 'artonet.artson@mail.nu', 'Artgatan 18,12318,Artonet', 'Losen18', 0, 0);
-INSERT INTO Customers VALUES(default, 'Nittonet', 'Nittson', 'nittonet.nittson@mail.nu', 'Nitgatan 19,12319,Nittonet', 'Losen19', 0, 0);
-INSERT INTO Customers VALUES(default, 'Tjugan', 'Tjugson', 'tjugan.tjugson@mail.nu', 'Tjugatan 20,12320,Tjugan', 'Losen20', 0, 0);
+INSERT INTO Customers VALUES(default, 'Sextonet', 'Sextson', 'sextonet.sextson@mail.nu', 'Sexgatan 16, 12316, Sextonet', 'Losen16', 1, 500000);
+INSERT INTO Customers VALUES(default, 'Sjuttonet', 'Sjuttson', 'sjuttonet.sjuttson@mail.nu', 'Sjugatan 17,12317,Sjuttonet', 'Losen17', 1, 500000);
+INSERT INTO Customers VALUES(default, 'Artonet', 'Artson', 'artonet.artson@mail.nu', 'Artgatan 18,12318,Artonet', 'Losen18', 1, 500000);
+INSERT INTO Customers VALUES(default, 'Nittonet', 'Nittson', 'nittonet.nittson@mail.nu', 'Nitgatan 19,12319,Nittonet', 'Losen19', 1, 500000);
+INSERT INTO Customers VALUES(default, 'Tjugan', 'Tjugson', 'tjugan.tjugson@mail.nu', 'Tjugatan 20,12320,Tjugan', 'Losen20', 1, 500000);
 
 INSERT INTO Admins VALUES(default, 'admin.ettan@mail.nu', 'Admin1');
 INSERT INTO Admins VALUES(default, 'admin.tvåan@mail.nu', 'Admin2');
 INSERT INTO Admins VALUES(default, 'admin.trean@mail.nu', 'Admin3');
 INSERT INTO Admins VALUES(default, 'admin.fyran@mail.nu', 'Admin4');
 INSERT INTO Admins VALUES(default, 'admin.femman@mail.nu', 'Admin5');
+
 
 INSERT INTO Orders VALUES(default, 1, 0, CURRENT_TIMESTAMP);
 INSERT INTO Orders VALUES(default, 2, 0, CURRENT_TIMESTAMP);
@@ -148,7 +149,7 @@ INSERT INTO Orderdetails VALUES(default, 4, 19, 5);
 INSERT INTO Orderdetails VALUES(default, 4, 42, 5);
 INSERT INTO Orderdetails VALUES(default, 4, 17, 5);
 INSERT INTO Orderdetails VALUES(default, 5, 24, 5);
-INSERT INTO Orderdetails VALUES(default, 5, 7, 5);
+INSERT INTO Orderdetails VALUES(default, 5, 75, 5);
 INSERT INTO Orderdetails VALUES(default, 5, 10, 5);
 INSERT INTO Orderdetails VALUES(default, 5, 13, 5);
 INSERT INTO Orderdetails VALUES(default, 5, 5, 5);
