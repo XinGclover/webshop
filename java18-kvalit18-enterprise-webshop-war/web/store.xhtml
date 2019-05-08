@@ -112,12 +112,16 @@
 
 				<h:column>
 				    <f:facet name="header">Price</f:facet>
-					#{p.unitPrice.setScale(2) * CartController.productCart[p]}
+					#{
+					p.unitPrice.setScale(2) * CartController.productCart[p]
+					  }
 				</h:column>
 			    </h:dataTable>
 			    <h:commandButton value="Go to checkout" action="#{CartController.createOrder()}" style="float: right;"/>
 			</h:panelGrid>
 			Premium: #{BeanController.isPremium() == 1}
+			<br></br>
+			<i>Premium customers recieves a 10% discount on all products!</i>
 		    </h:form>
 		</h:panelGroup>
             </div>
