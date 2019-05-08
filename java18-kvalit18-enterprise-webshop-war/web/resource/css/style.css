@@ -5,7 +5,19 @@ body{
     background-size: cover; 
 }
 
+#register{
+    background:url("../registe.jpg") 
+        no-repeat
+        center center fixed;  
+    background-size: cover; 
+}
 
+#receipt{
+    background:url("../receipt.jpg") 
+        no-repeat
+        center center fixed;  
+    background-size: cover; 
+}
 
 .login-section{
 

@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>Customer Registration</title>
 
@@ -13,28 +14,29 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"></link>
-
+        <link type="text/css" rel="stylesheet" href="resource/css/style.css"></link>
 
     </h:head>
 
-    <h:body>
+    <h:body id="register">
         <!--Navbar-->
         <f:view>
             <h:form>
                 <header>
-                    <nav class="nav-wrapper teal">
+                    <nav class="nav-wrapper transparent">
                         <div class="container">
                             <div class="row">
-                                <a href="" class="col s4 brand-logo push-s5">Food Chainz</a>
-                                <div class="col s4 push-s6">
-                                    <p class="navbar-data">Registe</p> <br/>  
+                                <a href="#" class="col s4 brand-logo push-s6 lime center">Food Chainz</a>
+                                <div class="col s4 push-s5 lime-text">
+                                   
+                                    <p class="navbar-data" style="font-size: 20px">Register</p> 
                                 </div>
                             </div>
                         </div>
                     </nav>        
                 </header>
 
-                <section class="section container scrollspy" id="contact">
+                <section class="section container scrollspy">
                     <div class="row">
 
                         <div class="col s12 l5 offset-l2">
@@ -67,13 +69,13 @@
 
                             <h:outputText value="First Name:"/>		
 
-                            <h:inputText id="firstName" value="#{BeanController.firstName}">
+                            <h:inputText id="firstName" value="#{BeanController.firstName}" a:placeholder=" " >
                                 <f:validator validatorId="emptyAndSpecialCharValidator"/>
                             </h:inputText>
 
                             <h:outputText value="Last Name:"/>
 
-                            <h:inputText id="lastName" value="#{BeanController.lastName}">
+                            <h:inputText id="lastName" value="#{BeanController.lastName}" a:placeholder=" ">
                                 <f:validator validatorId="emptyAndSpecialCharValidator"/>
                             </h:inputText>
 
@@ -83,19 +85,12 @@
                             </h:inputText>
 
                             <ul style="list-style-type: none">
-                                <li style="padding: 20px; display: inline-block"> <h:commandButton class="btn waves-effect waves-light" value="Register" action="#{BeanController.registerCustomer()}" /></li>
-                                <li style="padding: 20px; display: inline-block"> <h:commandButton class="btn waves-effect waves-light" value="Cancel" action="index" immediate="true"/></li>
+                                <li style="padding: 20px; display: inline-block"> <h:commandButton class="btn waves-effect waves-light lime darken-1" value="Register" action="#{BeanController.registerCustomer()}" /></li>
+                                <li style="padding: 20px; display: inline-block"> <h:commandButton class="btn waves-effect waves-light lime darken-1" value="Cancel" action="index" immediate="true"/></li>
                             </ul>
-
-
                         </div>
-
                     </div>
-
                 </section>
-
-
-
             </h:form>
 
         </f:view>
