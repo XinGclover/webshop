@@ -4,9 +4,9 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-	<title>Customer Registration</title>
-	<link rel="stylesheet" type="text/css" href="main.css" />
-	<!-- font awesome -->
+        <title>Customer Registration</title>
+
+        <!-- font awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
               integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"></link>
         <!--Import Google Icon Font-->
@@ -14,79 +14,90 @@
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"></link>
 
-        <link type="text/css" rel="stylesheet" href="resource/css/style.css"></link>
+
     </h:head>
 
     <h:body>
-	<!--Navbar-->
-        <header>
-            <nav class="nav-wrapper grey darken-3">
+        <!--Navbar-->
+        <f:view>
+            <h:form>
+                <header>
+                    <nav class="nav-wrapper teal">
+                        <div class="container">
+                            <div class="row">
+                                <a href="" class="col s4 brand-logo push-s5">Food Chainz</a>
+                                <div class="col s4 push-s6">
+                                    <p class="navbar-data">Registe</p> <br/>  
+                                </div>
+                            </div>
+                        </div>
+                    </nav>        
+                </header>
 
-                <div class="row">
-                    <div>
-                        <a href="" class="brand-logo blue-grey-text darken-3 center left">Food Chainz</a>
-                        <a href="" class="brand-logo blue-grey-text darken-3 center right">Register</a>
+                <section class="section container scrollspy" id="contact">
+                    <div class="row">
+
+                        <div class="col s12 l5 offset-l2">
+
+
+                            <f:facet name="header">
+                                <h:outputText value="Customer Registration"/>
+                            </f:facet>
+
+
+                            <h:outputText value="E-Mail:"/>	
+
+                            <h:inputText id="email" value="#{BeanController.email}">
+                                <f:validator binding="#{emailValidator}"/>
+                            </h:inputText>
+
+                            <h:outputText value="Password:"/>
+
+                            <h:inputSecret id="password" value="#{BeanController.password}">
+                                <f:validator validatorId="emptyValidator"/>
+                            </h:inputSecret>
+
+                            <h:outputText value="Confirm Password:"/>
+
+                            <h:inputSecret id="confirmPassword" value="#{BeanController.confirmPassword}"
+                                           validator="#{BeanController.validatePassword}">
+
+                                <f:validator validatorId="emptyValidator"/>
+                            </h:inputSecret>
+
+                            <h:outputText value="First Name:"/>		
+
+                            <h:inputText id="firstName" value="#{BeanController.firstName}">
+                                <f:validator validatorId="emptyAndSpecialCharValidator"/>
+                            </h:inputText>
+
+                            <h:outputText value="Last Name:"/>
+
+                            <h:inputText id="lastName" value="#{BeanController.lastName}">
+                                <f:validator validatorId="emptyAndSpecialCharValidator"/>
+                            </h:inputText>
+
+                            <h:outputText value="Address:"/>
+                            <h:inputText id="address" value="#{BeanController.address}">
+                                <f:validator validatorId="emptyAndSpecialCharValidator"/>
+                            </h:inputText>
+
+                            <ul style="list-style-type: none">
+                                <li style="padding: 20px; display: inline-block"> <h:commandButton class="btn waves-effect waves-light" value="Register" action="#{BeanController.registerCustomer()}" /></li>
+                                <li style="padding: 20px; display: inline-block"> <h:commandButton class="btn waves-effect waves-light" value="Cancel" action="index" immediate="true"/></li>
+                            </ul>
+
+
+                        </div>
+
                     </div>
-                </div>
 
-            </nav>        
-        </header>
-	<f:view>
-	    <center>
-                <h:form>
-		    <h:panelGrid bgcolor="#e6edfd" columns="2" border="0">
-			<f:facet name="header">
-			    <h:outputText value="Customer Registration"/>
-			</f:facet>
+                </section>
 
-			<h:outputText value="E-Mail:"/>	
 
-                        <h:inputText id="email" value="#{BeanController.email}">
-			    <f:validator binding="#{emailValidator}"/>
-			</h:inputText>
 
-			<h:outputText value="Password:"/>
+            </h:form>
 
-			<h:inputSecret id="password" value="#{BeanController.password}">
-			    <f:validator validatorId="emptyValidator"/>
-			</h:inputSecret>
-
-			<h:outputText value="Confirm Password:"/>
-
-			<h:inputSecret id="confirmPassword" value="#{BeanController.confirmPassword}"
-				       validator="#{BeanController.validatePassword}">
-
-			    <f:validator validatorId="emptyValidator"/>
-			</h:inputSecret>
-
-			<h:outputText value="First Name:"/>		
-
-			<h:inputText id="firstName" value="#{BeanController.firstName}">
-			    <f:validator validatorId="emptyAndSpecialCharValidator"/>
-			</h:inputText>
-
-			<h:outputText value="Last Name:"/>
-
-			<h:inputText id="lastName" value="#{BeanController.lastName}">
-			    <f:validator validatorId="emptyAndSpecialCharValidator"/>
-			</h:inputText>
-
-			<h:outputText value="Address:"/>
-			<h:inputText id="address" value="#{BeanController.address}">
-			    <f:validator validatorId="emptyAndSpecialCharValidator"/>
-			</h:inputText>
-
-			<h:column/>				
-
-			<h:panelGroup>
-			    <h:commandButton value="Register" action="#{BeanController.registerCustomer()}" />
-			    <h:commandButton value="Cancel" action="index" immediate="true"/>
-			</h:panelGroup>
-		    </h:panelGrid>
-		</h:form>
-	    </center>
         </f:view>
     </h:body>
 </html>
-
-
