@@ -21,7 +21,7 @@ import jpa.Products;
 @Named(value = "CartController")
 @SessionScoped
 public class CartController implements Serializable {
-
+    
     @EJB
     private GenericCrudService crud;
     
