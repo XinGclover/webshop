@@ -2,13 +2,20 @@ package crud;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import jpa.Admins;
 import jpa.Customers;
+import jpa.Orderdetails;
+import jpa.Orders;
 
 /**
  *
@@ -25,13 +32,19 @@ public class userManagementBean {
     private final String store = "store";
     private final String incorrect = "incorrect";
 
-	@EJB
-	private GenericCrudService genericCrudServiceBean;
+    @PersistenceContext(name = "webshopPU")
+    private EntityManager em;
 
-            
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
-    public String login(String email, String password, boolean login) {
+    @EJB
+    private GenericCrudService genericCrudServiceBean;
+
+    @PostConstruct
+    public void init() {
+        Locale.setDefault(new Locale("sv", "SE"));
+
+    }
+
+    public String login(String email, String password) {
 
         int userType = 0;
 
@@ -39,13 +52,9 @@ public class userManagementBean {
         Admins sessionAdmin = null;
 
         try {
-
-            //crudBean EJB method invocation
             Map<String, Object> params = new HashMap<>();
             params.put("email", email);
-
             sessionCustomer = (Customers) genericCrudServiceBean.findWithNamedQuery("Customers.findByEmail", params).get(0);
-
             userType = CUSTOMER;
 
             System.out.println(sessionCustomer.toString());
@@ -53,7 +62,6 @@ public class userManagementBean {
         } catch (NoResultException | NullPointerException | IndexOutOfBoundsException e1) {
 
             try {
-
                 Map<String, Object> params = new HashMap<>();
                 params.put("email", email);
                 sessionAdmin = (Admins) genericCrudServiceBean.findWithNamedQuery("Admins.findByEmail", params).get(0);
@@ -95,40 +103,37 @@ public class userManagementBean {
         return incorrect;
 
     }
-	
 
-	public String register(Integer id, String firstName, String lastName, String email, String address, String password) {
+    public String register(Integer id, String firstName, String lastName, String email, String address, String password) {
 
-		genericCrudServiceBean.create(new Customers(id, firstName, lastName, email, address, password));
-		return "index";
-	}
+        genericCrudServiceBean.create(new Customers(id, firstName, lastName, email, address, password));
+        return "index";
+    }
 
-	public String register(String firstName, String lastName, String email, String address, String password) {
-		Customers customer = new Customers();
-		customer.setFirstName(firstName);
-		customer.setLastName(lastName);
-		customer.setEmail(email);
-		customer.setAddress(address);
-		customer.setPassword(password);
-		genericCrudServiceBean.create(customer);
-		return "index";
-	}
+    public String register(String firstName, String lastName, String email, String address, String password) {
+        Customers customer = new Customers();
+        customer.setFirstName(firstName);
+        customer.setLastName(lastName);
+        customer.setEmail(email);
+        customer.setAddress(address);
+        customer.setPassword(password);
+        customer.setPremium(0);
+        customer.setTotalMoneySpent(0.0);
+        genericCrudServiceBean.create(customer);
+        return "index";
+    }
 
- 
     public List<Customers> fetchAllCustomers() {
         return genericCrudServiceBean.findWithNamedQuery("Customers.findAll");
     }
-   
-        
-            /**
-             * 
-             * fetches a list with all the customers in the DB 
-             * 
-             */
-        
 
+    public List<Orderdetails> getOrderDetailsById(Orders s) {
 
+        Query q = em.createNamedQuery("Orderdetails.findByOrderId");
 
-            
-        
+        List<Orderdetails> a = q.setParameter("id", s).getResultList();
+
+        return a;
+    }
+
 }

@@ -2,15 +2,12 @@ package crud;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
-//@Local(GenericCrudService.class)
-//@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class GenericCrudServiceBean implements GenericCrudService {
 
 	@PersistenceContext(name = "webshopPU")
@@ -75,7 +72,7 @@ public class GenericCrudServiceBean implements GenericCrudService {
 	public <T> List<T> findWithNativeQuery(String sql, Class<T> type) {
 		return em.createNativeQuery(sql, type).getResultList();
 	}
-        
+
 	@Override
 	public <T> void nuke(Class<T> type) {
 		findWithNativeQuery("SELECT * from " + type.getSimpleName(), type).forEach(e -> {

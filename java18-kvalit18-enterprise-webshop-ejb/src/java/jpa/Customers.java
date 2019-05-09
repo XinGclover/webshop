@@ -1,8 +1,7 @@
 package jpa;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,28 +29,39 @@ public class Customers implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name = "ID", updatable = false, nullable = false)
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
+	@Basic(optional = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(name = "TOTAL_MONEY_SPENT")
 	private double totalMoneySpent;
-	@Column(name = "FIRSTNAME", length = 20)
+	@Column(name = "FIRSTNAME", length = 50)
 	private String firstName;
-	@Column(name = "LASTNAME", length = 20)
+	@Column(name = "LASTNAME", length = 50)
 	private String lastName;
 	@Column(name = "PREMIUM")
-	private Boolean premium;
+	private Integer premium;
 	@Column(name = "ADDRESS", length = 50)
 	private String address;
-	@Column(name = "PASSWORD", length = 32)
+	@Column(name = "PASSWORD", length = 50)
 	private String password;
-	@Column(name = "EMAIL", length = 32)
+	@Column(name = "EMAIL", length = 50)
 	private String email;
-               
+	@OneToMany(mappedBy = "customer")
+	private List<Orders> ordersList;
+
 	public Customers() {
 	}
-        
-        public Customers(Integer id) {
+
+	public List<Orders> getOrderList() {
+		return ordersList;
+	}
+
+	public void setOrderList(List<Orders> orderList) {
+		this.ordersList = orderList;
+	}
+
+	public Customers(Integer id) {
 		this.id = id;
 	}
 
@@ -65,16 +75,16 @@ public class Customers implements Serializable {
 		this.email = email;
 	}
 
-	public Customers(String firstName, String lastName, String email, String address, String password, boolean premium, double totalMoney) {
+	public Customers(String firstName, String lastName, String email, String address, String password, Integer premium, double totalMoney) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.address = address;
 		this.password = password;
-                this.premium = premium;
-                this.totalMoneySpent = totalMoney;               
+		this.premium = premium;
+		this.totalMoneySpent = totalMoney;
 	}
-        
+
 	public String getEmail() {
 		return email;
 	}
@@ -115,11 +125,11 @@ public class Customers implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public Boolean getPremium() {
+	public Integer getPremium() {
 		return premium;
 	}
 
-	public void setPremium(Boolean premium) {
+	public void setPremium(Integer premium) {
 		this.premium = premium;
 	}
 
@@ -137,6 +147,14 @@ public class Customers implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Orders> getOrdersList() {
+		return ordersList;
+	}
+
+	public void setOrdersList(List<Orders> ordersList) {
+		this.ordersList = ordersList;
 	}
 
 	@Override

@@ -10,8 +10,8 @@ import javax.faces.validator.ValidatorException;
 
 @FacesValidator("emptyAndSpecialCharValidator")
 public class EmptyAndSpecialCharactersValidator implements Validator {
-	
-	 Pattern NotAZaz09 = Pattern.compile("[^\\w ÅÄÖ åäö é É]");
+
+	Pattern NotAZaz09 = Pattern.compile("[^\\w ÅÄÖ åäö é É]");
 
 	public EmptyAndSpecialCharactersValidator() {
 	}

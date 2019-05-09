@@ -5,13 +5,17 @@
     <h:head>
         <title>Receipt</title>
     </h:head>
-    <h:body>
+    <h:body id="receipt">
         <center>
             <h:form>
                 <br/><br/><br/><br/>
                 <h:outputLabel value="#{CartController.receipt}"/><br/><br/>
-                <h:commandButton value="Back to store" action="store"/>
-                <h:commandButton value="logout" action="index" style="margin-left: 10px;"/>
+
+                <ul style="list-style-type: none">
+                    <li style="padding: 20px; display: inline-block"> <h:commandButton class="btn waves-effect waves-light light-green darken-1" value="Back to store" action="store" /></li>
+                    <li style="padding: 20px; display: inline-block"> <h:commandButton class="btn waves-effect waves-light light-green darken-1" value="logout" action="index"/></li>
+                </ul>
+                
             </h:form>
         </center>
     </h:body>

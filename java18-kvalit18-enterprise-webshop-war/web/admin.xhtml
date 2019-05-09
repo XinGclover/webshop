@@ -4,8 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-	<title>Facelet Title</title>
-           <!-- font awesome -->
+        <title>Facelet Title</title>
+        <!-- font awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
               integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"></link>
         <!--Import Google Icon Font-->
@@ -14,52 +14,69 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"></link>
 
         <link type="text/css" rel="stylesheet" href="resource/css/style.css"></link>
-</h:head>
-    
-    
-<h:body>
+    </h:head>
+
+
+    <h:body class="tempClass">
         <!--Navbar-->
         <header>
             <nav class="nav-wrapper transparent">
+                <div class="container">
+                    <div class="row">
 
-                <div class="row">
-                    <div>
-                        <a href="" class="brand-logo blue-grey-text darken-3 left">Food Chainz</a>
-                        <a href="" class="brand-logo blue-grey-text darken-3 right">Admin Console</a>
+
+                        <a href="" class="col s4 brand-logo blue-grey-text text-lighten-2 push-s5 ">Food Chainz</a>
+                        <!--a href="" class="col s6  blue-grey-text text-darken-3 push-s6">Admin Console</a-->
+                        <div class="col s4  blue-grey-text text-darken-3 push-s6">
+
+
+                            <!--HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEe-->
+
+                            <p class="navbar-data">Admin Console</p> <br/>  
+                            <p class="navbar-data">You are logged in as #{BeanController.email}</p>
+
+                        </div>
                     </div>
                 </div>
-
             </nav>        
         </header>
-	<h:form>
-      
-            <h:outputText value="Welcome to the admin page you are logged in as #{BeanController.email}"/><br/><br/>
-      
+        <h:form>
+
             <f:view>
-               <h:commandButton action="#{BeanController.allCustomers()}" value="print the customers"></h:commandButton>
-              
-               
-               <h:form>
+                <h:commandButton action="#{BeanController.allCustomers()}" value="print the customers"></h:commandButton>
+
+
+                <h:form>
                     <h:dataTable value="#{BeanController.customers}" var="customer">
                         <h:column>
-                          <f:facet name="header">Name</f:facet>   
-                        <h:outputText value="#{customer.firstName}"></h:outputText>
-                        <h:outputText value="#{customer.lastName}"></h:outputText>
-                        <!-- TODO adda a button that calls a method that fetches all the orders for said customer> -->
-                        <h:commandButton value="See Orders" ></h:commandButton> 
+                            <f:facet name="header">Name</f:facet>   
+                            <h:outputText value="#{customer.firstName}"></h:outputText>
                         </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Last Name</f:facet>   
+                            <h:outputText value="#{customer.lastName}"></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Number of orders</f:facet>   
+                            <h:outputText value="#{customer.orderList.size()}"></h:outputText> <br/>
+                            <h:commandButton value="See Orders" action="#{BeanController.getOrderListofCustomer(customer)}" ></h:commandButton> 
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Total money Spent</f:facet>   
+                            <h:outputText value="#{customer.totalMoneySpent}"></h:outputText> <br/>                     
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Premium Status</f:facet>   
+                            <h:outputText value="#{customer.premium}"></h:outputText> <br/>                     
+                        </h:column>
+                        
                     </h:dataTable>
+                    <h:commandButton action="#{BeanController.logout()}" value="Logout"></h:commandButton>
                 </h:form>
 
-                
-                
-                
-                
             </f:view>
-
-            
-            <h:commandLink action="#{login.logout()}" value="index"></h:commandLink>
-	</h:form>
-</h:body>
+        </h:form>
+    </h:body>
 </html>
 
