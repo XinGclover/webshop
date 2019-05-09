@@ -24,9 +24,9 @@
 
 
     <h:body>
-        <!--Navbar-->
         <f:view>
             <h:form>
+                <!--Navbar-->
                 <header>
                     <nav class="nav-wrapper transparent">
                         <div class="container">
@@ -48,25 +48,25 @@
                             <div class="row" >
                                 <div class="col s6 right" >
 
-                                   
-
-                                            <h:outputText value="E-Mail:"/>
-                                            <h:inputText maxlength="32" id="email" value="#{BeanController.email}" />
-                                            <h:message for="email"></h:message>
-
-                                            <h:outputText value="Password: "/>
-                                            <h:inputSecret maxlength="32" id="password" value="#{BeanController.password}" />
-                                            <h:message for="password"></h:message><h:column/>
 
 
-                                            <h:outputText value="#{BeanController.loginMessage}"/>
+                                    <h:outputText value="E-Mail:"/>
+                                    <h:inputText maxlength="32" id="email" value="#{BeanController.email}" />
+                                    <h:message for="email"></h:message>
 
-                                            <ul style="list-style-type: none">
-                                                <li style="padding: 20px; display: inline-block"><h:commandButton class="btn waves-effect waves-light red accent-1" value="Login" action="#{BeanController.checkValidUser()}" /></li>	
-                                                <li style="padding: 20px; display: inline-block"><h:commandButton class="btn waves-effect waves-light red accent-1" value="Register Here" action="customerRegistration" /></li>
-                                            </ul>
+                                    <h:outputText value="Password: "/>
+                                    <h:inputSecret maxlength="32" id="password" value="#{BeanController.password}" />
+                                    <h:message for="password"></h:message><h:column/>
 
-                                       
+
+                                    <h:outputText value="#{BeanController.loginMessage}"/>
+
+                                    <ul style="list-style-type: none">
+                                        <li style="padding: 20px; display: inline-block"><h:commandButton class="btn waves-effect waves-light red accent-1"
+                                                                                                          value="Login" action="#{BeanController.checkValidUser()}" /></li>	
+                                        <li style="padding: 20px; display: inline-block"><h:commandButton class="btn waves-effect waves-light red accent-1" 
+                                                                                                          value="Register Here" action="customerRegistration" /></li>
+                                    </ul>
 
                                 </div>
                             </div>
