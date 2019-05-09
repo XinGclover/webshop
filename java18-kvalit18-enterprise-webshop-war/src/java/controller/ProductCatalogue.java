@@ -11,7 +11,9 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 import jpa.Products;
-
+//  https://source.unsplash.com/300x175/?#{
+//					 (ProductCatalogue.productsList.indexOf(p) % 2 == 0 ? p.category.categoryName :
+//					     p.category.description)}"
 /**
  *
  * @author nikalsh
