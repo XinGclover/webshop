@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Checkout</title>
-	<!-- font awesome -->
+        <!-- font awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
               integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"></link>
         <!--Import Google Icon Font-->
@@ -16,57 +16,66 @@
         <link type="text/css" rel="stylesheet" href="resource/css/style.css"></link>
     </h:head>
     <h:body>
-	<!--Navbar-->
+        <!--Navbar-->
         <header>
-            <nav class="nav-wrapper grey transparent">
-
-                <div class="row">
-                    <div>
-                        <a href="" class="brand-logo blue-grey-text darken-3 center left">Food Chainz</a>
-                        <a href="" class="brand-logo blue-grey-text darken-3 center right">Checkout</a>
+            <nav class="nav-wrapper transparent">
+                <div class="container">
+                    <div class="row">
+                        <a href="#" class="col s4 brand-logo push-s6 teal-text center">Food Chainz</a>
+                        <div class="col s4 push-s6 teal-text">
+                            <p class="navbar-data" style="font-size: 20px">Checkout</p> 
+                        </div>
                     </div>
                 </div>
-
-            </nav>        
+            </nav>   
         </header>
         <center>
             <h:form>
-                <h:panelGrid bgcolor="#e6edfd" columns="1">
-                    <h:dataTable value="#{CartController.cartProducts}" var="p">
-                        <f:facet name="header">Order</f:facet>
-                        <h:column>
-                            <f:facet name="header">Name</f:facet>
-				#{p.productName}
-                        </h:column>
+                <section class="section container scrollspy">
+                    <div class="row">
 
-                        <h:column>
-                            <f:facet name="header">Units</f:facet>
-				#{p.quantityPerUnit}
-                        </h:column>
+                        <div class="col s12 l8 offset-l5">
 
-                        <h:column>
-                            <f:facet name="header">Quantity</f:facet>
-				#{CartController.productCart[p]}
-                        </h:column>
+                            <h:dataTable value="#{CartController.cartProducts}" var="p">
+                                <f:facet name="header">Order</f:facet>
+                                <h:column>
+                                    <f:facet name="header">Name</f:facet>
+                                        #{p.productName}
+                                </h:column>
 
-                        <h:column>
-                            <f:facet name="header">Price</f:facet>
-				#{p.unitPrice.setScale(2) * CartController.productCart[p]}
-                        </h:column>
-                    </h:dataTable>
+                                <h:column>
+                                    <f:facet name="header">Units</f:facet>
+                                        #{p.quantityPerUnit}
+                                </h:column>
 
-                    <h:outputText value="Total price: #{BeanController.isPremium()==1 ? 
-							CartController.totalCartPricePremium() :
-							CartController.totalCartPrice}"/>
+                                <h:column>
+                                    <f:facet name="header">Quantity</f:facet>
+                                        #{CartController.productCart[p]}
+                                </h:column>
 
-                    <h:panelGroup>
-                        <h:commandButton value="Back to store" action="store" style="margin-left: 10px;"/>
-                        <h:commandButton value="Pay" action="#{CartController.pay()}" style="float: right;"/>
-                    </h:panelGroup>
-                </h:panelGrid>
-		Premium: #{BeanController.isPremium() == 1}
-		<br></br>
-		<i>Premium customers recieves a 10% discount on all products!</i>
+                                <h:column>
+                                    <f:facet name="header">Price</f:facet>
+                                        #{p.unitPrice.setScale(2) * CartController.productCart[p]}
+                                </h:column>
+                            </h:dataTable>
+
+                            <div align="right" style="padding:25px; font-size: 20px">
+                                <h:outputText value="Total price: #{BeanController.isPremium()==1 ? 
+                                                                    CartController.totalCartPricePremium() :
+                                                                    CartController.totalCartPrice}"/>                            
+                            </div>
+                            <ul style="list-style-type: none">
+                                <li style="padding: 20px; display: inline-block"><h:commandButton class="btn waves-effect waves-light" value="Back to store" action="store"/></li>
+                                <li style="padding: 20px; display: inline-block"><h:commandButton class="btn waves-effect waves-light" value="Pay" action="#{CartController.pay()}"/></li>
+                            </ul>
+
+                            Premium: #{BeanController.isPremium() == 1}
+                            <br></br>
+                            <i>Premium customers recieves a 10% discount on all products!</i>
+                        </div>
+                    </div>
+                </section>
+
             </h:form>
         </center>
     </h:body>
