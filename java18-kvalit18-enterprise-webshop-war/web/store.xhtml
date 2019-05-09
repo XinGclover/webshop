@@ -45,7 +45,7 @@
             <h:form id="cartForm">
                 <div class="row">
                     <div class="col s12" id="cartTop">
-                        <p id="totalCartPrice">Total Price: #{CartController.totalCartPrice.setScale(0,BigDecimal.ROUND_DOWN)} kr</p>
+                        <p id="totalCartPrice">Total Price: #{CartController.totalCartPrice} kr</p>
 
                         <h:commandLink class="waves-effect waves-light btn"
                                        id="payButton"
@@ -84,7 +84,7 @@
                                 </h:commandLink><br/>
                             </div>
                             <div class="col s3 productRowCart">
-                                #{cP.unitPrice.setScale(0,BigDecimal.ROUND_DOWN) * CartController.productCart[cP]} kr
+                                #{cP.unitPrice * CartController.productCart[cP]} kr
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                                         <div class="modal-content">
                                             #{p.productName}<br/>
                                             #{p.quantityPerUnit}<br/>
-                                            #{p.unitPrice.setScale(0,BigDecimal.ROUND_DOWN)} kr
+                                            #{p.unitPrice} kr
                                             <br/><br/>
                                             #{p.getCategory().getCategoryName()}<br/>
                                             #{p.getCategory().getDescription()}
@@ -127,7 +127,7 @@
                                     
                                     <p id="productData">
                                         <b id="productNameStore">#{p.productName}</b>
-                                        <p id="productPriceStore">#{p.unitPrice.setScale(0,BigDecimal.ROUND_DOWN)} kr</p>
+                                        <p id="productPriceStore">#{p.unitPrice} kr</p>
                                     </p>
                                     
                                     <div class="card-action">

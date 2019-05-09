@@ -46,7 +46,7 @@ public class Orders implements Serializable {
 	@Column(name = "ORDERID")
 	private Integer orderid;
 	@Column(name = "ORDERPRICE")
-	private BigDecimal orderprice;
+	private Double orderprice;
 	@Column(name = "ORDERDATE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date orderdate;
@@ -59,7 +59,7 @@ public class Orders implements Serializable {
 	public Orders() {
 	}
 
-	public Orders(Customers customer, BigDecimal orderprice, Date orderdate) {
+	public Orders(Customers customer, Double orderprice, Date orderdate) {
 		this.customer = customer;
 		this.orderprice = orderprice;
 		this.orderdate = orderdate;
@@ -81,11 +81,11 @@ public class Orders implements Serializable {
 		this.customer = customer;
 	}
 
-	public BigDecimal getOrderprice() {
+	public Double getOrderprice() {
 		return orderprice;
 	}
 
-	public void setOrderprice(BigDecimal orderprice) {
+	public void setOrderprice(Double orderprice) {
 		this.orderprice = orderprice;
 	}
 
