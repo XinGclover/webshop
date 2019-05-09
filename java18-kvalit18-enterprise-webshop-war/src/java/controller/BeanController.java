@@ -202,6 +202,9 @@ public class BeanController implements Serializable {
 		Pattern aao = Pattern.compile("[ÅÄÖåäö]");
 
 		customers = userManagementBean.fetchAllCustomers();
+                
+                
+                //TODO delete this print when before delivery
 		customers.forEach(s -> System.out.println(s.toString()));
 
 		// Retrieve the value passed to this method

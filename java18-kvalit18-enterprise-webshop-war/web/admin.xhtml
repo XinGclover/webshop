@@ -4,7 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Admin</title>
         <!-- font awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
               integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"></link>
@@ -17,66 +17,72 @@
     </h:head>
 
 
-    <h:body class="tempClass">
+    <h:body>
         <!--Navbar-->
         <header>
             <nav class="nav-wrapper transparent">
                 <div class="container">
                     <div class="row">
+                        <a href="#" class="col s4 brand-logo push-s6 red accent-1 center">Food Chainz</a>
+                        <div class="col s4 push-s5 red-text text-accent-1">
 
-
-                        <a href="" class="col s4 brand-logo blue-grey-text text-lighten-2 push-s5 ">Food Chainz</a>
-                        <!--a href="" class="col s6  blue-grey-text text-darken-3 push-s6">Admin Console</a-->
-                        <div class="col s4  blue-grey-text text-darken-3 push-s6">
-
-
-                            <!--HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEe-->
-
-                            <p class="navbar-data">Admin Console</p> <br/>  
-                            <p class="navbar-data">You are logged in as #{BeanController.email}</p>
-
+                            <p class="navbar-data" style="font-size: 20px">Admin Console</p> 
                         </div>
                     </div>
                 </div>
             </nav>        
         </header>
         <h:form>
+            <div class="container" id="admin-container">
+                <div class="row">
+                    <div class="col s6 ">You are logged in as #{BeanController.email}
+                    </div> 
+                </div> 
+                <div class="row">
+                    <div class="col s6 ">
+                        <h:commandButton class="waves-effect waves-light btn-small grey lighten-1 black-text "
+                                         action="#{BeanController.logout()}" value="Logout"></h:commandButton>
+                    </div>
+                </div> 
+                <f:view>
+                    <h:commandButton class="waves-effect waves-light btn deep-purple accent-2" 
+                                     action="#{BeanController.allCustomers()}" value="Refresh the customer list"></h:commandButton>
 
-            <f:view>
-                <h:commandButton action="#{BeanController.allCustomers()}" value="print the customers"></h:commandButton>
 
+                    <h:form>
+                        <h:dataTable value="#{BeanController.customers}" var="customer">
+                            <h:column>
+                                <f:facet name="header">Name</f:facet>   
+                                <h:outputText value="#{customer.firstName}"></h:outputText>
+                            </h:column>
 
-                <h:form>
-                    <h:dataTable value="#{BeanController.customers}" var="customer">
-                        <h:column>
-                            <f:facet name="header">Name</f:facet>   
-                            <h:outputText value="#{customer.firstName}"></h:outputText>
-                        </h:column>
+                            <h:column>
+                                <f:facet name="header">Last Name</f:facet>   
+                                <h:outputText value="#{customer.lastName}"></h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Number of orders</f:facet>   
+                                <h:outputText value="#{customer.orderList.size()}"></h:outputText> <span>   </span>
+                                <h:commandButton class="waves-effect waves-light btn-small deep-purple accent-2"
+                                                 value="See Orders" action="#{BeanController.getOrderListofCustomer(customer)}" ></h:commandButton> 
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Total money Spent</f:facet>   
+                                <h:outputText value="#{customer.totalMoneySpent}"></h:outputText> <br/>                     
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Premium Status</f:facet>   
+                                <h:outputText value="#{customer.premium}"></h:outputText> <br/>                     
+                            </h:column>
 
-                        <h:column>
-                            <f:facet name="header">Last Name</f:facet>   
-                            <h:outputText value="#{customer.lastName}"></h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Number of orders</f:facet>   
-                            <h:outputText value="#{customer.orderList.size()}"></h:outputText> <br/>
-                            <h:commandButton value="See Orders" action="#{BeanController.getOrderListofCustomer(customer)}" ></h:commandButton> 
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Total money Spent</f:facet>   
-                            <h:outputText value="#{customer.totalMoneySpent}"></h:outputText> <br/>                     
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Premium Status</f:facet>   
-                            <h:outputText value="#{customer.premium}"></h:outputText> <br/>                     
-                        </h:column>
-                        
-                    </h:dataTable>
-                    <h:commandButton action="#{BeanController.logout()}" value="Logout"></h:commandButton>
-                </h:form>
+                        </h:dataTable>
 
-            </f:view>
+                    </h:form>
+
+                </f:view>
+            </div>
         </h:form>
+
     </h:body>
 </html>
 
