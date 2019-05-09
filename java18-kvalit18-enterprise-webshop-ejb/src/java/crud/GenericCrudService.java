@@ -5,8 +5,6 @@ import java.util.Map;
 
 public interface GenericCrudService {
 
-	public <T> void nuke(Class<T> type);
-
 	public <T> T create(T t);
 
 	public <T> T find(Class<T> type, Object id);
@@ -27,4 +25,7 @@ public interface GenericCrudService {
 		int resultLimit);
 
 	public <T> List<T> findWithNativeQuery(String sql, Class<T> type);
+
+	public <T> void nuke(Class<T> type);
+
 }
