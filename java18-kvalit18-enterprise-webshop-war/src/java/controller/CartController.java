@@ -205,5 +205,11 @@ public class CartController implements Serializable {
 //		}
 		return price;
 	}
+	
+	public void clear(){
+		productCart.clear();
+		cartProducts.clear();
+		totalCartPrice = new BigDecimal(0);
+	}
 
 }
