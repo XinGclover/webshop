@@ -23,10 +23,8 @@ public class ProductCatalogue implements Serializable {
 	@EJB
 	private GenericCrudService crud;
 	private String searchedString;
-
-	private List<Products> allProducts = new ArrayList<>();
+	private final List<Products> allProducts = new ArrayList<>();
 	private List<Products> productsList = new ArrayList<>();
-
 	private Integer quantity;
 	private String productDetail;
 
@@ -39,14 +37,6 @@ public class ProductCatalogue implements Serializable {
 			allProducts.add((Products) e);
 		});
 		productsList = allProducts;
-	}
-
-	public void test() {
-		System.out.println("HELLO");
-		System.out.println(productsList);
-		productsList.forEach((e -> {
-			System.out.println(e);
-		}));
 	}
 
 	public Integer getQuantity() {
