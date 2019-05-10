@@ -4,7 +4,6 @@ import crud.GenericCrudService;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class CartController implements Serializable {
 	private Map<Products, Integer> productCart = new HashMap();
 	private List<Products> cartProducts = new ArrayList();
 
-	private BigDecimal totalCartPrice;
+	private double totalCartPrice;
 
 	private String receipt;
 	private List<Orders> allOrders = new ArrayList<>();
@@ -66,11 +65,11 @@ public class CartController implements Serializable {
 		return productCart;
 	}
 
-	public BigDecimal getTotalCartPrice() {
+	public Double getTotalCartPrice() {
 		return totalCartPrice;
 	}
 
-	public void setTotalCartPrice(BigDecimal totalCartPrice) {
+	public void setTotalCartPrice(double totalCartPrice) {
 		this.totalCartPrice = totalCartPrice;
 	}
 
@@ -110,11 +109,11 @@ public class CartController implements Serializable {
 		productCart.values().remove(0);
 		cartProducts = new ArrayList<>(productCart.keySet());
 
-		totalCartPrice = new BigDecimal("0");
+		totalCartPrice = 0;
 		for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
-			totalCartPrice = totalCartPrice.add(entry.getKey().getUnitPrice().multiply(new BigDecimal(entry.getValue())));
+			totalCartPrice = totalCartPrice + (entry.getKey().getUnitPrice() * entry.getValue());
 		}
-		totalCartPrice = totalCartPrice.setScale(2);
+		//totalCartPrice = totalCartPrice.setScale(2);
 	}
 
 	public String createOrder() {
@@ -149,17 +148,17 @@ public class CartController implements Serializable {
 		currentOrder.setOrderdetailsCollection(currentorderdetailslist);
 		orders.add(currentOrder);
 		customer.setOrdersList(orders);
-		checkPremium(customer, totalCartPrice.doubleValue());
+		checkPremium(customer, totalCartPrice);
 
 		productCart.clear();
 		cartProducts.clear();
-		totalCartPrice = new BigDecimal("0");
+		totalCartPrice = 0;
 
 		return "receipt";
 	}
 
-	public void recordeOrder(Customers customer, BigDecimal totalCartPrice, Date orderdate) {
-		BigDecimal totalPrice = (beanController.isPremium() == 1 ? totalCartPricePremium() : totalCartPrice);
+	public void recordeOrder(Customers customer, double totalCartPrice, Date orderdate) {
+		double totalPrice = (beanController.isPremium() == 1 ? totalCartPricePremium() : totalCartPrice);
 		Orders order = new Orders(customer, totalPrice, orderdate);
 		crud.create(order);
 	}
@@ -183,21 +182,21 @@ public class CartController implements Serializable {
 		}
 	}
 
-	public BigDecimal totalCartPricePremium() {
-		BigDecimal tot = new BigDecimal(0);
+	public double totalCartPricePremium() {
+		double tot = 0;
 		try {
-			tot = totalCartPrice.multiply(new BigDecimal(0.9)).setScale(2, RoundingMode.DOWN);
+			tot = totalCartPrice * 0.9;
 		} catch (NullPointerException ex) {
 			System.out.println("swallow null because totalcartprice is not set yet");
 		}
 		return tot;
 	}
 
-	public BigDecimal unitPricePremium(BigDecimal p) {
-		BigDecimal price = new BigDecimal(0);
+	public double unitPricePremium(double p) {
+		double price = 0;
 //		try {
 			price = (beanController.isPremium() == 1
-				? p.multiply(new BigDecimal(0.9)).setScale(2, RoundingMode.DOWN)
+				? p*0.9
 				: p);
 //		} catch (NullPointerException ex) {
 //			System.out.println("swallow null because p is not set yet");
@@ -209,7 +208,7 @@ public class CartController implements Serializable {
 	public void clear(){
 		productCart.clear();
 		cartProducts.clear();
-		totalCartPrice = new BigDecimal(0);
+		totalCartPrice = 0;
 	}
 
 }

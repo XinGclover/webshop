@@ -11,7 +11,7 @@ CREATE TABLE Products (
     ProductName VARCHAR(40),
     CategoryID INT references Categories(CategoryID),
     QuantityPerUnit VARCHAR(20),
-    UnitPrice DECIMAL(10,4),
+    UnitPrice INT,
     UnitsInStock INT,
     PRIMARY KEY (ProductID)
 );
@@ -19,7 +19,7 @@ CREATE TABLE Products (
 CREATE TABLE Orders (
     OrderID INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
     CustomerID INT,
-    OrderPrice DECIMAL(10,4),
+    OrderPrice DOUBLE,
     OrderDate TIMESTAMP,
     PRIMARY KEY (OrderID)
 );

@@ -6,7 +6,6 @@
 package jpa;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -54,7 +53,7 @@ public class Products implements Serializable {
 	private String quantityPerUnit;
 	// @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
 	@Column(name = "UNITPRICE")
-	private BigDecimal unitPrice;
+	private Integer unitPrice;
 	@Column(name = "UNITSINSTOCK")
 	private Integer unitsInStock;
 	@JoinColumn(name = "CATEGORYID", referencedColumnName = "CATEGORYID")
@@ -66,7 +65,7 @@ public class Products implements Serializable {
 	public Products() {
 	}
 
-	public Products(String productName, String quantityPerUnit, BigDecimal unitPrice) {
+	public Products(String productName, String quantityPerUnit, Integer unitPrice) {
 		this.productName = productName;
 		this.quantityPerUnit = quantityPerUnit;
 		this.unitPrice = unitPrice;
@@ -100,11 +99,11 @@ public class Products implements Serializable {
 		this.quantityPerUnit = quantityPerUnit;
 	}
 
-	public BigDecimal getUnitPrice() {
+	public Integer getUnitPrice() {
 		return unitPrice;
 	}
 
-	public void setUnitPrice(BigDecimal unitPrice) {
+	public void setUnitPrice(Integer unitPrice) {
 		this.unitPrice = unitPrice;
 	}
 
