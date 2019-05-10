@@ -1,0 +1,56 @@
+
+Server tuning: 
+
+
+----------------------------------------------------------------------------------------
+Initial and Minimum Pool Size:	
+Number of beans	from 0 to 1
+Minimum and initial number of beans maintained in the pool  
+
+
+Anledning : Eftersom vi anser att vi kör i en egen local host miljö så kommer 
+belasntningen vara låg. I mellan till stora stystem så är det klokt att öka antalet
+initierade beans i poolen som väntar på att kunna proccessera en request
+
+
+-----------------------------------------------------------------------------------------
+
+Maximum poolSize: 
+from 32 to 16
+
+Maximum number of beans that can be created to satisfy client requests. 
+Vi har sänkt detta till 10 för att just nu stresstestar vi inte våran system. 
+Denna poolsize kan vara lika stor som MAX_INTEGER men det är inte rekommenderad eftersom en stor 
+pool kan slössa minne och sakta ner systemet, dock en för liten nummer kommer att begränsa systet 
+eftersom EJB poolen kommer att flaskhalsa systemet. Det är ett användbar teknik på system som kan
+vara exponerade mot DDOS attacker där en Poolsize-cap gör att det skapas inga flera 
+instanser efter taket nås, den kommer istället att vänta på en ledig EJB eller. 
+
+-----------------------------------------------------------------------------------------
+
+Pool Resize Quantity:
+8
+Number of beans
+Number of beans to be removed when pool idle timeout expires  
+
+
+Det är antalet beans som skapas eller deletas när cachen servas av servern, 
+Detta kan vara samma eftersom vi har bra minskat våran bean Pool men om vi hade ökat 
+maxPoll storlek så hade vi behövt ändra detta så att systemet förblir balancerad 
+-----------------------------------------------------------------------------------------
+
+Idle timeout och EJB instance timeout är kvar på default vi anser att det inte finns nån anledning för oss att 
+korta ner idle time. 
+Eftersom våran app är ganska små, om poolen har nått sin tak och måste dräneras ner till minimum nivå igen så 
+kommer den göra detta på idle timeout setting, detta gör att om detta nummer är för stor och resize number
+för smått  kanske poolen kan inte dräneras tillräckligt snabbt och  kan göra att systemet saktas ner. 
+
+-----------------------------------------------------------------------------------------
+Max Cache Size/Cache Idle-Timeout/Removal timeout
+
+vi lat den vara till 512 eftersom det verkade vara rimligt, det är möjligt att man kan minska detta nummer och minska idle-cache timeout 
+och idle-cache removal timeout, 
+detta kan möjliggöra att nya beans skapas vid behov snabbare men de kommer också att tas bort snabbare så det handlar mycket om applikationen
+och hur den använder statefulbeans, behlövs de längre eller kan de passiviseras och förstöras snabbare än vanligt?
+Om svar är nej då kan det vara klokt att öka max cache size. 
+
