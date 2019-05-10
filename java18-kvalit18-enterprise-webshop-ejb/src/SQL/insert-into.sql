@@ -149,7 +149,7 @@ INSERT INTO Orderdetails VALUES(default, 4, 19, 5);
 INSERT INTO Orderdetails VALUES(default, 4, 42, 5);
 INSERT INTO Orderdetails VALUES(default, 4, 17, 5);
 INSERT INTO Orderdetails VALUES(default, 5, 24, 5);
-INSERT INTO Orderdetails VALUES(default, 5, 75, 5);
+INSERT INTO Orderdetails VALUES(default, 5, 10, 5);
 INSERT INTO Orderdetails VALUES(default, 5, 10, 5);
 INSERT INTO Orderdetails VALUES(default, 5, 13, 5);
 INSERT INTO Orderdetails VALUES(default, 5, 5, 5);
