@@ -3,7 +3,9 @@ package controller;
 import crud.GenericCrudService;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -27,7 +29,8 @@ public class ProductCatalogue implements Serializable {
 	private List<Products> productsList = new ArrayList<>();
 	private Integer quantity;
 	private String productDetail;
-
+        private List<Products> noneInStock= new ArrayList<>();
+       
 	public ProductCatalogue() {
 	}
 
@@ -37,6 +40,15 @@ public class ProductCatalogue implements Serializable {
 			allProducts.add((Products) e);
 		});
 		productsList = allProducts;
+                
+                Map<String, Object> params = new HashMap<>();
+		params.put("unitsInStock", 0);
+                crud.findWithNamedQuery("Products.findByUnitsInStock", params).forEach(e->{
+                         noneInStock.add((Products) e);
+                        });
+                for(Products p:noneInStock){
+                        productsList.remove(p);
+            }      
 	}
 
 	public Integer getQuantity() {
@@ -81,4 +93,14 @@ public class ProductCatalogue implements Serializable {
 	public void setProductDetail(String productDetail) {
 		this.productDetail = productDetail;
 	}
+        
+        public String backtoStore(){
+            init();                      
+            return "store";
+        }
+        
+        public String realLogout(){
+            init();
+            return "index";
+        }
 }
