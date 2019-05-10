@@ -37,9 +37,9 @@ public class BeanController implements Serializable {
 	private String email;
 	private String password;
 	private String confirmPassword;
-	private String firstName = "firstNamePlaceholder";
-	private String lastName = "lastNamePlaceholder";
-	private String address;
+	private String firstName;
+	private String lastName ="";
+	private String address="";
 	private String loginMessage;
 	private List<Customers> customers;
 	private Integer premium = 0;
