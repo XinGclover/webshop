@@ -13,6 +13,9 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 import jpa.Products;
+//  https://source.unsplash.com/300x175/?#{
+//					 (ProductCatalogue.productsList.indexOf(p) % 2 == 0 ? p.category.categoryName :
+//					     p.category.description)}"
 
 /**
  *
@@ -26,6 +29,7 @@ public class ProductCatalogue implements Serializable {
 	private GenericCrudService crud;
 	private String searchedString;
 	private final List<Products> allProducts = new ArrayList<>();
+	private final List<String> productImages = new ArrayList<>();
 	private List<Products> productsList = new ArrayList<>();
 	private Integer quantity;
 	private String productDetail;
@@ -36,9 +40,17 @@ public class ProductCatalogue implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		crud.findWithNamedQuery("Products.findAll").forEach(e -> {
+		int i = 0;
+		for (Object e : crud.findWithNamedQuery("Products.findAll")) {
 			allProducts.add((Products) e);
-		});
+			Products a = (Products) e;
+
+			productImages.add(i % 2 == 0
+				? a.getCategory().getCategoryName()
+				: a.getCategory().getDescription()
+			);
+			i++;
+		}
 		productsList = allProducts;
                 
                 Map<String, Object> params = new HashMap<>();
@@ -103,4 +115,8 @@ public class ProductCatalogue implements Serializable {
             init();
             return "index";
         }
+
+	public String getImageURL(int i) {
+		return productImages.get(i);
+	}
 }
