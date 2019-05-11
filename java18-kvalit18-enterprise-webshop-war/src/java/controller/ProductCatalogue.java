@@ -33,7 +33,7 @@ public class ProductCatalogue implements Serializable {
 	private List<Products> productsList = new ArrayList<>();
 	private Integer quantity;
 	private String productDetail;
-        private List<Products> noneInStock= new ArrayList<>();
+        
        
 	public ProductCatalogue() {
 	}
@@ -51,16 +51,10 @@ public class ProductCatalogue implements Serializable {
 			);
 			i++;
 		}
-		productsList = allProducts;
+		productsList = allProducts;                
+                System.out.println("init: "+productsList.size());  
+                productsList=updateList();
                 
-                Map<String, Object> params = new HashMap<>();
-		params.put("unitsInStock", 0);
-                crud.findWithNamedQuery("Products.findByUnitsInStock", params).forEach(e->{
-                         noneInStock.add((Products) e);
-                        });
-                for(Products p:noneInStock){
-                        productsList.remove(p);
-            }      
 	}
 
 	public Integer getQuantity() {
@@ -106,14 +100,31 @@ public class ProductCatalogue implements Serializable {
 		this.productDetail = productDetail;
 	}
         
+        public List<Products> updateList(){
+                List<Products> noneInStock= new ArrayList<>();
+                Map<String, Object> params = new HashMap<>();
+                params.put("unitsInStock", 0);
+                crud.findWithNamedQuery("Products.findByUnitsInStock", params).forEach(e->{
+                         noneInStock.add((Products) e);                         
+                        });
+                System.out.println("nonoInstock:"+noneInStock.size());
+
+                for(Products p:noneInStock){
+                        productsList.remove(p);
+                        System.out.println(p.getProductName());
+                        System.out.println("productslist: "+productsList.size());
+                }  
+                return productsList;
+        }
+        
         public String backtoStore(){
-            init();                      
-            return "store";
+                productsList= updateList();                      
+                return "store";
         }
         
         public String realLogout(){
-            init();
-            return "index";
+                productsList= updateList();
+                return "index";
         }
 
 	public String getImageURL(int i) {
