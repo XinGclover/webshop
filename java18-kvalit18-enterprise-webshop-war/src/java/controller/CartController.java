@@ -85,11 +85,16 @@ public class CartController implements Serializable {
 
 				for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
 					if (product.equals(entry.getKey())) {
-						productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() + 1);
-						productAlreadyInCart = true;
+                                            if(entry.getValue().equals(product.getUnitsInStock())){
+                                                productCart.replace(entry.getKey(), entry.getValue(), product.getUnitsInStock());
+                                            }
+                                            else{
+						productCart.replace(entry.getKey(), entry.getValue(), entry.getValue() + 1);						   
+                                            }
+                                            
+                                            productAlreadyInCart = true;
 					}
 				}
-
 				if (productAlreadyInCart == false) {
 					productCart.put(product, 1);
 				}
@@ -112,8 +117,7 @@ public class CartController implements Serializable {
 		totalCartPrice = 0;
 		for (Map.Entry<Products, Integer> entry : productCart.entrySet()) {
 			totalCartPrice = totalCartPrice + (entry.getKey().getUnitPrice() * entry.getValue());
-		}
-		//totalCartPrice = totalCartPrice.setScale(2);
+		}		
 	}
 
 	public String createOrder() {
