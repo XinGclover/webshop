@@ -27,6 +27,7 @@
     }
     
     #sidenav-trigger {
+        display: inline;
         margin-right: 10%;
         outline: 0;
     }
@@ -132,4 +133,14 @@
     
     .waves-effect {
         overflow: visible;
+    }
+    
+    .logoutButton {
+        top: 14px;
+        right: 10px;
+    }
+    
+    .clearButton {
+        margin-left: 14px;
+        margin-top: 10px;
     }
