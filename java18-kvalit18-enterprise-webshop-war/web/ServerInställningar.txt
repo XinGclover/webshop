@@ -16,19 +16,18 @@ initierade beans i poolen som väntar på att kunna processa en request.
 -----------------------------------------------------------------------------------------
 Maximum poolSize: 
 from 32 to 16
+Maximum number of beans that can be created to satisfy client requests.
 
-Maximum number of beans that can be created to satisfy client requests. 
-Vi har sänkt detta till 10 för att vi just nu inte stresstestar vårat system. 
+Vi har sänkt detta till 16 för att vi just nu inte stresstestar vårat system. 
 Denna poolsize kan vara lika stor som MAX_INTEGER men det är inte rekommenderat eftersom en stor 
 pool kan slösa minne och sakta ner systemet. Dock kommer ett för lågt nummer att begränsa systemet 
-eftersom EJB poolen kommer att flaskhalsa systemet. Det är en användbar teknik för system som kan
-vara exponerade mot DDOS (Distributed / Denial of Service) attacker där en Poolsize-cap gör att det inte skapas flera 
-instanser efter taket nås. den kommer istället att vänta på en ledig EJB.
+eftersom EJB-poolen kommer att flaskhalsa systemet. Det är en användbar teknik för system som kan
+vara exponerade mot DDOS-(Distributed / Denial of Service) attacker där en Poolsize-cap gör att det
+inte skapas flera instanser efter taket nås, den kommer istället att vänta på en ledig EJB.
 
 -----------------------------------------------------------------------------------------
 Pool Resize Quantity:
 8
-Number of beans
 Number of beans to be removed when pool idle timeout expires  
 
 
@@ -38,9 +37,9 @@ maxPool storlek så hade vi även behövt ändra detta så att systemet förblir
  
 -----------------------------------------------------------------------------------------
 
-Idle timeout och EJB instance timeout är kvar på default vi anser att det inte finns nån anledning för oss att 
+Idle timeout och EJB instance timeout är kvar på default då vi anser att det inte finns nån anledning för oss att 
 korta ner idle time. 
-Om poolen har nått sitt tak och måste dräneras ner till minimum nivå igen så 
+Om poolen har nått sitt tak och måste dräneras ner till minimum-nivå igen så 
 kommer den göra detta på idle timeout setting. Detta gör att om nummret är för högt och resize nummer
 för lågt, kanske poolen inte kan dräneras tillräckligt snabbt och medföra att systemet haltar. 
 

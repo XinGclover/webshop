@@ -195,19 +195,6 @@ public class CartController implements Serializable {
 		}
 		return tot;
 	}
-
-	public double unitPricePremium(double p) {
-		double price = 0;
-//		try {
-			price = (beanController.isPremium() == 1
-				? p*0.9
-				: p);
-//		} catch (NullPointerException ex) {
-//			System.out.println("swallow null because p is not set yet");
-//
-//		}
-		return price;
-	}
 	
 	public void clear(){
 		productCart.clear();

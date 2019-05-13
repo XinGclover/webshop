@@ -1,8 +1,8 @@
     body{
-            background:url("../brooke-lark-230140-unsplash.jpg") 
-                no-repeat
-                center center fixed;  
-            background-size: cover; 
+        background:url("../brooke-lark-230140-unsplash.jpg") 
+            no-repeat
+            center center fixed;  
+        background-size: cover; 
     }
 
     .login-section {
@@ -143,4 +143,10 @@
     .clearButton {
         margin-left: 14px;
         margin-top: 10px;
+    }
+    
+    .premiumText {
+        display: block;
+        font-size: 10px;
+        text-align: center;
     }

@@ -55,14 +55,16 @@
 
                                 <h:column>
                                     <f:facet name="header">Price</f:facet>
-                                        #{p.unitPrice * CartController.productCart[p]}
+                                        #{p.unitPrice * CartController.productCart[p]} kr
                                 </h:column>
                             </h:dataTable>
 
                             <div align="right" style="padding:25px; font-size: 20px">
-                                <h:outputText value="Total price: #{BeanController.isPremium()==1 ? 
-                                                                    CartController.totalCartPricePremium() :
-                                                                    CartController.totalCartPrice}"/>                            
+                                
+                                <h:outputText value="Total price: #{CartController.totalCartPrice} kr"/>
+                                <br/>
+                                <h:outputText rendered="#{BeanController.isPremium() eq 1}"
+                                              value="Premium price: #{CartController.totalCartPricePremium()} kr"/>
                             </div>
                             <ul style="list-style-type: none">
                                 <li style="padding: 20px; display: inline-block"><h:commandButton class="btn waves-effect waves-light" value="Back to store" action="store"/></li>
@@ -70,8 +72,19 @@
                             </ul>
 
                             Premium: #{BeanController.isPremium() == 1}
+                            <br/><br/>
+                            <h:outputText rendered="#{BeanController.isPremium() eq 1}"
+                                          value="You are a Premium customer!"/>
+                            <h:outputText rendered="#{BeanController.isPremium() eq 0}"
+                                          value="You are not a Premium customer!"/>
                             <br></br>
                             <i>Premium customers recieves a 10% discount on all products!</i>
+                            <br/><br/>
+                            <h:outputText rendered="#{BeanController.isPremium() eq 0}"
+                                          value="In order to ascend to a Premium level you must, on this account, buy products for atleast 500,000."/>
+                            <br/><br/>
+                            <h:outputText rendered="#{BeanController.isPremium() eq 0}"
+                                          value="#{500000 - BeanController.currentCustomer.totalMoneySpent} kr left until premium account."/>
                         </div>
                     </div>
                 </section>

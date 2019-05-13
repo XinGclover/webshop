@@ -37,9 +37,9 @@ public class BeanController implements Serializable {
 	private String email;
 	private String password;
 	private String confirmPassword;
-	private String firstName;
-	private String lastName ="";
-	private String address="";
+	private String firstName = "";
+	private String lastName = "";
+	private String address= "";
 	private String loginMessage;
 	private List<Customers> customers;
 	private Integer premium = 0;
@@ -255,12 +255,12 @@ public class BeanController implements Serializable {
 
 		if (!admin) {
 			admin = false;
-			firstName = "firstNamePlaceholder";
-			lastName = "lastNamePlaceholder";
+			firstName = null;
+			lastName = null;
 			return "index";
 		} else {
-			firstName = "firstNamePlaceholder";
-			lastName = "lastNamePlaceholder";
+			firstName = null;
+			lastName = null;
 			email = null;
 			password = null;
 			return "index";
@@ -275,6 +275,14 @@ public class BeanController implements Serializable {
 		premium = c.getPremium();
 		return premium;
 	}
+        
+        public Customers getCurrentCustomer() {
+            Map<String, Object> params = new HashMap<>();
+            params.put("email", email.toLowerCase());
+            Customers c = (Customers) crud.findWithNamedQuery("Customers.findByEmail", params).get(0);
+            
+            return c;
+        }
 
 	public void setPremium() {
 	}

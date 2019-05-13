@@ -95,10 +95,28 @@
                         </div>
                     </div>
                 </c:forEach>
-		<h:commandLink class="clearButton waves-effect waves-light btn-small" id="clearButton" value="Clear" action="#{CartController.clear()}">
+		<h:commandLink class="clearButton waves-effect waves-light btn-small"
+                               id="clearButton"
+                               value="Clear"
+                               action="#{CartController.clear()}">
 		    <f:ajax execute="clearButton" render="cartForm"/>
 		</h:commandLink>
-            </h:form>
+                
+                <br/><br/>
+                
+                <h:outputText rendered="#{BeanController.isPremium() eq 1}"
+                              value="You are a Premium customer!"/>
+                <h:outputText rendered="#{BeanController.isPremium() eq 0}"
+                              value="You are not a Premium customer!"/>
+                <br></br>
+                <i>Premium customers recieves a 10% discount on all products!</i>
+                <br/><br/>
+                <h:outputText rendered="#{BeanController.isPremium() eq 0}"
+                              value="In order to ascend to a Premium level you must, on this account, buy products for atleast 500,000."/>
+                <br/><br/>
+                <h:outputText rendered="#{BeanController.isPremium() eq 0}"
+                              value="#{500000 - BeanController.currentCustomer.totalMoneySpent} kr left until premium level."/>
+</h:form>
         </aside>
 
         <div class="row" id="productDiv">
@@ -114,14 +132,16 @@
                 </h:form>
 
                 <h:form id="productForm">
+                    <h:outputText class="premiumText"
+                                      rendered="#{BeanController.isPremium() eq 1}"
+                                      value="You are a premium customer,
+                                      your total cart price will be reduced by 10% at checkout." />
+                    
                     <c:forEach items="#{ProductCatalogue.productsList}" var="p">
                         <div class="col s12 m6 l4 center">
                             <div class="card" id="card">
                                 <div class="card-image">
                                     <img src="resource/pic.jpg"/>
-				    
-				    <!--https://source.unsplash.com/300x175/?#-->
-				    <!--(ProductCatalogue.getImageURL(ProductCatalogue.productsList.indexOf(p)))-->
                                 </div>
                                 <div class="card-content">
 
